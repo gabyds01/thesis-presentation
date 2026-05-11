@@ -1199,18 +1199,16 @@ para futuro fine-tuning del modelo.
 \end{itemize}
 
 \vspace{0.5em}
-\textbf{Control de versiones:} GitHub (4 repositorios)
-
-\vspace{0.5em}
-\textbf{Despliegue continuo:} GitHub Actions
-\begin{itemize}
-\item Build automatico de imagenes Docker
-\item Publicacion en GitHub Container Registry
-\end{itemize}
+\textbf{Control de versiones:} GitHub (3 repositorios)
+\begin{enumerate}
+\item Firmware nodos (camara + raiz + repetidor)
+\item Servidor de aplicacion (Django)
+\item Servidor de inferencia (SpeciesNet)
+\end{enumerate}
 \note{
 Enfoque iterativo: cada componente se desarrolló y probó individualmente.
-Metodología Kanban para gestión ágil. 4 repositorios en GitHub. CI/CD con
-GitHub Actions para imágenes Docker.
+Metodología Kanban para gestión ágil. 3 repositorios en GitHub: firmware
+unificado, servidor Django, y servicio de inferencia SpeciesNet.
 }
 \end{frame}
 
@@ -1242,7 +1240,7 @@ optimizar tiempos.
 \textbf{Desarrollo:}
 \begin{itemize}
   \item VS Code
-  \item ESP-IDF + ESP-MDF
+  \item ESP-IDF + ESP-MESH-LITE
   \item Django
   \item python-telegram-bot
   \item Docker / Docker Compose
@@ -1258,32 +1256,32 @@ optimizar tiempos.
 \end{column}
 \end{columns}
 \note{
-Herramientas: VS Code, ESP-IDF/ESP-MDF para firmware, Django para servidor,
-Docker para despliegue. Diseño 3D con Fusion 360, slicing con
+Herramientas: VS Code, ESP-IDF + ESP-MESH-LITE para firmware, Django para
+servidor, Docker para despliegue. Diseño 3D con Fusion 360, slicing con
 PrusaSlicer, impresión en Ender 3.
 }
 \end{frame}
 
 \begin{frame}{Desafios Enfrentados}
-\begin{alertblock}{Desafio 1: Limite de tamano de paquete}
-ESP-MDF limita paquetes a \qty{8}{\kilo\byte} $\rightarrow$ ajustar compresion JPEG
+\begin{alertblock}{Desafio 1: Balance calidad/transmision}
+Imagenes JPEG de \qtyrange{30}{35}{\kilo\byte} requieren ajuste de compresion para balancear calidad visual y tiempo de transmision inalambrica.
 \end{alertblock}
 
-\begin{alertblock}{Desafio 2: Consumo energetico}
-WiFi consume significativamente $\rightarrow$ modo power-save de Mwifi
+\begin{alertblock}{Desafio 2: Gestion de energia dual}
+Nodos Relay deben mantener conectividad mesh (Light Sleep) vs.\ Leaf con Deep Sleep + ULP. Equilibrar autonomia con cobertura de red.
 \end{alertblock}
 
 \begin{alertblock}{Desafio 3: Estabilidad de red mesh}
-Reconexiones frecuentes $\rightarrow$ tuning de parametros de conexion
+Reconexiones por degradacion de RSSI en vegetacion densa $\rightarrow$ tuning de timeout a \qty{60}{s} y umbral RSSI a \qty{-75}{dBm}.
 \end{alertblock}
 
-\begin{alertblock}{Desafio 4: Tiempo de inferencia}
-SpeciesNet lento en CPU $\rightarrow$ soporte para GPU (nvidia-container-toolkit)
+\begin{alertblock}{Desafio 4: Inferencia sin GPU}
+SpeciesNet ejecutado exclusivamente en CPU $\rightarrow$ tiempos aceptables pero superiores a GPU.
 \end{alertblock}
 \note{
-Desafíos principales: 1) Límite \qty{8}{\kilo\byte} por paquete mesh, 2) Consumo energético
-del WiFi, 3) Estabilidad de reconexiones, 4) Lentitud de inferencia en CPU.
-Cada uno tuvo su solución.
+Desafíos principales: 1) Compresión JPEG para 30-35 KB, 2) Gestión
+dual de energía Relay vs Leaf, 3) Estabilidad mesh en vegetación densa,
+4) Inferencia en CPU sin GPU dedicada.
 }
 \end{frame}
 
@@ -1297,20 +1295,19 @@ Cada uno tuvo su solución.
 \begin{column}{0.5\textwidth}
 \textbf{Hardware:}
 \begin{itemize}
-\item 3 nodos de camara
-\item 1 nodo raiz
-\item Baterias 18650 (2S)
+\item 3 nodos de camara (ESP32-CAM)
+\item 1 nodo raiz (ESP32 DevKit)
+\item Baterias 18650 (2S, \qty{3500}{mAh})
 \item Router WiFi domestico
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
 \textbf{Software:}
 \begin{itemize}
-\item ESP-IDF v5.x
+\item ESP-IDF v5 + ESP-MESH-LITE
 \item Docker containers
 \item SpeciesNet + LitServe
-\item PostgreSQL
-\item Tunel VPN (Pangolin)
+\item PostgreSQL 15
 \end{itemize}
 \end{column}
 \end{columns}
@@ -1321,9 +1318,10 @@ Cada uno tuvo su solución.
 [Foto setup de pruebas]
 \vspace{1cm}}}
 \note{
-Configuración de pruebas: 3 nodos cámara, 1 nodo raíz, baterías 18650,
-router doméstico. Software: ESP-IDF v5, Docker, SpeciesNet, PostgreSQL,
-túnel VPN Pangolin para acceso remoto.
+Configuración de pruebas: 3 nodos cámara ESP32-CAM, 1 nodo raíz ESP32
+DevKit, baterías 18650 2S de 3500 mAh, router doméstico. Software:
+ESP-IDF v5 + ESP-MESH-LITE, Docker, SpeciesNet con LitServe, PostgreSQL 15.
+Inferencia exclusivamente en CPU.
 }
 \end{frame}
 
@@ -1354,12 +1352,13 @@ Telegram.
 \begin{itemize}
 \item Resolucion: 640x480 (VGA)
 \item Formato: JPEG comprimido
-\item Tamano tipico: $<$ \qty{8}{\kilo\byte}
+\item Tamano tipico: \qtyrange{30}{35}{\kilo\byte}
+\item Ciclo completo (deteccion $\rightarrow$ envio): $\sim$\qty{1.27}{s} en LAN
 \end{itemize}
 \note{
 Resultados de captura: resolución VGA suficiente para clasificación.
-Compresión JPEG ajustada para mantener tamaño bajo \qty{8}{\kilo\byte} y cumplir límite de
-paquete mesh.
+Imágenes JPEG de 30-35 KB. Ciclo completo desde detección PIR hasta
+confirmación de envío: 1.27 segundos en red local.
 }
 \end{frame}
 
@@ -1370,56 +1369,62 @@ paquete mesh.
 \hline
 \textbf{Metrica}               & \textbf{Valor} \\
 \hline
-Latencia promedio              & [X] \unit{\second}          \\
-Distancia max (linea de vista) & [X] \unit{\metre}          \\
-Distancia max (con obstaculos) & [X] \unit{\metre}          \\
-Tasa perdida de paquetes       & $<$ \qty{5}{\percent}         \\
-Tiempo de reconexion           & [X] \unit{\second}          \\
+Latencia LAN (\qty{12.9}{\kilo\byte})  & $\sim$\qty{463}{ms}   \\
+Ciclo completo nodo (LAN)     & $\sim$\qty{1.27}{s}   \\
+Latencia campo (hotspot)      & \qtyrange{20}{60}{s} (prom. \qty{40}{s}) \\
+Distancia max (linea de vista) & \qtyrange{15}{18}{m}  \\
+Distancia max (vegetacion)     & $\sim$\qty{12}{m}     \\
+Distancia max (interior)       & $\sim$\qty{10}{m}     \\
 \hline
 \end{tabular}
 \end{table}
 \note{
-Métricas de red mesh: latencia, distancias máximas con y sin obstáculos,
-pérdida de paquetes menor al \qty{5}{\percent}, tiempo de reconexión. Resultados
-consistentes con documentación de Espressif.
+Métricas de red: en LAN, transmisión HTTP de 463 ms para 12.9 KB, ciclo
+completo de 1.27 s. En campo con hotspot celular (cobertura deficiente),
+latencia promedio de 40 s. Distancia máxima: 15-18 m en línea de vista,
+12 m con vegetación, 10 m en interior.
 }
 \end{frame}
 
 \begin{frame}{Resultados - Deteccion}
 \begin{columns}
 \begin{column}{0.5\textwidth}
+\textbf{Deteccion binaria} (\num{94} imagenes):
 \begin{table}
 \centering
+\scriptsize
 \begin{tabular}{lc}
 \hline
-\textbf{Categoria} & \textbf{Precision} \\
+\textbf{Metrica} & \textbf{Valor} \\
 \hline
-Animales           & [X]\%              \\
-Personas           & [X]\%              \\
-Vehiculos          & [X]\%              \\
+Exactitud   & \qty{77.7}{\percent}  \\
+Precision   & \qty{78.9}{\percent}  \\
+Recall      & \qty{69.8}{\percent}  \\
 \hline
 \end{tabular}
 \end{table}
 
-\vspace{0.5em}
-\textbf{Tiempo de inferencia:}
+\vspace{0.3em}
+\textbf{Recall por clase:}
 \begin{itemize}
-\item CPU: \numrange{1}{5} \unit{\second}/imagen
-\item GPU: \numrange{0.5}{1} \unit{\second}/imagen
+  \item Animales: \qty{52.9}{\percent}
+  \item Personas: \qty{77.3}{\percent}
+  \item Vehiculos: \qty{100}{\percent}
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
-% TODO: Ejemplo deteccion exitosa
+% TODO: Matrices de confusion
 \centering
 \fbox{\parbox{0.9\textwidth}{\centering\vspace{2cm}
-[Ejemplo deteccion exitosa]
+[Matrices de confusion]
 \vspace{2cm}}}
 \end{column}
 \end{columns}
 \note{
-Resultados de detección con SpeciesNet: precisión por categoría. Tiempo
-de inferencia: \qtyrange{1}{5}{\second} en CPU, \qtyrange{0.5}{1}{\second} con GPU. GPU recomendada
-para producción.
+Resultados sobre 94 imágenes de campo. Exactitud general 77.7\%.
+Animales es la clase más difícil (52.9\% recall) por fauna pequeña que
+se confunde con el fondo. Personas 77.3\%. El enfoque Human-in-the-loop
+compensa estos errores y genera datos para fine-tuning.
 }
 \end{frame}
 
@@ -1428,42 +1433,50 @@ para producción.
 \centering
 \begin{tabular}{lc}
 \hline
-\textbf{Estado}    & \textbf{Consumo (\unit{\milli\ampere})} \\
+\textbf{Estado}                & \textbf{Consumo (\unit{\milli\ampere})} \\
 \hline
-Modo power-save    & [X]                   \\
-Captura de imagen  & [X]                   \\
-Transmision WiFi   & [X]                   \\
-Promedio ponderado & [X]                   \\
+Modo ULP (Leaf, Deep Sleep)    & $\sim$\num{13}              \\
+Captura y envio de imagen      & $\sim$\num{200}             \\
+Consumo promedio (Relay)       & $\sim$\num{180}             \\
 \hline
 \end{tabular}
 \end{table}
 
 \vspace{0.5em}
-\textbf{Autonomia estimada:} [X] horas con baterias 18650 (2S, [X]mAh)
+\textbf{Autonomia con baterias 18650 2S (\qty{3500}{mAh} nominal):}
+\begin{description}
+\item[Capacidad utilizable:] $\sim$\qty{1400}{mAh} (corte a \qty{6.5}{V} por dropout del LM2596)
+\item[Autonomia teorica (Relay):] \qtyrange{7}{8}{h}
+\item[Autonomia medida (Relay):] $\sim$\qty{5}{h}
+\end{description}
 \note{
-Consumo energético: modo power-save consume menos, pero WiFi activo consume
-significativamente. Autonomía estimada depende de frecuencia de
-activaciones.
+Consumo: modo ULP (Leaf) apenas 13 mA, captura/envío alcanza 200 mA,
+promedio Relay 180 mA. Autonomía real de 5 horas con baterías 3500 mAh
+(capacidad utilizable 1400 mAh por dropout del regulador LM2596).
 }
 \end{frame}
 
 \begin{frame}{Pruebas de Campo}
 \begin{columns}
 \begin{column}{0.5\textwidth}
+\textbf{Lugar:} Jardin botanico
+
+\vspace{0.3em}
 \textbf{Condiciones:}
 \begin{itemize}
-\item Duracion: [X] horas
+\item Duracion: \qty{5}{h} de operacion continua
 \item 3 nodos desplegados
-\item Distancia entre nodos: [X]m
-\item Condiciones climaticas favorables
+\item Distancia entre nodos: \qty{15}{m}
+\item Condiciones climaticas: soleado
 \end{itemize}
 
-\vspace{0.5em}
-\textbf{Resultados:}
+\vspace{0.3em}
+\textbf{Detecciones exitosas:}
 \begin{itemize}
-\item Imagenes capturadas: [X]
-\item Detecciones exitosas: [X]
-\item Falsas activaciones: [X]
+\item Personas (intrusos)
+\item Vehiculos
+\item Aves silvestres (conf. 0.74-0.90)
+\item Gato domestico (conf. 0.96)
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
@@ -1475,9 +1488,10 @@ activaciones.
 \end{column}
 \end{columns}
 \note{
-Pruebas de campo: despliegue real con 3 nodos durante varias horas.
-Resultados: imágenes capturadas, detecciones exitosas, algunas falsas
-activaciones por movimiento de vegetación.
+Pruebas de campo en jardín botánico: 5 horas, soleado, 3 nodos a 15 m
+entre sí. Detecciones exitosas de personas, vehículos, aves silvestres
+(confianza 0.74-0.90) y gato doméstico (0.96). Falsas activaciones por
+movimiento de vegetación fueron filtradas por la lógica de umbrales.
 }
 \end{frame}
 
