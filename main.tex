@@ -896,18 +896,51 @@ y notificación por Telegram.
 
 \begin{frame}{Flujo de Datos}
 \begin{enumerate}
-\item Sensor PIR detecta movimiento $\rightarrow$ interrupcion
-\item Nodo captura imagen JPEG ($<$ \qty{8}{\kilo\byte})
-\item Transmision via red mesh hasta nodo raiz
-\item Nodo raiz envia HTTP POST al servidor
-\item Servidor procesa con SpeciesNet
-\item Si hay deteccion: alerta via Telegram
-\item Almacenamiento en base de datos
+\item Sensor PIR detecta movimiento $\rightarrow$ despertar nodo
+\item Nodo captura imagen JPEG (\qtyrange{30}{35}{\kilo\byte})
+\item Nodo origina peticion \textbf{HTTP POST} al servidor
+\item La peticion viaja transparentemente por la red mesh hasta el nodo raiz
+\item Nodo raiz reenvía al router $\rightarrow$ servidor
+\item Servidor procesa con SpeciesNet (deteccion + clasificacion)
+\item Si hay deteccion relevante: alerta via Telegram
+\item Almacenamiento en base de datos PostgreSQL
 \end{enumerate}
 \note{
-Flujo paso a paso: PIR detecta, nodo captura JPEG menor a \qty{8}{\kilo\byte}, transmite por
-mesh, nodo raíz envía HTTP POST, servidor procesa con SpeciesNet, si hay
-detección envía alerta Telegram.
+Flujo paso a paso: PIR detecta, nodo captura JPEG de 30-35 KB, origina
+HTTP POST que viaja transparentemente por la mesh. El servidor procesa
+con SpeciesNet. Si supera umbrales, envía alerta Telegram.
+}
+\end{frame}
+
+\begin{frame}{Roles de los Nodos}
+\begin{table}
+\small
+\centering
+\begin{tabular}{lccc}
+\hline
+\textbf{Caracteristica} & \textbf{Leaf} & \textbf{Relay} & \textbf{Root} \\
+\hline
+Camara          & Si     & Si      & No    \\
+Enruta trafico  & No     & Si      & Si    \\
+Acepta hijos    & No     & Si      & Si    \\
+Modo reposo     & Deep Sleep  & Light Sleep  & Ninguno \\
+Vigilancia PIR  & ULP (polling)  & Interrupcion GPIO  & N/A  \\
+Consumo reposo  & $\sim$\qty{13}{mA}  & $\sim$\qty{180}{mA}  & Constante  \\
+\hline
+\end{tabular}
+\end{table}
+
+\vspace{0.3em}
+\begin{description}
+\item[Leaf:] Ultra bajo consumo. Deep Sleep + coprocesador ULP. No mantiene la red.
+\item[Relay:] Extiende cobertura mesh + captura. Light Sleep para mantener conectividad.
+\item[Root:] Puerta de enlace unica. Siempre activo. Sin camara.
+\end{description}
+\note{
+Tres roles: Leaf para ultra bajo consumo (Deep Sleep + ULP, 13 mA),
+Relay extiende la red y captura (Light Sleep, 180 mA), Root es gateway
+siempre activo sin cámara. Esta arquitectura híbrida resuelve el
+compromiso entre alcance mesh y autonomía energética.
 }
 \end{frame}
 
@@ -942,23 +975,29 @@ VGA suficiente para clasificación.
 \end{frame}
 
 \begin{frame}{Nodo de Camara - Firmware}
-\textbf{Desarrollado con ESP-IDF + ESP-MDF}
+\textbf{Desarrollado con ESP-IDF + ESP-MESH-LITE}
 
 \vspace{0.5em}
-\textbf{Funcionalidades:}
+\textbf{Funcionalidades compartidas:}
 \begin{itemize}
-\item Inicializacion de camara OV2640
-\item Interrupcion GPIO para sensor PIR
-\item Conexion a red ESP-MESH como nodo hijo
-\item Captura y compresion JPEG
+\item Inicializacion de sistema (NVS, event loop, interfaces de red)
+\item Configuracion de red ESP-MESH-LITE en modo AP-STA
+\item Captura y compresion JPEG con camara OV2640
 \item Almacenamiento en microSD (respaldo)
-\item Transmision via Mwifi
-\item Modo power-save para ahorro de energia
+\item Peticion \textbf{HTTP POST} estandar al servidor
 \end{itemize}
+
+\vspace{0.3em}
+\textbf{Diferenciacion por rol:}
+\begin{description}
+\item[Relay:] Interrupcion GPIO para PIR. Light Sleep + Modem Sleep.
+\item[Leaf:] Coprocesador ULP (polling cada \qty{100}{ms}). Deep Sleep total.
+\end{description}
 \note{
-Firmware desarrollado con ESP-IDF y ESP-MDF. Funcionalidades: inicialización
-de cámara, interrupción PIR, conexión mesh, captura JPEG, respaldo en SD,
-transmisión Mwifi, modo power-save. Límite de paquete mesh: \qty{8}{\kilo\byte}.
+Firmware con ESP-IDF + ESP-MESH-LITE. Ambos roles comparten la
+inicialización y captura. La diferencia clave: Relay usa interrupción
+GPIO y Light Sleep, Leaf usa el coprocesador ULP con polling cada 100ms
+y Deep Sleep completo. Cada nodo hace HTTP POST estándar, no hay Mwifi.
 }
 \end{frame}
 
@@ -1007,11 +1046,11 @@ en Printables para que cualquiera pueda fabricarla.
 \vspace{0.5em}
 \textbf{Funciones:}
 \begin{itemize}
-  \item Raiz de la red ESP-MESH
-  \item Recepcion de imagenes de nodos hijos
-  \item Conexion WiFi a router
-  \item Cliente HTTP para envio al servidor
-  \item Sincronizacion de tiempo
+  \item Nivel 1 de la red ESP-MESH-LITE
+  \item Punto de acceso permanente (SoftAP)
+  \item Enrutamiento transparente (NAT, DHCP)
+  \item Conexion WiFi STA a router
+  \item Reporte periodico de estado (cada \qty{10}{s})
 \end{itemize}
 \end{column}
 \begin{column}{0.45\textwidth}
@@ -1023,9 +1062,9 @@ en Printables para que cualquiera pueda fabricarla.
 \end{column}
 \end{columns}
 \note{
-Nodo raíz: ESP32 DevKit sin cámara, actúa como gateway entre mesh e
-internet. Recibe imágenes de nodos hijos, las envía por HTTP POST al
-servidor. Siempre conectado a router WiFi.
+Nodo raíz: ESP32 DevKit sin cámara, opera exclusivamente en Nivel 1.
+Mantiene SoftAP permanente, enrutamiento transparente con NAT y DHCP.
+Reporta estado de la red cada 10 segundos. No usa modos de bajo consumo.
 }
 \end{frame}
 
@@ -1052,6 +1091,54 @@ Telegram para notificaciones. Fácil de desplegar.
 }
 \end{frame}
 
+\begin{frame}{Servicio de Deteccion (SpeciesNet)}
+\textbf{Pipeline de procesamiento en contenedor Docker:}
+
+\vspace{0.5em}
+\begin{enumerate}
+\item \textbf{Deteccion:} MegaDetector (YOLOv5) identifica regiones de interes
+\begin{itemize}
+  \item Genera bounding boxes: animal, persona o vehiculo
+\end{itemize}
+
+\item \textbf{Clasificacion:} Modelos SpeciesNet analizan recortes de animales
+\begin{itemize}
+  \item Prediccion de familia, genero y especie
+\end{itemize}
+
+\item \textbf{Anotacion visual:} Genera copia con bounding boxes dibujados
+\end{enumerate}
+
+\vspace{0.3em}
+\textbf{API REST:} Endpoint \texttt{/predict} recibe ruta de imagen, retorna JSON con detecciones
+\note{
+Pipeline de 3 fases dentro del contenedor SpeciesNet: MegaDetector detecta
+y localiza objetos, clasificador taxonómico identifica especies, y se
+genera una imagen anotada. Todo expuesto via API REST con LitServe.
+}
+\end{frame}
+
+\begin{frame}{Logica de Umbrales de Deteccion}
+\textbf{Tres niveles de decision para enviar alertas:}
+
+\vspace{0.5em}
+\begin{description}
+\item[HIGH = 0{,}80:] Confianza $>$ \qty{80}{\percent} $\rightarrow$ alerta \textbf{inmediata}, sin importar clasificacion
+\item[MID = 0{,}50:] Confianza entre \qty{50}{\percent} y \qty{80}{\percent} y clasificador dice ``vacio'' $\rightarrow$ alerta igualmente (posible animal pequeno)
+\item[LOW = 0{,}30:] Confianza $<$ \qty{30}{\percent} y clasificador ``vacio'' $\rightarrow$ se \textbf{descarta} (probable falso positivo del PIR)
+\end{description}
+
+\vspace{0.5em}
+\begin{alertblock}{Politica}
+Sesgo hacia la \textbf{sensibilidad}: ante la duda, se transmite la imagen y se delega la decision al operador humano.
+\end{alertblock}
+\note{
+Tres umbrales configurables: HIGH (80\%) envía siempre, MID (50\%) envía
+si el clasificador dice vacío (posible animal pequeño), LOW (30\%) descarta.
+Política conservadora: preferimos falsos positivos a perder eventos reales.
+}
+\end{frame}
+
 \begin{frame}{Sistema de Alertas}
 \begin{columns}
 \begin{column}{0.5\textwidth}
@@ -1063,7 +1150,7 @@ Cada notificacion incluye:
   \item Imagen original
   \item Imagen anotada (bounding boxes)
   \item Cantidad y confianza de detecciones
-  \item Clasificaciones taxonomicas
+  \item Top 5 clasificaciones taxonomicas
 \end{itemize}
 
 \vspace{0.5em}
@@ -1071,6 +1158,13 @@ Cada notificacion incluye:
 \begin{itemize}
   \item \texttt{/start} - Registro
   \item \texttt{/last} - Ultima imagen
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Human-in-the-loop:}
+\begin{itemize}
+  \item Teclados inline para \textbf{corregir} clasificaciones
+  \item Genera datos para futuro \textit{fine-tuning}
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
@@ -1082,9 +1176,10 @@ Cada notificacion incluye:
 \end{column}
 \end{columns}
 \note{
-Bot de Telegram envía notificaciones con imagen original, imagen anotada
-con bounding boxes, detecciones con confianza y clasificaciones
-taxonómicas. Comandos /start y /last para interacción.
+Bot de Telegram envía imagen original + anotada + detecciones + top 5
+clasificaciones. Incluye retroalimentación interactiva: el usuario puede
+corregir clasificaciones con teclados inline, generando datos etiquetados
+para futuro fine-tuning del modelo.
 }
 \end{frame}
 
