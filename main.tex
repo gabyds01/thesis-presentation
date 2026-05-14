@@ -1504,16 +1504,17 @@ movimiento de vegetación fueron filtradas por la lógica de umbrales.
 \begin{itemize}
 \item[$\checkmark$] Sistema completo de monitoreo con \textbf{hardware de bajo costo}
 \item[$\checkmark$] Reduccion de tiempo de procesamiento: \textbf{dias $\rightarrow$ minutos}
-\item[$\checkmark$] Red mesh funcional con \textbf{ESP-MESH}
+\item[$\checkmark$] Red mesh funcional con \textbf{ESP-MESH-LITE} (roles Leaf/Relay/Root)
 \item[$\checkmark$] Integracion exitosa de \textbf{SpeciesNet/MegaDetector}
-\item[$\checkmark$] Sistema de alertas en tiempo real via \textbf{Telegram}
-\item[$\checkmark$] Carcasa imprimible en 3D
+\item[$\checkmark$] Sistema de alertas via \textbf{Telegram} con retroalimentacion \textit{Human-in-the-loop}
+\item[$\checkmark$] Carcasa imprimible en 3D (disponible en Printables)
 \item[$\checkmark$] \textbf{Codigo abierto} disponible en GitHub
 \end{itemize}
 \note{
 Resumen de logros: sistema completo funcionando, reducción de tiempo de
-días a minutos, red mesh estable, IA integrada, alertas por Telegram,
-carcasa 3D, todo código abierto.
+días a minutos, red mesh estable con ESP-MESH-LITE y roles diferenciados,
+IA integrada, alertas por Telegram con Human-in-the-loop, carcasa 3D,
+todo código abierto.
 }
 \end{frame}
 
@@ -1531,49 +1532,61 @@ Pipeline de clasificacion taxonomica en tiempo operativo
 \end{block}
 
 \begin{block}{Codigo abierto}
-\num{4} repositorios publicos en GitHub
+\num{3} repositorios publicos en GitHub
 \end{block}
 \note{
 Cuatro aportes principales: arquitectura integrada end-to-end, prototipo
 replicable de bajo costo, primera integración de SpeciesNet en tiempo
-operativo, y todo disponible como código abierto.
+operativo, y todo disponible como código abierto en 3 repositorios.
 }
 \end{frame}
 
 \begin{frame}{Comparacion con Objetivos}
 \begin{table}
 \centering
-\begin{tabular}{lcc}
+\small
+\begin{tabular}{lc}
 \hline
-\textbf{Metrica}       & \textbf{Objetivo} & \textbf{Resultado} \\
+\textbf{Objetivo} & \textbf{Resultado} \\
 \hline
-Latencia de respuesta  & $<$X min          & [X] min            \\
-Precision de deteccion & $>$X\%            & [X]\%              \\
-Autonomia              & $>$X horas        & [X] horas          \\
-Cobertura              & $>$X m            & [X] m              \\
+Deteccion de fauna, personas y vehiculos & Accuracy \qty{77.7}{\percent} (\num{94} imgs) \\
+Latencia de respuesta & $\sim$\qty{40}{s} (campo) / \qty{1.27}{s} (LAN) \\
+Cobertura mesh & \qtyrange{15}{18}{m} (linea de vista) \\
+Autonomia (Relay) & $\sim$\qty{5}{h} medidas \\
+Consumo Leaf (ULP) & $\sim$\qty{13}{mA} \\
 \hline
 \end{tabular}
 \end{table}
+
+\vspace{0.3em}
+\begin{alertblock}{Conclusion}
+Se demostro la \textbf{viabilidad tecnica} del sistema propuesto. Mejora de \textbf{ordenes de magnitud} respecto a camaras trampa convencionales.
+\end{alertblock}
 \note{
-Comparación objetivo vs. resultado para cada métrica clave. Todos los
-objetivos fueron alcanzados o superados dentro de las limitaciones
-conocidas del prototipo.
+Comparación objetivo vs. resultado. Detección funcional con 77.7\% accuracy.
+Latencia de 40 s en campo (vs. semanas en cámaras convencionales).
+Cobertura de 15-18 m suficiente para despliegue en cadena. Autonomía de
+5 h en Relay, consumo Leaf de apenas 13 mA.
 }
 \end{frame}
 
 \begin{frame}{Trabajos Futuros}
 \begin{description}
-\item[Vision nocturna:] Camaras con capacidad IR
-\item[Conectividad largo alcance:] LoRa, \num{4}G/LTE, satelital
-\item[Optimizacion energetica:] Paneles solares, nodo repetidor dedicado
+\item[Vision nocturna:] Camaras con capacidad infrarroja
+\item[Conectividad largo alcance:] LoRa, \num{4}G/LTE, satelital para zonas remotas
+\item[Nodo repetidor dedicado:] Nodo sin camara que mantenga la red mesh, permitiendo Deep Sleep puro en nodos camara
+\item[Optimizacion energetica:] Paneles solares, reguladores mas eficientes
+\item[Actualizacion OTA:] Firmware inalambrico sin recoleccion fisica de nodos
+\item[Optimizacion de alcance:] Antenas de mayor ganancia, calibracion RSSI, mayor compresion
 \item[Procesamiento en borde:] TinyML en nodos de camara
-\item[Modelos especificos:] Entrenamiento para fauna regional
+\item[Modelos especificos:] Fine-tuning para fauna del Bosque Atlantico
 \item[Interfaz web:] Mapas, gestion de despliegues, reportes
 \end{description}
 \note{
-Líneas futuras: visión nocturna, conectividad de largo alcance (LoRa, 4G,
-satélite), optimización energética con solar, TinyML en borde, modelos
-específicos para fauna regional, interfaz web.
+Líneas futuras: visión nocturna, conectividad largo alcance, nodo
+repetidor dedicado para mejorar autonomía, OTA updates, optimización de
+alcance entre nodos, TinyML, fine-tuning con datos del Human-in-the-loop,
+interfaz web completa.
 }
 \end{frame}
 
@@ -1595,18 +1608,17 @@ alternativas de sensor PIR, monitoreo de estado.
 \begin{frame}{Repositorios}
 \small
 \begin{description}
-\item[mesh-node:] \url{github.com/fabcontigiani/mesh-node-capstone-project}
-\item[root-node:] \url{github.com/fabcontigiani/root-node-capstone-project}
-\item[server:] \url{github.com/fabcontigiani/server-capstone-project}
-\item[wildlife-detection:] \url{github.com/fabcontigiani/wildlife-detection-capstone-project}
+\item[Firmware nodos:] \url{github.com/GabyDs/trapcam_mesh}
+\item[Servidor aplicacion:] \url{github.com/fabcontigiani/server-capstone-project}
+\item[Servidor inferencia:] \url{github.com/fabcontigiani/wildlife-detection-capstone-project}
 \end{description}
 
 \vspace{1em}
 \textbf{Modelo 3D carcasa:} Disponible en Printables
 \note{
-Todo el código disponible en GitHub: firmware del nodo mesh, firmware del
-nodo raíz, servidor Django, y contenedor de detección. Carcasa 3D en
-Printables.
+Todo el código disponible en GitHub: firmware unificado (cámara + raíz +
+repetidor), servidor Django, y servicio de inferencia SpeciesNet.
+Carcasa 3D en Printables.
 }
 \end{frame}
 
