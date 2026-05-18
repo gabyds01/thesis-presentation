@@ -431,119 +431,121 @@
   }
 \end{frame}
 
-\begin{frame}{Motivacion del Proyecto}
-\textbf{Transformar el paradigma:}
+% \begin{frame}{Motivacion del Proyecto}
+% \textbf{Transformar el paradigma:}
 
-\begin{center}
-Monitoreo \textbf{pasivo} $\longrightarrow$ Vigilancia \textbf{activa e inteligente}
-\end{center}
+% \begin{center}
+% Monitoreo \textbf{pasivo} $\longrightarrow$ Vigilancia \textbf{activa e inteligente}
+% \end{center}
 
-\vspace{1em}
-\textbf{Un sistema que:}
-\begin{itemize}
-\item No solo capture imagenes, sino que las \textbf{transmita en tiempo real}
-\item Las \textbf{analice automaticamente} mediante IA
-\item Genere \textbf{alertas inmediatas} ante eventos de interes
-\item Sea \textbf{accesible y de bajo costo}
-\item Use \textbf{hardware economico} y \textbf{software de codigo abierto}
-\end{itemize}
-\note{
-Nuestra motivación: pasar del monitoreo pasivo (revisar fotos semanas
-después) a vigilancia activa con alertas inmediatas. Un sistema accesible,
-de bajo costo, con código abierto.
-}
-\end{frame}
+% \vspace{1em}
+% \textbf{Un sistema que:}
+% \begin{itemize}
+% \item No solo capture imagenes, sino que las \textbf{transmita en tiempo real}
+% \item Las \textbf{analice automaticamente} mediante IA
+% \item Genere \textbf{alertas inmediatas} ante eventos de interes
+% \item Sea \textbf{accesible y de bajo costo}
+% \item Use \textbf{hardware economico} y \textbf{software de codigo abierto}
+% \end{itemize}
+% \note{
+% Nuestra motivación: pasar del monitoreo pasivo (revisar fotos semanas
+% después) a vigilancia activa con alertas inmediatas. Un sistema accesible,
+% de bajo costo, con código abierto.
+% }
+% \end{frame}
 
-\begin{frame}{Oportunidad Tecnologica}
-\textbf{Convergencia de tres desarrollos:}
+% \begin{frame}{Oportunidad Tecnologica}
+% \textbf{Convergencia de tres desarrollos:}
 
-\vspace{0.5em}
-\begin{block}{1. Microcontroladores de bajo costo}
-ESP32: WiFi, Bluetooth, bajo consumo. Costo: $<$ \qty{10}{\$} USD
-\end{block}
+% \vspace{0.5em}
+% \begin{block}{1. Microcontroladores de bajo costo}
+% ESP32: WiFi, Bluetooth, bajo consumo. Costo: $<$ \qty{10}{\$} USD
+% \end{block}
 
-\begin{block}{2. Redes mesh autoorganizadas}
-ESP-MESH-LITE: Extension de cobertura sin infraestructura celular
-\end{block}
+% \begin{block}{2. Redes mesh autoorganizadas}
+% ESP-MESH-LITE: Extension de cobertura sin infraestructura celular
+% \end{block}
 
-\begin{block}{3. IA para vision por computadora}
-SpeciesNet, MegaDetector: Modelos de codigo abierto para clasificacion automatica de fauna
-\end{block}
-\note{
-Tres tecnologías convergen: ESP32 a menos de \num{10} dólares con WiFi integrado,
-redes mesh que extienden cobertura sin infraestructura, y modelos de IA de
-código abierto como SpeciesNet.
-}
-\end{frame}
+% \begin{block}{3. IA para vision por computadora}
+% SpeciesNet, MegaDetector: Modelos de codigo abierto para clasificacion automatica de fauna
+% \end{block}
+% \note{
+% Tres tecnologías convergen: ESP32 a menos de \num{10} dólares con WiFi integrado,
+% redes mesh que extienden cobertura sin infraestructura, y modelos de IA de
+% código abierto como SpeciesNet.
+% }
+% \end{frame}
 
-\begin{frame}{Objetivo General}
-\begin{alertblock}{Objetivo}
-Demostrar la \textbf{viabilidad tecnica} de un sistema de monitoreo de \textbf{bajo costo} para areas protegidas, basado en:
-\begin{itemize}
-\item Nodos de camara con conectividad \textbf{mesh}
-\item Clasificacion automatica de imagenes mediante \textbf{IA}
-\end{itemize}
-\end{alertblock}
+% \begin{frame}{Objetivo General}
+% \begin{alertblock}{Objetivo}
+% Demostrar la \textbf{viabilidad tecnica} de un sistema de monitoreo de \textbf{bajo costo} para areas protegidas, basado en:
+% \begin{itemize}
+% \item Nodos de camara con conectividad \textbf{mesh}
+% \item Clasificacion automatica de imagenes mediante \textbf{IA}
+% \end{itemize}
+% \end{alertblock}
 
-\vspace{1em}
-\textbf{Reduccion del tiempo de procesamiento:}
-\begin{center}
-\textbf{Dias/semanas} $\longrightarrow$ \textbf{Minutos}
-\end{center}
-\note{
-El objetivo central es demostrar viabilidad técnica. No comercialización,
-sino prueba de concepto funcional. El cambio clave: reducir el tiempo de
-procesamiento de días a minutos.
-}
-\end{frame}
+% \vspace{1em}
+% \textbf{Reduccion del tiempo de procesamiento:}
+% \begin{center}
+% \textbf{Dias/semanas} $\longrightarrow$ \textbf{Minutos}
+% \end{center}
+% \note{
+% El objetivo central es demostrar viabilidad técnica. No comercialización,
+% sino prueba de concepto funcional. El cambio clave: reducir el tiempo de
+% procesamiento de días a minutos.
+% }
+% \end{frame}
 
-\begin{frame}{Objetivos Especificos}
-\begin{enumerate}
-\item Disenar e implementar un \textbf{nodo de camara autonomo} basado en ESP32
+% \begin{frame}{Objetivos Especificos}
+% \begin{enumerate}
+% \item Disenar e implementar un \textbf{nodo de camara autonomo} basado en ESP32
 
-\item Desarrollar una \textbf{red mesh autoorganizada} con ESP-MESH-LITE
+% \item Desarrollar una \textbf{red mesh autoorganizada} con ESP-MESH-LITE
 
-\item Implementar un \textbf{servidor de procesamiento} con IA
+% \item Implementar un \textbf{servidor de procesamiento} con IA
 
-\item Integrar \textbf{SpeciesNet/MegaDetector} para clasificacion
+% \item Integrar \textbf{SpeciesNet/MegaDetector} para clasificacion
 
-\item \textbf{Validar el funcionamiento} en condiciones reales
-\end{enumerate}
-\note{
-Cinco objetivos específicos que abarcan hardware, red, servidor, IA y
-validación. Cada uno corresponde a un componente del sistema que
-desarrollamos.
-}
-\end{frame}
+% \item \textbf{Validar el funcionamiento} en condiciones reales
+% \end{enumerate}
+% \note{
+% Cinco objetivos específicos que abarcan hardware, red, servidor, IA y
+% validación. Cada uno corresponde a un componente del sistema que
+% desarrollamos.
+% }
+% \end{frame}
 
-\begin{frame}{Alcance del Proyecto}
-\begin{columns}
-\begin{column}{0.5\textwidth}
-\textbf{Dentro del alcance:}
-\begin{itemize}
-  \item Nodos ESP32-CAM + sensor PIR
-  \item Red mesh funcional
-  \item Servidor de recepcion y clasificacion
-  \item Bot de Telegram para alertas
-  \item Pruebas en laboratorio y campo
-\end{itemize}
-\end{column}
-\begin{column}{0.5\textwidth}
-\textbf{Fuera del alcance:}
-\begin{itemize}
-  \item Despliegue en selva densa
-  \item Carcasas con grado IP
-  \item Entrenamiento de modelos especificos
-  \item Certificacion comercial
-\end{itemize}
-\end{column}
-\end{columns}
-\note{
-Definimos claramente qué sí y qué no incluye el proyecto. Prototipo
-funcional para pruebas, no producto comercial. Sin despliegue en selva
-real ni carcasas industriales.
-}
-\end{frame}
+% TODO: Mover a anexos
+
+% \begin{frame}{Alcance del Proyecto}
+% \begin{columns}
+% \begin{column}{0.5\textwidth}
+% \textbf{Dentro del alcance:}
+% \begin{itemize}
+%   \item Nodos ESP32-CAM + sensor PIR
+%   \item Red mesh funcional
+%   \item Servidor de recepcion y clasificacion
+%   \item Bot de Telegram para alertas
+%   \item Pruebas en laboratorio y campo
+% \end{itemize}
+% \end{column}
+% \begin{column}{0.5\textwidth}
+% \textbf{Fuera del alcance:}
+% \begin{itemize}
+%   \item Despliegue en selva densa
+%   \item Carcasas con grado IP
+%   \item Entrenamiento de modelos especificos
+%   \item Certificacion comercial
+% \end{itemize}
+% \end{column}
+% \end{columns}
+% \note{
+% Definimos claramente qué sí y qué no incluye el proyecto. Prototipo
+% funcional para pruebas, no producto comercial. Sin despliegue en selva
+% real ni carcasas industriales.
+% }
+% \end{frame}
 
 % ==============================================================================
 % Sección 3: Desarrollo (Arquitectura)
