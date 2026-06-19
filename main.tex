@@ -462,6 +462,11 @@ Ejercicio
         \fill[detector] (0.45,0) -- +(40:3.5cm) arc (40:-40:3.5cm) -- cycle;
         \node[text=blue!60!black, font=\small\bfseries, align=center] at (2.2,0) {Área de\\detección};
         
+        % Objeto en movimiento (entrando al área)
+        \draw[gray!60, line width=1.1pt, dashed, ->] (3.8,2.3) -- (3.1,1.8);
+        \node[circle, fill=red!80, minimum size=0.15cm, inner sep=0pt] (obj) at (3.1,1.8) {};
+        \draw[red!80!black, thick] (obj) circle (4pt);
+
         % Cuerpo de la cámara
         \node[camera] (cam) at (0,0) {};
         
