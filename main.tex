@@ -1143,34 +1143,74 @@ viendo la IP, sin involucrar a su capa de aplicación.
 }
 \end{frame}
 
-\begin{frame}{Red Malla - Topologia y Roles}
-\begin{columns}
-\begin{column}{0.5\textwidth}
-\textbf{Topologia de Arbol:}
-\begin{itemize}
-\item Multiples conexiones descendentes (SoftAP)
-\item Una unica conexion ascendente (Station)
-\end{itemize}
+\begin{frame}{Red Malla - Topología}
+  \centering
+  \includegraphics[height=0.55\paperheight,keepaspectratio]{img/mesh-tree-topology.png}
+  
+  \vspace{1em}
+  \begin{columns}[t]
+    \begin{column}{0.5\textwidth}
+      \centering
+      \textbf{Conexión Ascendente} (Station)
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \centering
+      \textbf{Conexiones Descendentes} (SoftAP)
+    \end{column}
+  \end{columns}
+  \note{
+    La red tiene topología de árbol basada en ESP-MESH-LITE. Cada nodo se conecta al padre como Station (conexión ascendente) y permite que múltiples hijos se conecten a él a través de su SoftAP (conexiones descendentes) de forma jerárquica.
+  }
+\end{frame}
 
-\vspace{0.5em}
-\textbf{Roles (Trade-off de Energia):}
-\begin{description}
-\item[Leaf:] Nivel mas bajo. Deep Sleep + ULP. Ultra bajo consumo.
-\item[Relay:] Nodo intermedio. Light Sleep para enrutar trafico.
-\item[Root:] Unica puerta de enlace al Router. 100\% activo. Sin camara.
-\end{description}
-\end{column}
-\begin{column}{0.5\textwidth}
-\centering
-\includegraphics[width=0.95\textwidth]{img/mesh-tree-topology.png}
-\end{column}
-\end{columns}
-\note{
-La red tiene topología de árbol. Tenemos 3 roles con un fuerte trade-off
-energético: El Leaf prioriza ahorro de batería (Deep sleep, sin enrutar).
-El Relay sacrifica batería para extender la red (Light sleep).
-El Root es el nodo raíz (un ESP32 sin cámara) que puentea a internet.
-}
+\begin{frame}{Red Malla - Roles y Energía}
+  \textbf{Trade-off de Energía y Funcionalidad:}
+  
+  \vspace{1em}
+  \begin{columns}[t]
+    \begin{column}{0.32\textwidth}
+      \begin{block}{Leaf}
+        \small
+        \textbf{Bajo consumo}
+        \begin{itemize}
+          \scriptsize
+          \item Deep Sleep + ULP
+          \item Sin enrutar tráfico
+          \item Máxima autonomía
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \begin{block}{Relay}
+        \small
+        \textbf{Nodo intermedio}
+        \begin{itemize}
+          \scriptsize
+          \item Light Sleep
+          \item Enruta tráfico
+          \item Consumo moderado
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \begin{block}{Root}
+        \small
+        \textbf{Nodo Raíz}
+        \begin{itemize}
+          \scriptsize
+          \item 100\% activo
+          \item Puerta al Router
+          \item Sin cámara (ESP32)
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+  \note{
+    Explicamos los tres roles de la red malla y su balance energético.
+    1. El Leaf prioriza el ahorro de batería (Deep sleep con ULP), no ayuda a enrutar y tiene la mayor autonomía.
+    2. El Relay sacrifica batería permaneciendo en Light sleep para poder recibir y enrutar paquetes de otros nodos.
+    3. El Root es la única puerta de enlace, está 100% activo sin cámara y conectado directamente a una fuente de alimentación o router.
+  }
 \end{frame}
 
 \begin{frame}{Red Malla - Robustez (Self-Healing)}
