@@ -511,11 +511,65 @@ Ejercicio
 \end{frame}
 
 \begin{frame}{Desafíos de Detección en Selva Densa}
-  \begin{itemize}
-    \setlength{\itemsep}{1.5em}
-    \item \textbf{Densidad del dosel:} Bloquea vista aérea (drones) y reduce la línea de visión terrestre.
-    \item \textbf{Cobertura reducida:} Zonas estrechas de detección, fáciles de esquivar por intrusos.
-  \end{itemize}
+  \begin{columns}[c]
+    \begin{column}{0.55\textwidth}
+      \begin{itemize}
+        \setlength{\itemsep}{1.5em}
+        \item \textbf{Densidad del dosel:} Bloquea la vista aérea (drones) y reduce la penetración de luz y línea de visión terrestre.
+        \item \textbf{Cobertura reducida:} Zonas estrechas de detección del sensor PIR, obstruidas por vegetación, fáciles de esquivar por intrusos.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      \centering
+      \begin{tikzpicture}[
+          scale=1.1,
+          font=\sffamily,
+          >=Latex,
+          trunk/.style={fill=brown!55!black}
+        ]
+        % Suelo
+        \draw[brown!60!black, line width=1pt] (-1.9,-1.2) -- (1.9,-1.2);
+
+        % 1. DENSIDAD DEL DOSEL (Línea de vista de Drone Bloqueada)
+        % Árbol Grande (Centro-Derecha)
+        \fill[trunk] (0.7,-1.2) rectangle (0.9,0.5);
+        \fill[green!50!black, opacity=0.85] (0.8,1.1) circle (0.8cm);
+        \fill[green!60!black, opacity=0.85] (0.4,0.9) circle (0.6cm);
+        \fill[green!40!black, opacity=0.85] (1.2,0.9) circle (0.6cm);
+        
+        % Drone
+        \fill[black!80] (-0.2,1.95) rectangle (0.2,2.05);
+        \draw[thick, black!80] (-0.4,2.0);
+        \draw[thick, black!80] (-0.4,2.0) -- (-0.4,2.12) (0.4,2.0) -- (0.4,2.12);
+        \fill[black!60] (-0.4,2.12) ellipse (0.15cm and 0.04cm);
+        \fill[black!60] (0.4,2.12) ellipse (0.15cm and 0.04cm);
+        \node[above=0.15cm, font=\tiny\bfseries, text=black!70] at (0,2.0) {Drone};
+        
+        % Bloqueo del Drone
+        \draw[red!80, line width=1.1pt, dashed, ->] (0,1.9) -- (0.4,1.2);
+        \node[red!80!black, font=\tiny\bfseries, fill=white, inner sep=1pt, rounded corners=1pt] at (0.2,1.55) {Dosel bloquea vista};
+
+        % 2. COBERTURA REDUCIDA (Cámara con obstáculo)
+        % Árbol de la Cámara (Izquierda)
+        \fill[trunk] (-1.6,-1.2) rectangle (-1.45,0.5);
+        % Cámara trampa
+        \node[draw=red!80!black, fill=red!15, rounded corners=1pt, minimum width=0.18cm, minimum height=0.35cm, inner sep=0] (c) at (-1.35,-0.3) {};
+        \fill[red!80!black] (-1.35,-0.22) rectangle (-1.30,-0.27);
+        
+        % Cono de detección de la cámara
+        \fill[fill=blue!20!gray, draw=blue!40!gray, opacity=0.35, dashed, line width=0.8pt] (-1.35,-0.3) -- ++(25:1.6cm) arc (25:-25:1.6cm) -- cycle;
+        
+        % Arbusto / Obstáculo en el suelo
+        \fill[green!45!black] (-0.3,-1.2) circle (0.35cm);
+        \fill[green!35!black] (-0.5,-1.2) circle (0.25cm);
+        \fill[green!55!black] (-0.1,-1.2) circle (0.25cm);
+        
+        % Bloqueo de la cámara
+        \draw[red!80, line width=1.1pt, dashed, ->] (-1.35,-0.3) -- (-0.35,-0.9);
+        \node[red!80!black, font=\tiny\bfseries, fill=white, inner sep=0.5pt, rounded corners=1pt] at (-0.8,-0.55) {Punto ciego};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
   \note{
     La selva misionera presenta desafíos físicos muy particulares:
     1. Densidad del dosel (copa de los árboles): impide el uso de drones ya que no ven bajo las copas. En el suelo, la vegetación espesa limita la visibilidad.
