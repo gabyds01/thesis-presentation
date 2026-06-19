@@ -1774,6 +1774,50 @@ compensa estos errores y genera datos para fine-tuning.
 
 % El frame de Consumo Energético fue movido a la Sección 3 (Diseño y Energía)
 
+\begin{frame}{Resultados - Bot de Telegram (HITL)}
+  \only<1>{
+    \centering
+    \textbf{Paso 1:} Clasificación errónea inicial en el panel web
+
+    \vspace{0.5em}
+    \includegraphics[height=0.7\textheight]{bachelor-thesis/img/clasificacionErroneaAntes.png}
+  }
+  \only<2>{
+    \centering
+    \textbf{Paso 2:} El usuario indica el error desde el bot de Telegram
+
+    \vspace{0.5em}
+    \includegraphics[height=0.7\textheight]{bachelor-thesis/img/seleccionClasificacionErronea.png}
+  }
+  \only<3>{
+    \centering
+    \textbf{Paso 3:} Selección de la etiqueta correcta (\textit{human})
+
+    \vspace{0.5em}
+    \includegraphics[height=0.7\textheight]{bachelor-thesis/img/seleccionHuman.png}
+  }
+  \only<4>{
+    \centering
+    \textbf{Paso 4:} Registro actualizado y auditado en el panel web
+
+    \vspace{0.5em}
+    \includegraphics[height=0.7\textheight]{bachelor-thesis/img/clasificacionCorregida.png}
+  }
+  \note{
+    Este flujo demuestra el mecanismo Human-in-the-loop en acción.
+    Paso 1: el modelo clasifica erróneamente una imagen (ej. confunde persona con animal).
+    Paso 2: el usuario recibe la notificación en Telegram y mediante un teclado inline
+    indica que la clasificación es incorrecta.
+    Paso 3: el bot presenta las alternativas sugeridas por el modelo y el usuario
+    selecciona la etiqueta correcta (human).
+    Paso 4: el sistema actualiza la base de datos y el panel web refleja el cambio
+    inmediatamente, marcando el evento como auditado.
+
+    Esto no solo corrige errores en tiempo real, sino que genera datos etiquetados
+    de alta calidad para futuro fine-tuning del modelo con imágenes del ecosistema local.
+  }
+\end{frame}
+
 % 
 % \begin{frame}{Pruebas de Laboratorio}
 % \textbf{Validaciones realizadas:}
