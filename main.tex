@@ -558,94 +558,114 @@ Ejercicio
         \node[tree, minimum size=0.3cm, fill=green!30!white] at (\x+0.15,\y-0.1) {};
     }
     \node[text=red!40!black, font=\small\bfseries\itshape] at (4, 6.2) {Zona de Interés};
-    \node[text=blue!40!black, font=\small\bfseries\itshape] at (11.0, 6.2) {Monitoreo\\Remoto};
-
-    % 3. CAMPOS DE VISIÓN (FOV) DE LAS CÁMARAS - Dibujados sobre el camino pero detrás de las cámaras
-    % Node 1 FOV (points down-right)
-    \fill[fov] (1.0, 5.2) -- +(320:3.0cm) arc (320:260:3.0cm) -- cycle;
-    % Node 2 FOV (points up-right)
-    \fill[fov] (3.0, 0.5) -- +(50:3.0cm) arc (50:110:3.0cm) -- cycle;
-    % Node 3 FOV (points down-right)
-    \fill[fov] (5.5, 5.0) -- +(270:3.0cm) arc (270:330:3.0cm) -- cycle;
-    % Node 4 FOV (points up-left)
-    \fill[fov] (7.8, 0.2) -- +(110:3.0cm) arc (110:170:3.0cm) -- cycle;
-    
-    % 4. EVENTO / INTRUSO
-    \node[circle, fill=red!80, minimum size=0.15cm, inner sep=0pt] (evento) at (1.3, 2.3) {};
-    \draw[red!80!black, thick] (evento) circle (5pt);
-    % \node[above=0.2cm of evento, text=red!80!black, font=\tiny\bfseries] {Intruso /\\Evento};
-
-    % 5. NODOS DE CÁMARA
-    % Cámara 1 (Leaf)
-    \node[camera] (c1) at (1.0, 5.2) {C1};
-    \node[above=0.05cm of c1, font=\scriptsize\bfseries] {Nodo Hoja};
-    
-    % Cámara 2 (Relay)
-    \node[camera] (c2) at (3.0, 0.5) {C2};
-    \node[below=0.05cm of c2, font=\scriptsize\bfseries] {Nodo Retransmisor};
-    
-    % Cámara 3 (Relay)
-    \node[camera] (c3) at (5.5, 5) {C3};
-    \node[above=0.05cm of c3, font=\scriptsize\bfseries] {Nodo Retransmisor};
-    
-    % Cámara 4 (Relay) - Anteriormente Root
-    \node[camera] (c4) at (7.8, 0.2) {C4};
-    \node[below=0.05cm of c4, font=\scriptsize\bfseries] {Nodo Retransmisor};
-
-    % Dibujar pequeños lentes para indicar hacia dónde apuntan
-    \draw[fill=teal!80!black] ($(c1) + (290:0.3)$) circle (1.5pt);
-    \draw[fill=teal!80!black] ($(c2) + (80:0.3)$) circle (1.5pt);
-    \draw[fill=teal!80!black] ($(c3) + (300:0.3)$) circle (1.5pt);
-    \draw[fill=teal!80!black] ($(c4) + (140:0.3)$) circle (1.5pt);
-
-    % 6. ENLACES MESH (ESP-MESH-LITE)
-    \draw[mesh, ->] (c1) -- (c2);
-    \draw[mesh, ->] (c1) -- (c3);
-    \draw[mesh] (c2) -- (c3);
-    \draw[mesh] (c2) -- (c4);
-    \draw[mesh] (c3) -- (c4);
 
     % 7. LÍMITE DE COBERTURA
     \draw[gray!60, dashed, line width=1.5pt] (8.7, 0.0) -- (8.7, 5.8);
     %\node[rotate=90, text=gray!80!black, font=\scriptsize\bfseries] at (8.9, 4.5) {Límite Selva / Señal Móvil};
 
-    % 8. MUNDO EXTERIOR
-    % Nodo Raíz / Gateway (Círculo)
-    \node[root] (raiz) at (9.5, 1.5) {R};
-    \node[below=0.05cm of raiz, font=\scriptsize\bfseries\color{orange!80!black}] {Nodo Raíz};
+    \uncover<2->{
+      % 3. CAMPOS DE VISIÓN (FOV) DE LAS CÁMARAS - Dibujados sobre el camino pero detrás de las cámaras
+      % Node 1 FOV (points down-right)
+      \fill[fov] (1.0, 5.2) -- +(320:3.0cm) arc (320:260:3.0cm) -- cycle;
+      % Node 2 FOV (points up-right)
+      \fill[fov] (3.0, 0.5) -- +(50:3.0cm) arc (50:110:3.0cm) -- cycle;
+      % Node 3 FOV (points down-right)
+      \fill[fov] (5.5, 5.0) -- +(270:3.0cm) arc (270:330:3.0cm) -- cycle;
+      % Node 4 FOV (points up-left)
+      \fill[fov] (7.8, 0.2) -- +(110:3.0cm) arc (110:170:3.0cm) -- cycle;
 
-    % Nube de Internet (Arriba)
-    \node[cloud, draw=blue!70!black, fill=blue!5, minimum width=1.5cm, minimum height=1.0cm, cloud puffs=9, font=\scriptsize\bfseries] (cloud) at (11.0, 4.4) {Internet};
+      % 5. NODOS DE CÁMARA
+      % Cámara 1 (Leaf)
+      \node[camera] (c1) at (1.0, 5.2) {C1};
+      
+      % Cámara 2 (Relay)
+      \node[camera] (c2) at (3.0, 0.5) {C2};
+      
+      % Cámara 3 (Relay)
+      \node[camera] (c3) at (5.5, 5) {C3};
+      
+      % Cámara 4 (Relay) - Anteriormente Root
+      \node[camera] (c4) at (7.8, 0.2) {C4};
 
-    % Servidor de Aplicación (Centro)
-    \node[draw=orange!80!black, fill=orange!5, rounded corners=2pt, minimum width=1.4cm, minimum height=0.9cm, font=\scriptsize\bfseries] (server) at (11.0, 2.2) {Servidor\\Remoto};
+      % Dibujar pequeños lentes para indicar hacia dónde apuntan
+      \draw[fill=teal!80!black] ($(c1) + (290:0.3)$) circle (1.5pt);
+      \draw[fill=teal!80!black] ($(c2) + (80:0.3)$) circle (1.5pt);
+      \draw[fill=teal!80!black] ($(c3) + (300:0.3)$) circle (1.5pt);
+      \draw[fill=teal!80!black] ($(c4) + (140:0.3)$) circle (1.5pt);
+    }
 
-    % Usuario Final / Operador (Abajo)
-    \node[draw=teal!80!black, fill=teal!5, rounded corners=2pt, minimum width=1.4cm, minimum height=0.9cm, font=\scriptsize\bfseries] (user) at (11.0, 0.4) {Usuario\\Final};
+    \uncover<3->{
+      % 6. ENLACES MESH (ESP-MESH-LITE)
+      \draw[mesh, ->] (c1) -- (c2);
+      \draw[mesh, ->] (c2) -- (c3);
+      \draw[mesh] (c3) -- (c4);
+    }
 
-    % 9. FLUJO DE ALERTA Y CONEXIONES EXTERNAS
-    % Enlace C4 a Gateway en la malla
-    \draw[mesh] (c4) -- (raiz);
-    \draw[mesh] (c3) -- (raiz);
-    % De Nodo Raíz a Internet (Con texto 4G/WiFi/LoRa)
-    \draw[extlink] (raiz) to[out=90, in=130] node[above, sloped, font=\scriptsize\bfseries\color{orange!80!black}] {4G / WiFi / LoRa / etc.} (cloud);
-    % De Internet a Servidor
-    \draw[extlink] (cloud) -- node[right, font=\scriptsize\bfseries\color{orange!80!black}]
-    {Imágen}(server);
-    % De Servidor a Usuario Final
-    \draw[extlink] (server) -- node[right, font=\scriptsize\bfseries\color{orange!80!black}] {Alerta} (user);
+    \uncover<4->{
+      % Etiquetas de los nodos de cámara
+      \node[above=0.05cm of c1, font=\scriptsize\bfseries] {Nodo Hoja};
+      \node[below=0.05cm of c2, font=\scriptsize\bfseries] {Nodo Retransmisor};
+      \node[above=0.05cm of c3, font=\scriptsize\bfseries] {Nodo Retransmisor};
+      \node[below=0.05cm of c4, font=\scriptsize\bfseries] {Nodo Retransmisor};
 
-    % Brackets para destacar los aportes y desarrollos principales del proyecto
-    \draw[teal!80!black, line width=1.1pt, rounded corners=2pt] (0.2, -0.6) -- (0.2, -0.8) -- (8.2, -0.8) -- (8.2, -0.6);
-    \node[below=0.05cm, font=\scriptsize\bfseries\color{teal!80!black}] at (4.2, -0.8) {Red Malla y Sensado Local};
+      \draw[mesh, ->] (c1) -- (c3);
+      \draw[mesh] (c2) -- (c4);
 
-    \draw[teal!80!black, line width=1.1pt, rounded corners=2pt] (10.0, -0.6) -- (10.0, -0.8) -- (12.0, -0.8) -- (12.0, -0.6);
-    \node[below=0.05cm, font=\scriptsize\bfseries\color{teal!80!black}] at (11.0, -0.8) {Servidor de\\Inferencia y Alertas};
+      % 9. FLUJO DE ALERTA Y CONEXIONES EXTERNAS
+      % Nodo Raíz / Gateway (Círculo)
+      \node[root] (raiz) at (8.7, 2.5) {R};
+      \node[right=0.05cm of raiz, font=\scriptsize\bfseries\color{orange!80!black}] {Nodo\\Raíz};
+      % Enlace C4 a Gateway en la malla
+      \draw[mesh] (c4) -- (raiz);
+      \draw[mesh] (c3) -- (raiz);
+    }
 
-    % Notas del flujo en el diagrama
-    %\node[text=red!80!black, font=\tiny\bfseries, anchor=west] at (0.2, 5.6) {1. Captura e Inferencia (MegaDetector)};
-    %\node[text=teal!80!black, font=\tiny\bfseries, anchor=west] at (0.2, -0.1) {2. Envío a través de Saltos Mesh};
-    %\node[text=orange!80!black, font=\tiny\bfseries, anchor=west] at (5.0, -0.1) {3. Transmisión al Servidor};
+    \uncover<5->{
+      % 8. MUNDO EXTERIOR
+      \node[text=blue!40!black, font=\small\bfseries\itshape] at (11.0, 6.2) {Monitoreo\\Remoto};
+
+      % Nube de Internet (Arriba)
+      \node[cloud, draw=blue!70!black, fill=blue!5, minimum width=1.5cm, minimum height=1.0cm, cloud puffs=9, font=\scriptsize\bfseries] (cloud) at (11.0, 4.4) {Internet};
+
+      % Servidor de Aplicación (Centro)
+      \node[draw=orange!80!black, fill=orange!5, rounded corners=2pt, minimum width=1.4cm, minimum height=0.9cm, font=\scriptsize\bfseries] (server) at (11.0, 2.2) {Servidor\\Remoto};
+
+      % Usuario Final / Operador (Abajo)
+      \node[draw=teal!80!black, fill=teal!5, rounded corners=2pt, minimum width=1.4cm, minimum height=0.9cm, font=\scriptsize\bfseries] (user) at (11.0, 0.4) {Usuario\\Final};
+
+      % De Internet a Servidor
+      \draw[extlink] (cloud) -- (server);
+      % De Servidor a Usuario Final
+      \draw[extlink] (server) -- (user);
+    }
+
+    \uncover<6->{
+      % 4. EVENTO / INTRUSO
+      \node[circle, fill=red!80, minimum size=0.15cm, inner sep=0pt] (evento) at (1.3, 2.3) {};
+      \draw[red!80!black, thick] (evento) circle (5pt);
+      % \node[above=0.2cm of evento, text=red!80!black, font=\tiny\bfseries] {Intruso /\\Evento};
+
+      % Texto de las flechas de monitoreo remoto
+      \node[right, font=\scriptsize\bfseries\color{orange!80!black}] at (11.0, 3.1) {Imágen};
+      \node[right, font=\scriptsize\bfseries\color{orange!80!black}] at (11.0, 1.3) {Alerta};
+    }
+    \uncover<7->{
+      % Brackets para destacar los aportes y desarrollos principales del proyecto
+      \draw[teal!80!black, line width=1.1pt, rounded corners=2pt] (0.2, -0.6) -- (0.2, -0.8) -- (8.5, -0.8) -- (8.5, -0.6);
+      \node[below=0.05cm, font=\scriptsize\bfseries\color{teal!80!black}] at (4.2, -0.8) {Red Malla y Sensado Local};
+
+      \draw[teal!80!black, line width=1.1pt, rounded corners=2pt] (10.0, -0.4) -- (10.0, -0.6) -- (12.0, -0.6) -- (12.0, -0.4);
+      \node[below=0.05cm, font=\scriptsize\bfseries\color{teal!80!black}] at (11.0, -0.6) {Servidor de\\Inferencia y Alertas};
+
+      % Notas del flujo en el diagrama
+      %\node[text=red!80!black, font=\tiny\bfseries, anchor=west] at (0.2, 5.6) {1. Captura e Inferencia (MegaDetector)};
+      %\node[text=teal!80!black, font=\tiny\bfseries, anchor=west] at (0.2, -0.1) {2. Envío a través de Saltos Mesh};
+      %\node[text=orange!80!black, font=\tiny\bfseries, anchor=west] at (5.0, -0.1) {3. Transmisión al Servidor};
+    }
+    \uncover<8->{
+      % De Nodo Raíz a Internet (Con texto 4G/WiFi/LoRa)
+      \draw[extlink] (raiz) to[out=90, in=150] node[above=0.15cm, sloped, fill=white, inner sep=1pt, font=\scriptsize\bfseries\color{orange!80!black}] {4G / WiFi / LoRa / etc.} (cloud);
+    }
   \end{tikzpicture}
   }
   \note{
