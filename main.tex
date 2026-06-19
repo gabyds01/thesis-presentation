@@ -452,7 +452,27 @@ Ejercicio
     \end{column}
     \begin{column}{0.5\textwidth}
       \centering
-      \includegraphics[width=\textwidth]{img/camaraTrampa.png}
+      \begin{tikzpicture}[
+          font=\sffamily,
+          >=Latex,
+          camera/.style={draw=red!80!black, fill=red!15, rounded corners=4pt, minimum width=0.9cm, minimum height=1.6cm, line width=1.5pt},
+          detector/.style={fill=blue!20!gray, draw=blue!40!gray, opacity=0.35, line width=1pt, dashed}
+        ]
+        % Área de detección
+        \fill[detector] (0.45,0) -- +(40:3.5cm) arc (40:-40:3.5cm) -- cycle;
+        \node[text=blue!60!black, font=\small\bfseries, align=center] at (2.2,0) {Área de\\detección};
+        
+        % Cuerpo de la cámara
+        \node[camera] (cam) at (0,0) {};
+        
+        % Lente y sensor PIR (detalles de la cámara)
+        \fill[red!80!black] (0.45,0.25) rectangle (0.55,-0.25);
+        \fill[black!80] (0.45,0.1) circle (2.2pt);
+        \fill[white!90!gray] (0.45,-0.17) rectangle (0.53,-0.07);
+        
+        % Etiqueta de la cámara
+        \node[below=0.2cm of cam, font=\small\bfseries, text=black!80, align=center] {Cámara\\trampa};
+      \end{tikzpicture}
     \end{column}
   \end{columns}
   \note{
