@@ -253,10 +253,13 @@ Ejercicio
     \end{column}
     \begin{column}{0.45\textwidth}
       % TODO: Collage de fauna emblematica
-      \centering
-      \fbox{\parbox{0.9\textwidth}{\centering\vspace{2.5cm}
-          [Collage fauna emblematica]
-      \vspace{2.5cm}}}
+      % \centering
+      % \fbox{\parbox{0.9\textwidth}{\centering\vspace{2.5cm}
+      %     [Collage fauna emblematica]
+      % \vspace{2.5cm}}}
+      \begin{figure}
+        \includegraphics[width=\textwidth]{./img/collage.png}
+      \end{figure}
     \end{column}
   \end{columns}
   \note{
@@ -357,38 +360,72 @@ Ejercicio
   }
 \end{frame}
 
+
 \section*{Conservación y sus Desafíos}
-\begin{frame}{Desafios de la Vigilancia}
-  \textbf{\num{780000} hectareas} distribuidas en \textbf{\num{106}+ areas protegidas}
 
-  \vspace{0.5em}
-  \begin{description}
-    \item[Extension:] Terreno accidentado, vegetacion densa, acceso limitado
-    \item[Comunicaciones:] Sin cobertura celular en zonas interiores
-    \item[Latencia:] Semanas/meses entre captura de evento y descubrimiento
-    \item[Volumen:] Miles de imagenes requieren clasificacion manual
-  \end{description}
-
-  % TODO: Foto de terreno/vegetacion densa
+\begin{frame}{Desafíos de la Vigilancia}
+  \begin{table}[]
+    \centering
+    \setlength{\tabcolsep}{1.5em}
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{ll}
+      \textbullet~\textbf{Extensión} & \textbullet~\textbf{Comunicación} \\
+      \textbullet~\textbf{Latencia}  & \textbullet~\textbf{Volumen}     
+    \end{tabular}
+  \end{table}
   \centering
-  \fbox{\parbox{0.5\textwidth}{\centering\vspace{1.2cm}
-      [Foto vegetacion densa]
-  \vspace{1.2cm}}}
+  \includegraphics[width=\textwidth]{img/yaboti.jpg}
+  
+  \vspace{0.2em}
+  {\tiny Fuente: \href{https://ecologia.misiones.gob.ar/con-94-areas-naturales-protegidas-misiones-es-ejemplo-internacional-en-materia-de-conservacion/}{Ministerio de Ecología de Misiones}}
+
   \note{
-    \num{780000} hectáreas en más de \num{100} áreas protegidas. Sin cobertura celular,
-    con terreno difícil y miles de imágenes que clasificar manualmente. Estos
-    desafíos motivan nuestra propuesta tecnológica.
+    Solo en la reserva de la biosfera yabotí hay mas de 200 mil hectáreas.
+    Sin covertura celular -> Alta latencia entre captura y descubrimiento.
+    Alto volumen de imágenes si dejamos camaras.
   }
 \end{frame}
 
+% \begin{frame}{Desafios de la Vigilancia}
+%   \textbf{\num{780000} hectareas} distribuidas en \textbf{\num{106}+ areas protegidas}
+
+%   \vspace{0.5em}
+%   \begin{description}
+%     \item[Extension:] Terreno accidentado, vegetacion densa, acceso limitado
+%     \item[Comunicaciones:] Sin cobertura celular en zonas interiores
+%     \item[Latencia:] Semanas/meses entre captura de evento y descubrimiento
+%     \item[Volumen:] Miles de imagenes requieren clasificacion manual
+%   \end{description}
+
+%   % TODO: Foto de terreno/vegetacion densa
+%   \centering
+%   \fbox{\parbox{0.5\textwidth}{\centering\vspace{1.2cm}
+%       [Foto vegetacion densa]
+%   \vspace{1.2cm}}}
+%   \note{
+%     \num{780000} hectáreas en más de \num{100} áreas protegidas. Sin cobertura celular,
+%     con terreno difícil y miles de imágenes que clasificar manualmente. Estos
+%     desafíos motivan nuestra propuesta tecnológica.
+%   }
+% \end{frame}
+
 \begin{frame}{Contramedidas Tradicionales}
-  \textbf{Métodos actuales de vigilancia:}
-  \begin{itemize}
-    \item Patrullajes de guardaparques (a pie o vehículo)
-    \item Monitoreo por audio
-    \item Drones y radares
-    \item \textbf{Cámaras trampa pasivas} (el método más extendido)
-  \end{itemize}
+  % \textbf{Métodos actuales de vigilancia:}
+  % \vspace{0.5em}
+
+  \begin{columns}[c]
+    \begin{column}{0.55\textwidth}
+      \begin{itemize}
+        \setlength{\itemsep}{1em}
+        \item \textbf{Monitoreo acústico:} Sensores de audio pasivos para registrar ruidos (motosierras, disparos).
+        \item \textbf{Drones y satélites:} Vigilancia aérea y detección de deforestación e incendios.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{img/contramedida.png}
+    \end{column}
+  \end{columns}
   \note{
     Para combatir estas amenazas, se utilizan diversas contramedidas. Los
     patrullajes son limitados por recursos. Se usan drones y monitoreo de
@@ -400,55 +437,144 @@ Ejercicio
 \begin{frame}{Uso de Cámaras Trampa}
   \begin{columns}
     \begin{column}{0.5\textwidth}
-      \textbf{¿Cómo funcionan?}
+      \textbf{Funcionamiento:}
       \begin{itemize}
-        \item Se activan mediante sensores de movimiento (PIR).
-        \item Capturan imágenes al detectar presencia (fauna o intrusos).
+        \item Activación por sensor \textbf{PIR}
+        \item Captura al detectar presencia
       \end{itemize}
 
       \vspace{0.5em}
-      \textbf{Modalidades de operación:}
+      \textbf{Modalidades:}
       \begin{itemize}
-        \item \textbf{Pasivas:} Almacenan las imágenes en una tarjeta SD local (requiere recolección manual).
-        \item \textbf{Activas (Comerciales):} Utilizan redes 3G/4G o conexiones satelitales para transmitir datos al instante.
+        \item \textbf{Pasivas:} Almacenamiento local (tarjeta SD)
+        \item \textbf{Activas:} Transmisión (celular o satelital)
       \end{itemize}
     \end{column}
     \begin{column}{0.5\textwidth}
-      % TODO: Foto camara trampa
       \centering
-      \fbox{\parbox{0.9\textwidth}{\centering\vspace{2cm}
-          [Foto cámara trampa]
-      \vspace{2cm}}}
+      \begin{tikzpicture}[
+          font=\sffamily,
+          >=Latex,
+          camera/.style={draw=red!80!black, fill=red!15, rounded corners=4pt, minimum width=0.9cm, minimum height=1.6cm, line width=1.5pt},
+          detector/.style={fill=blue!20!gray, draw=blue!40!gray, opacity=0.35, line width=1pt, dashed}
+        ]
+        % Área de detección
+        \fill[detector] (0.45,0) -- +(40:3.5cm) arc (40:-40:3.5cm) -- cycle;
+        \node[text=blue!60!black, font=\small\bfseries, align=center] at (2.2,0) {Área de\\detección};
+        
+        % Objeto en movimiento (entrando al área)
+        \draw[gray!60, line width=1.1pt, dashed, ->] (3.8,2.3) -- (3.1,1.8);
+        \node[circle, fill=red!80, minimum size=0.15cm, inner sep=0pt] (obj) at (3.1,1.8) {};
+        \draw[red!80!black, thick] (obj) circle (4pt);
+
+        % Cuerpo de la cámara
+        \node[camera] (cam) at (0,0) {};
+        
+        % Lente y sensor PIR (detalles de la cámara)
+        \fill[red!80!black] (0.45,0.25) rectangle (0.55,-0.25);
+        \fill[black!80] (0.45,0.1) circle (2.2pt);
+        \fill[white!90!gray] (0.45,-0.17) rectangle (0.53,-0.07);
+        
+        % Etiqueta de la cámara
+        \node[below=0.2cm of cam, font=\small\bfseries, text=black!80, align=center] {Cámara\\trampa};
+      \end{tikzpicture}
     \end{column}
   \end{columns}
   \note{
-    Las cámaras trampa son el método más utilizado. Se activan por movimiento y toman una foto. Existen dos modalidades: las pasivas que guardan la foto en una tarjeta SD, y las activas que la envían usando infraestructura de telecomunicaciones.
+    Las cámaras trampa se activan por movimiento mediante sensores PIR y capturan imágenes al detectar presencia (fauna o intrusos).
+    Existen dos modalidades:
+    - Pasivas: Guardan fotos localmente en tarjeta SD (requieren recolección manual, lo que genera alta latencia).
+    - Activas: Transmiten fotos al instante usando redes 3G/4G o satelitales (pero requieren infraestructura costosa o inexistente en selva profunda).
   }
 \end{frame}
 
 \begin{frame}{Limitaciones del Monitoreo Actual}
   \begin{block}{Cámaras Pasivas: El problema de la latencia}
-    ¿Cuánto tiempo tarda entre que ocurre una intrusión y nos enteramos? \textbf{Mucho tiempo}. Pueden pasar semanas hasta recolectar la memoria SD. Para entonces, el daño ya está hecho.
+    ¿Cuánto tiempo transcurre entre una intrusión y su detección?
   \end{block}
 
   \begin{block}{Cámaras Activas: Infraestructura y Costos}
     \begin{itemize}
-      \item \textbf{Dependencia celular:} En la selva profunda la señal es inexistente.
-      \item \textbf{Altos costos operativos:} Suscripciones mensuales o hardware satelital excesivamente caro.
-      \item \textbf{Baja escalabilidad:} Económicamente inviable para despliegues masivos en grandes extensiones.
+      \item \textbf{Dependencia celular:} Sin señal en selva profunda.
+      \item \textbf{Costos elevados:} Suscripciones satelitales y hardware costoso.
+      \item \textbf{Escasa escalabilidad:} Inviable para despliegues masivos.
     \end{itemize}
   \end{block}
   \note{
-    Las pasivas tienen una latencia inaceptable: la información llega tarde. Las activas resuelven la latencia pero dependen de infraestructura que no hay en la selva, además de ser muy caras e imposibles de escalar masivamente.
+    Las cámaras pasivas tienen el gran problema de la latencia. Ante la pregunta: ¿Cuánto tiempo transcurre entre una intrusión y su detección?, la respuesta es: semanas o meses, hasta recolectar la tarjeta SD de forma manual. Para entonces, el daño ya está hecho.
+
+    Las cámaras activas resuelven la latencia pero fallan en la práctica por:
+    1. Falta de señal celular en zonas interiores.
+    2. Costo prohibitivo de planes satelitales y de hardware especial.
+    3. Imposibilidad de escalar a decenas o cientos de nodos por presupuesto.
   }
 \end{frame}
 
 \begin{frame}{Desafíos de Detección en Selva Densa}
-  \begin{itemize}
-    \item \textbf{Densidad del dosel:} La densa selva misionera bloquea la vista de los drones, forzando la vigilancia a nivel del suelo. Bajo el dosel, la vegetación impide líneas de visión amplias para las cámaras trampa.
-    \item \textbf{Área de cobertura reducida:} Cada cámara vigila una zona estrecha de pocos metros en línea recta, facilitando que los intrusos las esquiven.
-  \end{itemize}
-  \note{Cámaras trampa son el método más utilizado. La selva misionera presenta desafíos únicos: el dosel denso bloquea la vista de drones y la vegetación reduce el área de cobertura de las cámaras, haciendo que sea fácil para los intrusos evadirlas.}
+  \begin{columns}[c]
+    \begin{column}{0.55\textwidth}
+      \begin{itemize}
+        \setlength{\itemsep}{1.5em}
+        \item \textbf{Densidad del dosel:} Bloquea la vista aérea (drones) y reduce la penetración de luz y línea de visión terrestre.
+        \item \textbf{Cobertura reducida:} Zonas estrechas de detección del sensor PIR, obstruidas por vegetación, fáciles de esquivar por intrusos.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      \centering
+      \begin{tikzpicture}[
+          scale=1.1,
+          font=\sffamily,
+          >=Latex,
+          trunk/.style={fill=brown!55!black}
+        ]
+        % Suelo
+        \draw[brown!60!black, line width=1pt] (-1.9,-1.2) -- (1.9,-1.2);
+
+        % 1. DENSIDAD DEL DOSEL (Línea de vista de Drone Bloqueada)
+        % Árbol Grande (Centro-Derecha)
+        \fill[trunk] (0.7,-1.2) rectangle (0.9,0.5);
+        \fill[green!50!black, opacity=0.85] (0.8,1.1) circle (0.8cm);
+        \fill[green!60!black, opacity=0.85] (0.4,0.9) circle (0.6cm);
+        \fill[green!40!black, opacity=0.85] (1.2,0.9) circle (0.6cm);
+        
+        % Drone
+        \fill[black!80] (-0.2,1.95) rectangle (0.2,2.05);
+        \draw[thick, black!80] (-0.4,2.0);
+        \draw[thick, black!80] (-0.4,2.0) -- (-0.4,2.12) (0.4,2.0) -- (0.4,2.12);
+        \fill[black!60] (-0.4,2.12) ellipse (0.15cm and 0.04cm);
+        \fill[black!60] (0.4,2.12) ellipse (0.15cm and 0.04cm);
+        \node[above=0.15cm, font=\tiny\bfseries, text=black!70] at (0,2.0) {Drone};
+        
+        % Bloqueo del Drone
+        \draw[red!80, line width=1.1pt, dashed, ->] (0,1.9) -- (0.4,1.2);
+        \node[red!80!black, font=\tiny\bfseries, fill=white, inner sep=1pt, rounded corners=1pt] at (0.2,1.55) {Dosel bloquea vista};
+
+        % 2. COBERTURA REDUCIDA (Cámara con obstáculo)
+        % Árbol de la Cámara (Izquierda)
+        \fill[trunk] (-1.6,-1.2) rectangle (-1.45,0.5);
+        % Cámara trampa
+        \node[draw=red!80!black, fill=red!15, rounded corners=1pt, minimum width=0.18cm, minimum height=0.35cm, inner sep=0] (c) at (-1.35,-0.3) {};
+        \fill[red!80!black] (-1.35,-0.22) rectangle (-1.30,-0.27);
+        
+        % Cono de detección de la cámara
+        \fill[fill=blue!20!gray, draw=blue!40!gray, opacity=0.35, dashed, line width=0.8pt] (-1.35,-0.3) -- ++(25:1.6cm) arc (25:-25:1.6cm) -- cycle;
+        
+        % Arbusto / Obstáculo en el suelo
+        \fill[green!45!black] (-0.3,-1.2) circle (0.35cm);
+        \fill[green!35!black] (-0.5,-1.2) circle (0.25cm);
+        \fill[green!55!black] (-0.1,-1.2) circle (0.25cm);
+        
+        % Bloqueo de la cámara
+        \draw[red!80, line width=1.1pt, dashed, ->] (-1.35,-0.3) -- (-0.35,-0.9);
+        \node[red!80!black, font=\tiny\bfseries, fill=white, inner sep=0.5pt, rounded corners=1pt] at (-0.8,-0.55) {Punto ciego};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+  \note{
+    La selva misionera presenta desafíos físicos muy particulares:
+    1. Densidad del dosel (copa de los árboles): impide el uso de drones ya que no ven bajo las copas. En el suelo, la vegetación espesa limita la visibilidad.
+    2. Área de cobertura reducida: el sensor PIR y la lente de la cámara cubren apenas unos metros en línea recta, por lo que es fácil que una intrusión ocurra fuera de su campo de visión o que los intrusos las eviten.
+  }
 \end{frame}
 
 \section*{El Rol de la Tecnología}
@@ -746,10 +872,177 @@ desarrollamos.
 \section{Desarrollo}
 
 \begin{frame}{Vision General}
-\centering
-\includegraphics[width=0.95\textwidth]{bachelor-thesis/img/arquitecturaGeneralH.jpg}
-\note{
-Visión general del sistema: nodos de cámara capturan imágenes, las envían por
+  \makebox[\textwidth][c]{
+  \scalebox{0.65}{
+  \begin{tikzpicture}[
+      font=\sffamily,
+      >=Latex,
+      every node/.style={align=center},
+      mesh/.style={draw=black!80, ->, >=Latex, line width=1.2pt},
+      rtlink/.style={draw=black!80, <->, >=Latex, line width=1.2pt},
+      link/.style={draw=black!80, <->, >=Latex, line width=1.3pt},
+      flow/.style={draw=black!80, ->, >=Latex, line width=1.3pt}
+    ]
+    
+    % --- Nodo C1 ---
+    \begin{scope}[shift={(-6.0, 1.2)}]
+      \draw[draw=black, fill=white, rounded corners=2pt, line width=1.2pt] (-0.35,-0.5) rectangle (0.35,0.5);
+      \draw[draw=black, fill=black!80, line width=1.2pt] (0,0) circle (0.24);
+      \fill[black!30] (0,0) circle (0.13);
+      \fill[white] (-0.06,0.06) circle (0.04);
+      \draw[draw=black, fill=white, rounded corners=1pt, line width=1pt] (-0.55,-0.2) rectangle (-0.35,0.2);
+      \fill[black!90] (-0.48,0) circle (1.5pt);
+      \node (c1) at (0,0) [minimum width=1.1cm, minimum height=1.1cm] {};
+    \end{scope}
+
+    % --- Nodo C2 ---
+    \begin{scope}[shift={(-7.2, -0.2)}]
+      \draw[draw=black, fill=white, rounded corners=2pt, line width=1.2pt] (-0.35,-0.5) rectangle (0.35,0.5);
+      \draw[draw=black, fill=black!80, line width=1.2pt] (0,0) circle (0.24);
+      \fill[black!30] (0,0) circle (0.13);
+      \fill[white] (-0.06,0.06) circle (0.04);
+      \draw[draw=black, fill=white, rounded corners=1pt, line width=1pt] (-0.55,-0.2) rectangle (-0.35,0.2);
+      \fill[black!90] (-0.48,0) circle (1.5pt);
+      \node (c2) at (0,0) [minimum width=1.1cm, minimum height=1.1cm] {};
+      % Ondas wifi para C2
+      \draw[draw=black, line width=1pt] (-0.68, 0.1) to[out=135, in=225] (-0.68, -0.1);
+      \draw[draw=black, line width=1pt] (-0.80, 0.22) to[out=135, in=225] (-0.80, -0.22);
+      \draw[draw=black, line width=1pt] (0.68, 0.1) to[out=45, in=-45] (0.68, -0.1);
+      \draw[draw=black, line width=1pt] (0.80, 0.22) to[out=45, in=-45] (0.80, -0.22);
+    \end{scope}
+
+    % --- Nodo C3 ---
+    \begin{scope}[shift={(-7.2, -1.5)}]
+      \draw[draw=black, fill=white, rounded corners=2pt, line width=1.2pt] (-0.35,-0.5) rectangle (0.35,0.5);
+      \draw[draw=black, fill=black!80, line width=1.2pt] (0,0) circle (0.24);
+      \fill[black!30] (0,0) circle (0.13);
+      \fill[white] (-0.06,0.06) circle (0.04);
+      \draw[draw=black, fill=white, rounded corners=1pt, line width=1pt] (-0.55,-0.2) rectangle (-0.35,0.2);
+      \fill[black!90] (-0.48,0) circle (1.5pt);
+      \node (c3) at (0,0) [minimum width=1.1cm, minimum height=1.1cm] {};
+    \end{scope}
+
+    % --- Nodo C4 ---
+    \begin{scope}[shift={(-4.8, -1.0)}]
+      \draw[draw=black, fill=white, rounded corners=2pt, line width=1.2pt] (-0.35,-0.5) rectangle (0.35,0.5);
+      \draw[draw=black, fill=black!80, line width=1.2pt] (0,0) circle (0.24);
+      \fill[black!30] (0,0) circle (0.13);
+      \fill[white] (-0.06,0.06) circle (0.04);
+      \draw[draw=black, fill=white, rounded corners=1pt, line width=1pt] (-0.55,-0.2) rectangle (-0.35,0.2);
+      \fill[black!90] (-0.48,0) circle (1.5pt);
+      \node (c4) at (0,0) [minimum width=1.1cm, minimum height=1.1cm] {};
+    \end{scope}
+
+    % --- Nodo C5 ---
+    \begin{scope}[shift={(-3.5, 0.2)}]
+      \draw[draw=black, fill=white, rounded corners=2pt, line width=1.2pt] (-0.35,-0.5) rectangle (0.35,0.5);
+      \draw[draw=black, fill=black!80, line width=1.2pt] (0,0) circle (0.24);
+      \fill[black!30] (0,0) circle (0.13);
+      \fill[white] (-0.06,0.06) circle (0.04);
+      \draw[draw=black, fill=white, rounded corners=1pt, line width=1pt] (-0.55,-0.2) rectangle (-0.35,0.2);
+      \fill[black!90] (-0.48,0) circle (1.5pt);
+      \node (c5) at (0,0) [minimum width=1.1cm, minimum height=1.1cm] {};
+    \end{scope}
+
+    % --- Gateway / Router ---
+    \begin{scope}[shift={(-1.5,-0.4)}]
+      \draw[draw=black, fill=white, rounded corners=2pt, line width=1.2pt] (-0.45,-0.2) rectangle (0.45,0.25);
+      \draw[draw=black, line width=1.4pt] (-0.35,0.25) -- (-0.55,0.65);
+      \draw[draw=black, line width=1.4pt] (0.35,0.25) -- (0.55,0.65);
+      \fill[black] (0,-0.1) circle (1.5pt);
+      \draw[draw=black, line width=0.8pt] (-0.12,-0.02) to[out=45, in=135] (0.12,-0.02);
+      \draw[draw=black, line width=0.8pt] (-0.2,0.06) to[out=45, in=135] (0.2,0.06);
+      \node (rt) at (0,0.02) [minimum width=1cm, minimum height=0.7cm] {};
+    \end{scope}
+
+    % Enlaces MESH
+    \draw[mesh] (c1) -- (c5);
+    \draw[mesh] (c2) -- (c4);
+    \draw[mesh] (c3) -- (c4);
+    \draw[mesh] (c4) -- (c5);
+    \draw[rtlink] (c5) -- (rt);
+
+    % Caja de fondo para Red Mesh
+    \begin{scope}[on background layer]
+      \node[draw=green!60!black, fill=green!10!white, fill opacity=0.4, rounded corners=6pt, line width=1.2pt, fit={(c1) (c2) (c3) (rt)}, inner sep=15pt] (meshbox) {};
+    \end{scope}
+    \node[above right, font=\bfseries\sffamily\small, text=black] at ($(meshbox.north west) + (0.1, 0.05)$) {Red MESH};
+
+    % --- Internet (Nube) ---
+    \node[cloud, draw=blue!70!black, fill=white, minimum width=1.8cm, minimum height=1.2cm, cloud puffs=9, font=\sffamily\bfseries\small, line width=1.2pt] (internet) at (1.5, -0.4) {Internet};
+    
+    % Enlace Gateway a Internet
+    \draw[link] (rt) -- (internet);
+
+    % --- Servidor (Backend) ---
+    \begin{scope}[shift={(4.8,-0.4)}]
+      \draw[draw=black!80, fill=gray!20, line width=1.2pt] (-0.3,-0.5) rectangle (0.3,0.5);
+      \draw[draw=black!80, fill=gray!40, line width=1.1pt] (-0.3,0.5) -- (-0.1,0.65) -- (0.5,0.65) -- (0.3,0.5) -- cycle;
+      \draw[draw=black!80, fill=gray!30, line width=1.1pt] (0.3,-0.5) -- (0.5,-0.35) -- (0.5,0.65) -- (0.3,0.5) -- cycle;
+      \draw[draw=black!70, fill=black!80, line width=0.6pt] (-0.2,0.25) rectangle (0.2,0.32);
+      \draw[draw=black!70, fill=black!80, line width=0.6pt] (-0.2,0.05) rectangle (0.2,0.12);
+      \draw[draw=black!70, fill=black!80, line width=0.6pt] (-0.2,-0.15) rectangle (0.2,-0.08);
+      \fill[green!80!black] (-0.15,-0.35) circle (1.5pt);
+      \fill[red!80!black] (0,-0.35) circle (1.5pt);
+      \node (server) at (0.1,0.07) [minimum width=0.8cm, minimum height=1.2cm] {};
+    \end{scope}
+
+    % Red Neuronal (superpuesta levemente)
+    \begin{scope}[shift={(4.8,-0.5)}, scale=0.18]
+      \node[circle, fill=black, minimum size=3pt, inner sep=0] (n-0-0) at (0,0) {};
+      \node[circle, fill=black, minimum size=3pt, inner sep=0] (n-0-1) at (0,1.5) {};
+      \node[circle, fill=black, minimum size=3pt, inner sep=0] (n-1-0) at (1.2,0.75) {};
+      \node[circle, fill=black, minimum size=3pt, inner sep=0] (n-1-1) at (1.2,-0.75) {};
+      \node[circle, fill=black, minimum size=3pt, inner sep=0] (n-2-0) at (2.4,0) {};
+      \node[circle, fill=black, minimum size=3pt, inner sep=0] (n-2-1) at (2.4,1.5) {};
+      
+      \draw[draw=black, line width=0.6pt] (n-0-0) -- (n-1-0) (n-0-0) -- (n-1-1);
+      \draw[draw=black, line width=0.6pt] (n-0-1) -- (n-1-0) (n-0-1) -- (n-1-1);
+      \draw[draw=black, line width=0.6pt] (n-1-0) -- (n-2-0) (n-1-0) -- (n-2-1);
+      \draw[draw=black, line width=0.6pt] (n-1-1) -- (n-2-0) (n-1-1) -- (n-2-1);
+    \end{scope}
+
+    % --- Telegram Bot Icon ---
+    \begin{scope}[shift={(7.0,-0.4)}]
+      \fill[black] (0,0) circle (0.35);
+      \fill[white] (-0.18,0.06) -- (0.2,0.14) -- (-0.05,-0.12) -- (-0.09,-0.02) -- cycle;
+      \fill[gray!40] (-0.09,-0.02) -- (-0.05,-0.12) -- (-0.05,-0.2) -- cycle;
+      \node (tg) at (0,0) [minimum width=0.7cm, minimum height=0.7cm] {};
+    \end{scope}
+
+    % Conexión servidor -> Telegram
+    \draw[flow] (server) -- (tg);
+
+    % Caja de fondo para Backend
+    \begin{scope}[on background layer]
+      \node[draw=orange!60!black, fill=orange!15!white, fill opacity=0.4, rounded corners=6pt, line width=1.2pt, fit={(server) (tg)}, inner sep=15pt] (backendbox) {};
+    \end{scope}
+    \node[above right, font=\bfseries\sffamily\small, text=black] at ($(backendbox.north west) + (0.1, 0.05)$) {Backend};
+
+    % Conexión Internet -> Backend
+    \draw[link] (internet) -- (backendbox.west);
+
+    % --- Usuario (Smartphone) ---
+    \begin{scope}[shift={(9.8,-0.4)}]
+      \draw[draw=black, fill=white, rounded corners=4pt, line width=1.3pt] (-0.35,-0.65) rectangle (0.35,0.65);
+      \draw[draw=black, fill=white, line width=0.8pt] (-0.28,-0.5) rectangle (0.28,0.5);
+      \fill[black] (0,-0.57) circle (1.5pt);
+      \fill[black] (-0.08,0.56) rectangle (0.08,0.59);
+      \draw[draw=black!70, fill=gray!10, line width=0.6pt] (-0.23,-0.43) rectangle (0.23,0.43);
+      \fill[gray!60] (-0.2, -0.4) -- (-0.05, -0.15) -- (0.1, -0.4) -- cycle;
+      \fill[gray!40] (-0.05, -0.4) -- (0.1, -0.2) -- (0.2, -0.4) -- cycle;
+      \fill[orange!80] (0.12, 0.22) circle (3.5pt);
+      \node (phone) at (0,0) [minimum width=0.7cm, minimum height=1.3cm] {};
+    \end{scope}
+    \node[above=0.2cm of phone, font=\bfseries\sffamily\small, text=black] {Usuario};
+
+    % Conexión Backend -> Usuario
+    \draw[flow] (backendbox.east) -- (phone.west);
+  \end{tikzpicture}
+  }
+  }
+  \note{
+    Visión general del sistema: nodos de cámara capturan imágenes, las envían por
 red mesh al nodo raíz, que las reenvía al servidor para procesamiento con IA
 y notificación por Telegram.
 }
@@ -850,57 +1143,230 @@ viendo la IP, sin involucrar a su capa de aplicación.
 }
 \end{frame}
 
-\begin{frame}{Red Malla - Topologia y Roles}
-\begin{columns}
-\begin{column}{0.5\textwidth}
-\textbf{Topologia de Arbol:}
-\begin{itemize}
-\item Multiples conexiones descendentes (SoftAP)
-\item Una unica conexion ascendente (Station)
-\end{itemize}
+\begin{frame}{Red Malla - Topología}
+  \centering
+  \includegraphics[height=0.55\paperheight,keepaspectratio]{img/mesh-tree-topology.png}
+  
+  \vspace{1em}
+  \begin{columns}[t]
+    \begin{column}{0.5\textwidth}
+      \centering
+      \textbf{Conexión Ascendente} (Station)
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \centering
+      \textbf{Conexiones Descendentes} (SoftAP)
+    \end{column}
+  \end{columns}
+  \note{
+    La red tiene topología de árbol basada en ESP-MESH-LITE. Cada nodo se conecta al padre como Station (conexión ascendente) y permite que múltiples hijos se conecten a él a través de su SoftAP (conexiones descendentes) de forma jerárquica.
+  }
+\end{frame}
 
-\vspace{0.5em}
-\textbf{Roles (Trade-off de Energia):}
-\begin{description}
-\item[Leaf:] Nivel mas bajo. Deep Sleep + ULP. Ultra bajo consumo.
-\item[Relay:] Nodo intermedio. Light Sleep para enrutar trafico.
-\item[Root:] Unica puerta de enlace al Router. 100\% activo. Sin camara.
-\end{description}
-\end{column}
-\begin{column}{0.5\textwidth}
-\centering
-\includegraphics[width=0.95\textwidth]{img/mesh-tree-topology.png}
-\end{column}
-\end{columns}
-\note{
-La red tiene topología de árbol. Tenemos 3 roles con un fuerte trade-off
-energético: El Leaf prioriza ahorro de batería (Deep sleep, sin enrutar).
-El Relay sacrifica batería para extender la red (Light sleep).
-El Root es el nodo raíz (un ESP32 sin cámara) que puentea a internet.
-}
+\begin{frame}{Red Malla - Roles y Energía}
+  \textbf{Trade-off de Energía y Funcionalidad:}
+  
+  \vspace{1em}
+  \begin{columns}[t]
+    \begin{column}{0.32\textwidth}
+      \begin{block}{Leaf}
+        \small
+        \textbf{Bajo consumo}
+        \begin{itemize}
+          \scriptsize
+          \item Deep Sleep + ULP
+          \item Sin enrutar tráfico
+          \item Máxima autonomía
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \begin{block}{Relay}
+        \small
+        \textbf{Nodo intermedio}
+        \begin{itemize}
+          \scriptsize
+          \item Light Sleep
+          \item Enruta tráfico
+          \item Consumo moderado
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \begin{block}{Root}
+        \small
+        \textbf{Nodo Raíz}
+        \begin{itemize}
+          \scriptsize
+          \item 100\% activo
+          \item Puerta al Router
+          \item Sin cámara (ESP32)
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+  \note{
+    Explicamos los tres roles de la red malla y su balance energético.
+    1. El Leaf prioriza el ahorro de batería (Deep sleep con ULP), no ayuda a enrutar y tiene la mayor autonomía.
+    2. El Relay sacrifica batería permaneciendo en Light sleep para poder recibir y enrutar paquetes de otros nodos.
+    3. El Root es la única puerta de enlace, está 100% activo sin cámara y conectado directamente a una fuente de alimentación o router.
+  }
 \end{frame}
 
 \begin{frame}{Red Malla - Robustez (Self-Healing)}
-\textbf{Auto-recuperacion ante fallos (Self-Healing):}
+  \begin{columns}[c]
+    \begin{column}{0.5\textwidth}
+      \textbf{Auto-recuperación (Self-Healing):}
+      \vspace{1em}
+      
+      \only<1>{
+        \textbf{1. Estado Normal}
+        \begin{itemize}
+          \item Estructura jerárquica activa.
+          \item El nodo Leaf C envía datos a través del Relay A.
+        \end{itemize}
+      }
+      \only<2>{
+        \textbf{2. Pérdida de Enlace}
+        \begin{itemize}
+          \item El nodo Relay A falla o se apaga.
+          \item C detecta la pérdida del enlace y queda desconectado.
+        \end{itemize}
+      }
+      \only<3>{
+        \textbf{3. Re-escaneo}
+        \begin{itemize}
+          \item C realiza un escaneo activo del entorno de radio.
+          \item Busca balizas e identifica al Relay B como nuevo padre potencial.
+        \end{itemize}
+      }
+      \only<4>{
+        \textbf{4. Conexión Restablecida}
+        \begin{itemize}
+          \item C se asocia con el Relay B.
+          \item La red se reestructura automáticamente.
+        \end{itemize}
+      }
+    \end{column}
+    
+    \begin{column}{0.5\textwidth}
+      \centering
+      \begin{tikzpicture}[
+          font=\sffamily,
+          >=Latex,
+          every node/.style={align=center},
+          node_ok/.style={circle, draw=teal!80!black, fill=teal!10, minimum size=0.75cm, thick},
+          node_fail/.style={circle, draw=red!80!black, fill=red!10, minimum size=0.75cm, thick, dashed},
+          node_root/.style={circle, draw=orange!80!black, fill=orange!15, minimum size=0.75cm, thick, line width=1.2pt},
+          link_ok/.style={draw=teal!80!black, <-, line width=1.2pt},
+          link_scan/.style={draw=orange!80, <->, dotted, line width=1.2pt},
+          link_new/.style={draw=green!60!black, <-, line width=1.5pt}
+        ]
+        
+        % Nodos
+        \node[node_root] (R) at (2.0, 0) {R};
+        \only<1>{\node[node_ok] (A) at (0.5, 0.9) {A};}
+        \only<2->{\node[node_fail] (A) at (0.5, 0.9) {A};}
+        \node[node_ok] (B) at (0.5, -0.9) {B};
+        \node[node_ok] (C) at (-1.0, 0.5) {C};
 
-\vspace{0.5em}
-\begin{itemize}
-\item Si un nodo Relay se desconecta o queda sin bateria, los nodos hijos \textbf{re-escanean} el entorno y seleccionan un nuevo padre disponible, reparando la red en $< \qty{45}{s}$.
-\item Prevencion de bucles (Loop Prevention) interna.
-\end{itemize}
+        % Enlaces
+        \draw[link_ok] (R) -- (B);
+        
+        \only<1>{
+          \draw[link_ok] (R) -- (A);
+          \draw[link_ok] (A) -- (C);
+        }
+        \only<2>{
+          \draw[draw=red!70, dashed, <-, line width=1.2pt] (R) -- (A);
+          \draw[draw=red!70, dashed, <-, line width=1.2pt] (A) -- (C) node[midway, above, sloped, font=\tiny\bfseries, text=red] {Fallo};
+        }
+        \only<3>{
+          % Círculo de escaneo alrededor de C
+          \draw[draw=orange!50, fill=orange!10, fill opacity=0.15, dashed] (C) circle (2.2cm);
+          \draw[link_scan] (B) -- (C) node[midway, below, sloped, font=\tiny\bfseries, text=orange] {Escaneo};
+        }
+        \only<4>{
+          \draw[link_new] (B) -- (C) node[midway, below, sloped, font=\tiny\bfseries, text=green!50!black] {Healed};
+        }
+        
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+  \note{
+    Esta secuencia muestra el mecanismo de self-healing.
+    Paso 1: Red funcionando normalmente.
+    Paso 2: El nodo A falla. Los enlaces asociados se caen y el nodo C queda huérfano.
+    Paso 3: C detecta la falla del padre y escanea canales de radio buscando balizas de otros padres.
+    Paso 4: C selecciona al nodo B (el más cercano/con mejor señal) y se asocia con él, restableciendo la conectividad en pocos segundos.
+  }
+\end{frame}
 
-\vspace{0.5em}
-\textbf{Seleccion automatica del Root Node:}
-\begin{itemize}
-\item Multiples nodos Root evaluan su senal \textbf{RSSI} respecto al Router.
-\item El nodo con mejor senal asume el rol de Root y los demas se convierten en nodos secundarios. Evita cuellos de botella.
-\end{itemize}
-\note{
-La robustez es crítica en la selva. MESH-LITE nos da self-healing: si un
-nodo intermedio se cae, los hijos buscan automáticamente otro padre.
-Además, la elección del nodo raíz es dinámica basada en la mejor señal
-RSSI con el router principal.
-}
+\begin{frame}{Red Malla - Selección de Root Node}
+  \begin{columns}[c]
+    \begin{column}{0.52\textwidth}
+      \textbf{Elección del nodo Raíz (Root):}
+      \vspace{0.8em}
+      \begin{itemize}
+        \setlength{\itemsep}{0.6em}
+        \small
+        \item Los candidatos evalúan su potencia de señal \textbf{RSSI} al Router.
+        \item El nodo con mejor señal (\textbf{-58 dBm}) se establece automáticamente como \textbf{Root}.
+        \item Nodos con señal más débil (\textbf{-85 dBm}) se reconfiguran como \textbf{Relays} y se conectan al Root.
+      \end{itemize}
+      
+      \vspace{0.8em}
+      \begin{block}{Prevención de Bucles}
+        \scriptsize
+        Evita reenvíos cíclicos de paquetes durante la autoconfiguración jerárquica de la topología.
+      \end{block}
+    \end{column}
+    
+    \begin{column}{0.48\textwidth}
+      \centering
+      \begin{tikzpicture}[
+          font=\sffamily,
+          >=Latex,
+          every node/.style={align=center},
+          node_root/.style={circle, draw=orange!80!black, fill=orange!15, minimum size=0.75cm, thick, line width=1.2pt, font=\scriptsize\bfseries},
+          node_relay/.style={circle, draw=teal!80!black, fill=teal!10, minimum size=0.75cm, thick, font=\scriptsize\bfseries},
+          node_leaf/.style={circle, draw=teal!80!black, fill=teal!10, minimum size=0.75cm, thick, font=\scriptsize\bfseries},
+          link_root/.style={draw=orange!80!black, <->, line width=1.2pt},
+          link_weak/.style={draw=black!40, dashed, line width=1pt},
+          link_mesh/.style={draw=teal!80!black, ->, line width=1.2pt}
+        ]
+        
+        % Router / AP (Derecha)
+        \begin{scope}[shift={(2.2,0.0)}, scale=0.8]
+          \draw[draw=black, fill=white, rounded corners=1.5pt, line width=1.1pt] (-0.4,-0.18) rectangle (0.4,0.22);
+          \draw[draw=black, line width=1.2pt] (-0.3,0.22) -- (-0.48,0.58);
+          \draw[draw=black, line width=1.2pt] (0.3,0.22) -- (0.58,0.58);
+          \fill[black] (0,-0.08) circle (1.2pt);
+          \draw[draw=black, line width=0.7pt] (-0.1,-0.02) to[out=45, in=135] (0.1,-0.02);
+          \draw[draw=black, line width=0.7pt] (-0.17,0.06) to[out=45, in=135] (0.17,0.06);
+          \node (router) at (0,0.02) [minimum width=0.8cm, minimum height=0.6cm] {};
+        \end{scope}
+        \node[below=0.4cm of router, font=\tiny\bfseries, text=black!70] {Router\\(Salida)};
+
+        % Nodos candidatos
+        \node[node_root] (A) at (0.4, 0.9) {Root};
+        \node[node_relay] (B) at (0.4, -0.9) {Relay};
+        \node[node_leaf] (C) at (-1.0, 0.0) {Leaf};
+
+        % Enlaces de evaluación RSSI
+        \draw[link_root] (router.west) -- (A.east) node[midway, above, sloped, font=\tiny\bfseries, text=orange!80!black] {-58 dBm\\(Mejor)};
+        \draw[link_weak] (router.west) -- (B.east) node[midway, below, sloped, font=\tiny\bfseries, text=black!50] {-85 dBm\\(Débil)};
+
+        % Enlaces de la topología formada
+        \draw[link_mesh] (B) -- (A);
+        \draw[link_mesh] (C) -- (B);
+        
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+  \note{
+    Además del self-healing de nodos hijos, la elección del nodo raíz (Root) es dinámica. Si hay varios nodos cerca del router de salida, comparan su señal RSSI y el que tenga mejor enlace se designa como Root, lo que asegura el camino más óptimo hacia el exterior.
+  }
 \end{frame}
 
 
@@ -1166,28 +1632,70 @@ movimiento de vegetación fueron filtradas por la lógica de umbrales.
 \end{frame}
 
 \begin{frame}{Resultados - Red Mesh}
-\begin{table}
-\centering
-\begin{tabular}{lc}
-\hline
-\textbf{Metrica}               & \textbf{Valor} \\
-\hline
-Latencia LAN (\qty{12.9}{\kilo\byte})  & $\sim$\qty{463}{ms}   \\
-Ciclo completo nodo (LAN)     & $\sim$\qty{1.27}{s}   \\
-Latencia campo (hotspot)      & \qtyrange{20}{60}{s} (prom. \qty{40}{s}) \\
-Distancia max (linea de vista) & \qtyrange{15}{18}{m}  \\
-Distancia max (vegetacion)     & $\sim$\qty{12}{m}     \\
-Distancia max (interior)       & $\sim$\qty{10}{m}     \\
-\hline
-\end{tabular}
-\end{table}
-\note{
-Métricas de red: en LAN, transmisión HTTP de 463 ms para 12.9 KB, ciclo
-completo de 1.27 s. En campo con hotspot celular (cobertura deficiente),
-latencia promedio de 40 s. Distancia máxima: 15-18 m en línea de vista,
-12 m con vegetación, 10 m en interior.
-}
+  \begin{columns}[t]
+    \begin{column}{0.55\textwidth}
+      \textbf{Latencia de Transmisión}
+      \vspace{0.3em}
+      \begin{table}
+        \centering
+        \scriptsize
+        \renewcommand{\arraystretch}{1.3}
+        \begin{tabular}{lcc}
+          \hline
+          \textbf{Métrica}  & \textbf{LAN} & \textbf{Campo} \\
+          \hline
+          Transmisión (\qty{12.9}{\kilo\byte})  & $\sim$\qty{463}{ms} & \qtyrange{20}{60}{s} \\
+          Ciclo completo    & $\sim$\qty{1.27}{s} & --- \\
+          \hline
+        \end{tabular}
+      \end{table}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      \textbf{Alcance Máximo}
+      \vspace{0.3em}
+      \begin{table}
+        \centering
+        \scriptsize
+        \renewcommand{\arraystretch}{1.3}
+        \begin{tabular}{lc}
+          \hline
+          \textbf{Escenario}  & \textbf{Distancia} \\
+          \hline
+          Línea de vista      & \qtyrange{15}{18}{m} \\
+          Con vegetación      & $\sim$\qty{12}{m} \\
+          Interior            & $\sim$\qty{10}{m} \\
+          \hline
+        \end{tabular}
+      \end{table}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.5em}
+  {\footnotesize\textit{Nota: La prueba de campo se realizó sobre un hotspot celular
+  con cobertura limitada y ancho de banda compartido, representando
+  un escenario de conectividad adverso.}}
+
+  \note{
+    En condiciones controladas de laboratorio (red LAN local, servidor en la
+    misma subred), el sistema logra una latencia de transmisión HTTP de 463~ms
+    para una imagen de 12.9~KB, con un ciclo completo wake-up-to-sleep de solo
+    1.27~s, lo cual valida la eficiencia del firmware.
+
+    La prueba de campo se realizó intencionalmente en condiciones de
+    conectividad adversas: un hotspot de celular con señal débil,
+    compartido simultáneamente entre los nodos mesh, la computadora
+    ejecutando el servidor HTTP, el bot de Telegram y otros servicios.
+    Esta saturación del canal inalámbrico y la alta latencia del uplink
+    celular explican la diferencia de dos órdenes de magnitud respecto
+    a la prueba LAN. El valor de 40~s promedio refleja las limitaciones
+    del enlace de salida (backhaul), no del protocolo mesh ni del firmware.
+
+    En un despliegue real con un router WiFi dedicado (o incluso un
+    hotspot con mejor cobertura), se esperaría un rendimiento
+    significativamente más cercano al obtenido en laboratorio.
+  }
 \end{frame}
+
 
 \begin{frame}{Resultados - Deteccion}
 \begin{columns}
@@ -1242,43 +1750,49 @@ compensa estos errores y genera datos para fine-tuning.
 
 % El frame de Consumo Energético fue movido a la Sección 3 (Diseño y Energía)
 
-% 
-% \begin{frame}{Pruebas de Laboratorio}
-% \textbf{Validaciones realizadas:}
-% 
-% \begin{itemize}
-% \item Captura de imagen: inicializacion, calidad, tamano
-% \item Sensor PIR: distancia, tiempo de respuesta, falsas activaciones
-% \item Transmision mesh: conexion, latencia, perdida de paquetes
-% \item Clasificacion: deteccion de animales/personas/vehiculos
-% \item Alertas: recepcion en Telegram, contenido correcto
-% \end{itemize}
-% \note{
-% Pruebas de laboratorio cubrieron cada componente: captura de imagen, sensor
-% PIR, transmisión mesh, clasificación con IA, y recepción de alertas en
-% Telegram.
-% }
-% \end{frame}
-% 
-% \begin{frame}{Resultados - Captura de Imagen}
-% % TODO: Ejemplo imagen capturada
-% \centering
-% \fbox{\parbox{0.6\textwidth}{\centering\vspace{2cm}
-% [Ejemplo imagen capturada 640x480]
-% \vspace{2cm}}}
-% 
-% \begin{itemize}
-% \item Resolucion: 640x480 (VGA)
-% \item Formato: JPEG comprimido
-% \item Tamano tipico: \qtyrange{30}{35}{\kilo\byte}
-% \item Ciclo completo (deteccion $\rightarrow$ envio): $\sim$\qty{1.27}{s} en LAN
-% \end{itemize}
-% \note{
-% Resultados de captura: resolución VGA suficiente para clasificación.
-% Imágenes JPEG de 30-35 KB. Ciclo completo desde detección PIR hasta
-% confirmación de envío: 1.27 segundos en red local.
-% }
-% \end{frame}
+\begin{frame}{Resultados - Bot de Telegram (HITL)}
+  \only<1>{
+    \centering
+    \textbf{Paso 1:} Clasificación errónea inicial en el panel web
+
+    \vspace{0.5em}
+    \includegraphics[height=0.7\textheight]{bachelor-thesis/img/clasificacionErroneaAntes.png}
+  }
+  \only<2>{
+    \centering
+    \textbf{Paso 2:} El usuario indica el error desde el bot de Telegram
+
+    \vspace{0.5em}
+    \includegraphics[height=0.7\textheight]{bachelor-thesis/img/seleccionClasificacionErronea.png}
+  }
+  \only<3>{
+    \centering
+    \textbf{Paso 3:} Selección de la etiqueta correcta (\textit{human})
+
+    \vspace{0.5em}
+    \includegraphics[height=0.7\textheight]{bachelor-thesis/img/seleccionHuman.png}
+  }
+  \only<4>{
+    \centering
+    \textbf{Paso 4:} Registro actualizado y auditado en el panel web
+
+    \vspace{0.5em}
+    \includegraphics[height=0.7\textheight]{bachelor-thesis/img/clasificacionCorregida.png}
+  }
+  \note{
+    Este flujo demuestra el mecanismo Human-in-the-loop en acción.
+    Paso 1: el modelo clasifica erróneamente una imagen (ej. confunde persona con animal).
+    Paso 2: el usuario recibe la notificación en Telegram y mediante un teclado inline
+    indica que la clasificación es incorrecta.
+    Paso 3: el bot presenta las alternativas sugeridas por el modelo y el usuario
+    selecciona la etiqueta correcta (human).
+    Paso 4: el sistema actualiza la base de datos y el panel web refleja el cambio
+    inmediatamente, marcando el evento como auditado.
+
+    Esto no solo corrige errores en tiempo real, sino que genera datos etiquetados
+    de alta calidad para futuro fine-tuning del modelo con imágenes del ecosistema local.
+  }
+\end{frame}
 
 % ==============================================================================
 % Sección 5: Conclusiones
