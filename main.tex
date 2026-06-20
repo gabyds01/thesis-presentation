@@ -22,6 +22,7 @@
 
 % Unidades
 \usepackage[locale=DE]{siunitx}
+\sisetup{detect-weight}
 
 % Bibliografia
 \usepackage[style=apa, backend=biber]{biblatex}
@@ -510,70 +511,70 @@ Ejercicio
   }
 \end{frame}
 
-\begin{frame}{Desafíos de Detección en Selva Densa}
-  \begin{columns}[c]
-    \begin{column}{0.55\textwidth}
-      \begin{itemize}
-        \setlength{\itemsep}{1.5em}
-        \item \textbf{Densidad del dosel:} Bloquea la vista aérea (drones) y reduce la penetración de luz y línea de visión terrestre.
-        \item \textbf{Cobertura reducida:} Zonas estrechas de detección del sensor PIR, obstruidas por vegetación, fáciles de esquivar por intrusos.
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.45\textwidth}
-      \centering
-      \begin{tikzpicture}[
-          scale=1.1,
-          font=\sffamily,
-          >=Latex,
-          trunk/.style={fill=brown!55!black}
-        ]
-        % Suelo
-        \draw[brown!60!black, line width=1pt] (-1.9,-1.2) -- (1.9,-1.2);
+\begin{frame}{El Desafío de la Radiofrecuencia en Entornos Vivos}
+  \begin{itemize}
+    \setlength{\itemsep}{1em}
+    \item \textbf{Atenuación por humedad (Efecto ``Microondas'')}
+    \item \textbf{Dispersión por trayectos múltiples (\textit{Multipath})}
+    \item \textbf{Obstrucción de la Zona de Fresnel}
+    \item \textbf{Límites legales de potencia de transmisión}
+  \end{itemize}
 
-        % 1. DENSIDAD DEL DOSEL (Línea de vista de Drone Bloqueada)
-        % Árbol Grande (Centro-Derecha)
-        \fill[trunk] (0.7,-1.2) rectangle (0.9,0.5);
-        \fill[green!50!black, opacity=0.85] (0.8,1.1) circle (0.8cm);
-        \fill[green!60!black, opacity=0.85] (0.4,0.9) circle (0.6cm);
-        \fill[green!40!black, opacity=0.85] (1.2,0.9) circle (0.6cm);
-        
-        % Drone
-        \fill[black!80] (-0.2,1.95) rectangle (0.2,2.05);
-        \draw[thick, black!80] (-0.4,2.0);
-        \draw[thick, black!80] (-0.4,2.0) -- (-0.4,2.12) (0.4,2.0) -- (0.4,2.12);
-        \fill[black!60] (-0.4,2.12) ellipse (0.15cm and 0.04cm);
-        \fill[black!60] (0.4,2.12) ellipse (0.15cm and 0.04cm);
-        \node[above=0.15cm, font=\tiny\bfseries, text=black!70] at (0,2.0) {Drone};
-        
-        % Bloqueo del Drone
-        \draw[red!80, line width=1.1pt, dashed, ->] (0,1.9) -- (0.4,1.2);
-        \node[red!80!black, font=\tiny\bfseries, fill=white, inner sep=1pt, rounded corners=1pt] at (0.2,1.55) {Dosel bloquea vista};
+  \vspace{0.4em}
+  \centering
+  \begin{tikzpicture}[
+      scale=0.95,
+      font=\sffamily\scriptsize,
+      >=Latex
+    ]
+    % Suelo
+    \draw[brown!60!black, line width=1pt] (-5.0,-1.2) -- (5.0,-1.2);
+    
+    % Nodos (Antenas Tx / Rx)
+    % Tx
+    \fill[gray!80] (-4.5,-1.2) rectangle (-4.3,-0.2);
+    \draw[line width=1.2pt, gray!80] (-4.4,-0.2) -- (-4.4,0.3);
+    \fill[red!80] (-4.4,0.3) circle (0.08cm);
+    \node[above=0.08cm, font=\tiny\bfseries] at (-4.4,0.3) {Tx};
+    
+    % Rx
+    \fill[gray!80] (4.3,-1.2) rectangle (4.5,-0.2);
+    \draw[line width=1.2pt, gray!80] (4.4,-0.2) -- (4.4,0.3);
+    \fill[red!80] (4.4,0.3) circle (0.08cm);
+    \node[above=0.08cm, font=\tiny\bfseries] at (4.4,0.3) {Rx};
 
-        % 2. COBERTURA REDUCIDA (Cámara con obstáculo)
-        % Árbol de la Cámara (Izquierda)
-        \fill[trunk] (-1.6,-1.2) rectangle (-1.45,0.5);
-        % Cámara trampa
-        \node[draw=red!80!black, fill=red!15, rounded corners=1pt, minimum width=0.18cm, minimum height=0.35cm, inner sep=0] (c) at (-1.35,-0.3) {};
-        \fill[red!80!black] (-1.35,-0.22) rectangle (-1.30,-0.27);
-        
-        % Cono de detección de la cámara
-        \fill[fill=blue!20!gray, draw=blue!40!gray, opacity=0.35, dashed, line width=0.8pt] (-1.35,-0.3) -- ++(25:1.6cm) arc (25:-25:1.6cm) -- cycle;
-        
-        % Arbusto / Obstáculo en el suelo
-        \fill[green!45!black] (-0.3,-1.2) circle (0.35cm);
-        \fill[green!35!black] (-0.5,-1.2) circle (0.25cm);
-        \fill[green!55!black] (-0.1,-1.2) circle (0.25cm);
-        
-        % Bloqueo de la cámara
-        \draw[red!80, line width=1.1pt, dashed, ->] (-1.35,-0.3) -- (-0.35,-0.9);
-        \node[red!80!black, font=\tiny\bfseries, fill=white, inner sep=0.5pt, rounded corners=1pt] at (-0.8,-0.55) {Punto ciego};
-      \end{tikzpicture}
-    \end{column}
-  \end{columns}
+    % Zona de Fresnel (Elipsoide)
+    \draw[blue!40, dashed, fill=blue!5, opacity=0.35] (0,0.3) ellipse (4.4cm and 0.9cm);
+    \node[blue!80!black, font=\tiny\bfseries] at (0,0.95) {Zona de Fresnel};
+
+    % Obstrucción (Suelo / Maleza)
+    \fill[brown!70!black] (0.8,-1.2) to[out=40,in=140] (2.2,-1.2) -- cycle;
+    \fill[green!45!black] (1.5,-1.2) circle (0.45cm);
+    \fill[green!35!black] (1.1,-1.2) circle (0.35cm);
+    \node[red!80!black, font=\tiny\bfseries, fill=white, inner sep=0.8pt, rounded corners=1pt] at (1.5,-0.4) {Obstrucción};
+
+    % Línea de vista directa (LoS)
+    \draw[blue!80!black, thick, ->] (-4.4,0.3) -- (4.4,0.3);
+
+    % Multipath (Reflexiones)
+    % Árbol y follaje
+    \fill[brown!60!black] (-1.8,-1.2) rectangle (-1.65,1.2);
+    \fill[green!50!black, opacity=0.85] (-1.725,1.6) circle (0.65cm);
+    \draw[orange!85, thick, dashed, ->] (-4.4,0.3) -- (-1.725,1.6) -- (4.4,0.3);
+    \node[orange!85!black, font=\tiny\bfseries] at (-1.7,2.4) {Ecos (Multipath)};
+
+    % Gotas de Humedad / Atenuación
+    \foreach \x/\y in {-3.2/0.4, -2.4/0.7, -1.0/-0.2, 0.2/0.6, 2.8/0.5, 3.5/-0.1} {
+      \fill[cyan!60, opacity=0.8] (\x,\y) ellipse (0.04cm and 0.08cm);
+    }
+    \node[cyan!80!black, font=\tiny\bfseries] at (-3.2,-0.4) {Atenuación H$_2$O};
+  \end{tikzpicture}
   \note{
-    La selva misionera presenta desafíos físicos muy particulares:
-    1. Densidad del dosel (copa de los árboles): impide el uso de drones ya que no ven bajo las copas. En el suelo, la vegetación espesa limita la visibilidad.
-    2. Área de cobertura reducida: el sensor PIR y la lente de la cámara cubren apenas unos metros en línea recta, por lo que es fácil que una intrusión ocurra fuera de su campo de visión o que los intrusos las eviten.
+    El entorno selvático impone severos límites a la propagación de radiofrecuencia en la banda de 2.4 GHz:
+    1. La banda de 2.4 GHz resuena con el agua, haciendo que la vegetación húmeda funcione como un blindaje que atenúa la señal (1 a 3 dB/m).
+    2. Las hojas y ramas difractan la señal, provocando múltiples ecos que interfieren entre sí (multipath fading) y corrompen los datos.
+    3. Aunque haya línea de vista óptica, la obstrucción del elipsoide de Fresnel por el suelo o maleza degrada la señal.
+    4. Existen límites legales estrictos de potencia de transmisión (20 dBm / 100 mW EIRP en ISM 2.4 GHz) que impiden aumentar la ganancia activa para compensar estas pérdidas de propagación.
   }
 \end{frame}
 
@@ -889,6 +890,7 @@ desarrollamos.
           \item Cámara: OV2640 (\num{2}~MP)
           \item Resolución: \num{640}x\num{480}
           \item Conectividad: Wi-Fi
+          \item Antena: Externa de \qty{3}{\deci\bel i} a \qty{2.4}{\giga\hertz} 
         \end{itemize}
       \end{block}
 
@@ -999,7 +1001,7 @@ viendo la IP, sin involucrar a su capa de aplicación.
           \scriptsize
           \item Light Sleep
           \item Enruta tráfico
-          \item Consumo moderado
+          \item Antena: Externa omnidireccional
         \end{itemize}
       \end{block}
     \end{column}
@@ -1390,6 +1392,78 @@ para futuro fine-tuning del modelo.
 % ==============================================================================
 \section{Resultados}
 
+\begin{frame}{Implementación del Prototipo}
+  \begin{columns}[c]
+    \begin{column}{0.55\textwidth}
+      \centering
+      \includegraphics[height=0.8\textheight]{bachelor-thesis/img/carcasaEnsamblado.jpg}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      \centering
+      \includegraphics[height=0.8\textheight]{img/nodoEnsamblado.jpg}
+    \end{column}
+  \end{columns}
+  \note{
+    Muestra de la implementación física del nodo cámara.
+    A la izquierda se observa la carcasa cerrada impresa en PLA lista para su montaje.
+    A la derecha se observa el ensamblado interno de los componentes y las baterías.
+  }
+\end{frame}
+
+\begin{frame}{Estructura de Costos del Prototipo}
+  \begin{columns}[t]
+    \begin{column}{0.5\textwidth}
+      \begin{tblr}[t]{
+        width = \linewidth,
+        colspec = {X[l] c},
+        cells = {font=\small},
+        row{1} = {font=\bfseries\small, bg=blue!10},
+        row{Z} = {font=\bfseries\normalsize, bg=blue!5},
+        hline{1,2,7,Z} = {0.8pt, gray!50},
+      }
+        Componente & Costo (USD) \\
+        ESP32-CAM + Antena + OV2640 & \num{9.00} \\
+        Sensor PIR HC-SR501 & \num{2.00} \\
+        Módulo Convertidor Buck LM2596 & \num{3.00} \\
+        Cables, estaño y conectores & \num{5.00} \\
+        Carcasa (PLA + tornillería) & \num{6.00} \\
+        Subtotal Nodo Cámara & \num{25.00} \\
+      \end{tblr}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{tblr}[t]{
+        width = \linewidth,
+        colspec = {X[l] c},
+        cells = {font=\small},
+        row{1} = {font=\bfseries\normalsize, bg=blue!10},
+        row{Z} = {font=\bfseries\normalsize, bg=blue!5},
+        hline{1,2,6,Z} = {0.8pt, gray!50},
+      }
+        Componente & Costo (USD) \\
+        Baterías 18650 (2 celdas) & \num{18.00} \\
+        Caja estanca & \num{1.00} \\
+        Portabaterías, cable y prensacables & \num{1.00} \\
+        Conectores XT30 & \num{1.00} \\
+        Subtotal Alimentación & \num{20.00} \\
+      \end{tblr}
+
+      \begin{block}{Costo Total del Prototipo}
+        \centering
+        \textbf{\large\color{blue!80!black}{\num{45.00}~USD}}
+      \end{block}
+    \end{column}
+  \end{columns}
+  \note{
+    Detalle de la estructura de costos del nodo de cámara (Capítulo 7, Tabla 7.3 de la tesis).
+    Dividimos el costo en dos partes: el nodo de cámara en sí, que suma 25 USD, y el pack de baterías y alimentación (incluyendo celdas 18650, caja estanca, holder y prensaestopas), que suma 20 USD, totalizando 45 USD.
+  }
+\end{frame}
+
+\begin{frame}{Escenario de Prueba}
+  \centering
+  \includegraphics[width=\textwidth]{bachelor-thesis/img/entrada_jardin.jpg}
+\end{frame}
+
 \begin{frame}{Pruebas de Campo}
 \begin{columns}
 \begin{column}{0.5\textwidth}
@@ -1444,37 +1518,31 @@ movimiento de vegetación fueron filtradas por la lógica de umbrales.
     \begin{column}{0.55\textwidth}
       \textbf{Latencia de Transmisión}
       \vspace{0.3em}
-      \begin{table}
-        \centering
-        \scriptsize
-        \renewcommand{\arraystretch}{1.3}
-        \begin{tabular}{lcc}
-          \hline
-          \textbf{Métrica}  & \textbf{LAN} & \textbf{Campo} \\
-          \hline
-          Transmisión (\qty{12.9}{\kilo\byte})  & $\sim$\qty{463}{ms} & \qtyrange{20}{60}{s} \\
-          Ciclo completo    & $\sim$\qty{1.27}{s} & --- \\
-          \hline
-        \end{tabular}
-      \end{table}
+      \begin{tblr}{
+        width = \linewidth,
+        colspec = {X[l] c c},
+        row{1} = {font=\bfseries, bg=blue!10},
+        hline{1,2,Z} = {0.8pt, gray!50},
+      }
+        Métrica  & LAN & Campo \\
+        Transmisión (\qty{12.9}{\kilo\byte})  & $\sim$\qty{463}{ms} & \qtyrange{20}{60}{s} \\
+        Ciclo completo    & $\sim$\qty{1.27}{s} & --- \\
+      \end{tblr}
     \end{column}
     \begin{column}{0.45\textwidth}
       \textbf{Alcance Máximo}
       \vspace{0.3em}
-      \begin{table}
-        \centering
-        \scriptsize
-        \renewcommand{\arraystretch}{1.3}
-        \begin{tabular}{lc}
-          \hline
-          \textbf{Escenario}  & \textbf{Distancia} \\
-          \hline
-          Línea de vista      & \qtyrange{15}{18}{m} \\
-          Con vegetación      & $\sim$\qty{12}{m} \\
-          Interior            & $\sim$\qty{10}{m} \\
-          \hline
-        \end{tabular}
-      \end{table}
+      \begin{tblr}{
+        width = \linewidth,
+        colspec = {X[l] c},
+        row{1} = {font=\bfseries, bg=blue!10},
+        hline{1,2,Z} = {0.8pt, gray!50},
+      }
+        Escenario  & Distancia \\
+        Línea de vista      & \qtyrange{15}{18}{m} \\
+        Con vegetación      & $\sim$\qty{12}{m} \\
+        Interior            & $\sim$\qty{10}{m} \\
+      \end{tblr}
     \end{column}
   \end{columns}
 
@@ -1509,19 +1577,17 @@ movimiento de vegetación fueron filtradas por la lógica de umbrales.
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \textbf{Deteccion binaria} (\num{94} imagenes):
-\begin{table}
-\normalsize
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{lc}
-\hline
-\textbf{Metrica} & \textbf{Valor} \\
-\hline
-Exactitud   & \qty{77.7}{\percent}  \\
-Precision   & \qty{78.9}{\percent}  \\
-Recall      & \qty{69.8}{\percent}  \\
-\hline
-\end{tabular}
-\end{table}
+\begin{tblr}{
+  width = 0.9\linewidth,
+  colspec = {X[l] c},
+  row{1} = {font=\bfseries, bg=blue!10},
+  hline{1,2,Z} = {0.8pt, gray!50},
+}
+  Métrica & Valor \\
+  Exactitud   & \qty{77.7}{\percent}  \\
+  Precision   & \qty{78.9}{\percent}  \\
+  Recall      & \qty{69.8}{\percent}  \\
+\end{tblr}
 
 \vspace{0.3em}
 \textbf{Recall por clase:}
@@ -1628,21 +1694,19 @@ todo código abierto.
 % Aportes del Trabajo movido a Anexos
 
 \begin{frame}{Comparacion con Objetivos}
-\begin{table}
-\centering
-\small
-\begin{tabular}{lc}
-\hline
-\textbf{Objetivo} & \textbf{Resultado} \\
-\hline
-Deteccion de fauna, personas y vehiculos & Accuracy \qty{77.7}{\percent} (\num{94} imgs) \\
-Latencia de respuesta & $\sim$\qty{40}{s} (campo) / \qty{1.27}{s} (LAN) \\
-Cobertura mesh & \qtyrange{15}{18}{m} (linea de vista) \\
-Autonomia (Relay) & $\sim$\qty{5}{h} medidas \\
-Consumo Leaf (ULP) & $\sim$\qty{13}{mA} \\
-\hline
-\end{tabular}
-\end{table}
+\begin{tblr}{
+  width = \linewidth,
+  colspec = {X[l] X[l]},
+  row{1} = {font=\bfseries, bg=blue!10},
+  hline{1,2,Z} = {0.8pt, gray!50},
+}
+  Objetivo & Resultado \\
+  Deteccion de fauna, personas y vehiculos & Accuracy \qty{77.7}{\percent} (\num{94} imgs) \\
+  Latencia de respuesta & $\sim$\qty{40}{s} (campo) / \qty{1.27}{s} (LAN) \\
+  Cobertura mesh & \qtyrange{15}{18}{m} (linea de vista) \\
+  Autonomia (Relay) & $\sim$\qty{5}{h} medidas \\
+  Consumo Leaf (ULP) & $\sim$\qty{13}{mA} \\
+\end{tblr}
 
 \vspace{0.3em}
 \begin{alertblock}{Conclusion}
@@ -1754,13 +1818,12 @@ sido posible sin su apoyo.
 ¡Muchas gracias!
 \end{frame}
 
+\begin{frame}[allowframebreaks]{Referencias}
+\printbibliography[heading=none]
+\end{frame}
 
 \begin{frame}[standout]
 ¿Preguntas?
-\end{frame}
-
-\begin{frame}[allowframebreaks]{Referencias}
-\printbibliography[heading=none]
 \end{frame}
 
 % ==============================================================================
