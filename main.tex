@@ -40,7 +40,7 @@
 
 \title{Sistema de Monitoreo y Alerta Temprana basado en IA para Áreas Protegidas}
 \subtitle{Proyecto Final Integrador - Ingeniería en Computación}
-\author{Fabrizio Contigiani - Gabriel Da Silva Schmies}
+\author{Fabrizio Contigiani - Gabriel Orlando Da Silva Schmies}
 \institute{Tutor: Dr. Ing. Sergio Moya} % institute already in titlegraphic
 \date{23 de junio de 2026}
 \titlegraphic{\includegraphics[height=1.5cm]{img/logo_unam.png}\hfill\includegraphics[height=1.5cm]{img/logo_fio.png}}
@@ -245,20 +245,20 @@ Ejercicio
 \begin{frame}{Biodiversidad Excepcional}
   \begin{columns}
     \begin{column}{0.55\textwidth}
-      \textbf{Concentracion de especies:}
+      \textbf{Concentración de especies:}
       \begin{itemize}
         \item $\sim$\num{3000} especies de plantas vasculares
         \item \num{554} especies de aves
-        \item \num{120} especies de mamiferos
+        \item \num{120} especies de mamíferos
         \item \num{79} reptiles y \num{55} anfibios
       \end{itemize}
 
       \vspace{0.5em}
-      \textbf{Especies emblematicas:}
+      \textbf{Especies emblemáticas:}
       \begin{itemize}
-        \item Yaguarete (\textit{Panthera onca})
+        \item Yaguareté (\textit{Panthera onca})
         \item Tapir (\textit{Tapirus terrestris})
-        \item Aguila harpia (\textit{Harpia harpyja})
+        \item Águila harpía (\textit{Harpia harpyja})
         \item Yacutinga (\textit{Aburria jacutinga})
       \end{itemize}
     \end{column}
@@ -280,21 +280,21 @@ Ejercicio
   }
 \end{frame}
 
-\begin{frame}{Importancia Ecologica}
-  \textbf{Servicios ecosistemicos:}
+\begin{frame}{Importancia Ecológica}
+  \textbf{Servicios ecosistémicos:}
   \begin{itemize}
-    \item Regulacion del ciclo hidrologico
+    \item Regulación del ciclo hidrológico
     \item Secuestro de carbono
-    \item Proteccion contra la erosion del suelo
-    \item Regulacion climatica regional
+    \item Protección contra la erosión del suelo
+    \item Regulación climática regional
   \end{itemize}
 
   \vspace{1em}
-  \textbf{Marco legal:} Ley 26.331 de Proteccion de Bosques Nativos \footcite{ley26331bosques}
+  \textbf{Marco legal:} Ley 26.331 de Protección de Bosques Nativos \footcite{ley26331bosques}
   \begin{description}
-    \item[Categoria I (Rojo):] Muy alto valor - no se transforma
-    \item[Categoria II (Amarillo):] Mediano valor - uso sostenible
-    \item[Categoria III (Verde):] Bajo valor - puede transformarse
+    \item[Categoría I (Rojo):] Muy alto valor - no se transforma
+    \item[Categoría II (Amarillo):] Mediano valor - uso sostenible
+    \item[Categoría III (Verde):] Bajo valor - puede transformarse
   \end{description}
   \note{
     Además del valor biológico, el bosque provee servicios ecosistémicos
@@ -391,9 +391,9 @@ Ejercicio
   {\tiny Fuente: \href{https://ecologia.misiones.gob.ar/con-94-areas-naturales-protegidas-misiones-es-ejemplo-internacional-en-materia-de-conservacion/}{Ministerio de Ecología de Misiones}}
 
   \note{
-    Solo en la reserva de la biosfera yabotí hay mas de 200 mil hectáreas.
-    Sin covertura celular -> Alta latencia entre captura y descubrimiento.
-    Alto volumen de imágenes si dejamos camaras.
+    Solo en la reserva de la biosfera yabotí hay más de 200 mil hectáreas.
+    Sin cobertura celular -> Alta latencia entre captura y descubrimiento.
+    Alto volumen de imágenes si dejamos cámaras.
   }
 \end{frame}
 
@@ -1227,7 +1227,7 @@ viendo la IP, sin involucrar a su capa de aplicación.
 
 \section*{Servidor de Monitoreo Remoto}
 
-\begin{frame}{Servidor de Aplicacion}
+\begin{frame}{Servidor de Aplicación}
 \centering
 \scalebox{0.6}{
   \begin{tikzpicture}[
@@ -1308,14 +1308,14 @@ Telegram para notificaciones. Fácil de desplegar.
 }
 \end{frame}
 
-\begin{frame}{Servicio de Deteccion (SpeciesNet)}
+\begin{frame}{Servicio de Detección (SpeciesNet)}
   \begin{columns}
     \begin{column}{0.5\textwidth}
       \textbf{Pipeline de procesamiento:}
       \begin{enumerate}
-        \item \textbf{Deteccion:} MegaDetector (YOLOv5) identifica regiones de interes (animal, persona, vehiculo).
-        \item \textbf{Clasificacion:} Modelos SpeciesNet analizan recortes y predicen familia, genero y especie.
-        \item \textbf{Anotacion:} Genera copia con bounding boxes.
+        \item \textbf{Detección:} MegaDetector (YOLOv5) identifica regiones de interés (animal, persona, vehículo).
+        \item \textbf{Clasificación:} Modelos SpeciesNet analizan recortes y predicen familia, género y especie.
+        \item \textbf{Anotación:} Genera copia con bounding boxes.
       \end{enumerate}
       \vspace{0.5em}
       \textbf{API REST:} Endpoint \texttt{/predict} expuesto mediante LitServe.
@@ -1334,9 +1334,9 @@ Telegram para notificaciones. Fácil de desplegar.
           % Nodos
           \node (request) [io] {HTTP POST \texttt{/predict}};
           \node (read) [process, below=of request] {Lectura de Imagen};
-          \node (detect) [box, below=of read] {Deteccion\\(MegaDetector)};
-          \node (classify) [box, below=of detect] {Clasificacion\\(SpeciesNet)};
-          \node (draw) [process, below=of classify] {Anotacion de Imagen};
+          \node (detect) [box, below=of read] {Detección\\(MegaDetector)};
+          \node (classify) [box, below=of detect] {Clasificación\\(SpeciesNet)};
+          \node (draw) [process, below=of classify] {Anotación de Imagen};
           \node (save) [process, below=of draw] {Guardado de Imagen};
           \node (response) [io, below=of save] {Respuesta JSON};
   
@@ -1360,19 +1360,19 @@ genera una imagen anotada. Todo expuesto via API REST con LitServe.
 }
 \end{frame}
 
-\begin{frame}{Logica de Umbrales de Deteccion}
-\textbf{Tres niveles de decision para enviar alertas:}
+\begin{frame}{Lógica de Umbrales de Detección}
+\textbf{Tres niveles de decisión para enviar alertas:}
 
 \vspace{0.5em}
 \begin{description}
-\item[HIGH = 0{,}80:] Confianza $>$ \qty{80}{\percent} $\rightarrow$ alerta \textbf{inmediata}, sin importar clasificacion
-\item[MID = 0{,}50:] Confianza entre \qty{50}{\percent} y \qty{80}{\percent} y clasificador dice ``vacio'' $\rightarrow$ alerta igualmente (posible animal pequeno)
-\item[LOW = 0{,}30:] Confianza $<$ \qty{30}{\percent} y clasificador ``vacio'' $\rightarrow$ se \textbf{descarta} (probable falso positivo del PIR)
+\item[HIGH = 0{,}80:] Confianza $>$ \qty{80}{\percent} $\rightarrow$ alerta \textbf{inmediata}, sin importar clasificación
+\item[MID = 0{,}50:] Confianza entre \qty{50}{\percent} y \qty{80}{\percent} y clasificador dice ``vacío'' $\rightarrow$ alerta igualmente (posible animal pequeño)
+\item[LOW = 0{,}30:] Confianza $<$ \qty{30}{\percent} y clasificador ``vacío'' $\rightarrow$ se \textbf{descarta} (probable falso positivo del PIR)
 \end{description}
 
 \vspace{0.5em}
-\begin{alertblock}{Politica}
-Sesgo hacia la \textbf{sensibilidad}: ante la duda, se transmite la imagen y se delega la decision al operador humano.
+\begin{alertblock}{Política}
+Sesgo hacia la \textbf{sensibilidad}: ante la duda, se transmite la imagen y se delega la decisión al operador humano.
 \end{alertblock}
 \note{
 Tres umbrales configurables: HIGH (80\%) envía siempre, MID (50\%) envía
@@ -1387,12 +1387,12 @@ Política conservadora: preferimos falsos positivos a perder eventos reales.
 \textbf{Bot de Telegram}
 
 \vspace{0.5em}
-Cada notificacion incluye:
+Cada notificación incluye:
 \begin{itemize}
   \item Imagen original
   \item Imagen anotada (bounding boxes)
   \item Cantidad y confianza de detecciones
-  \item Top 5 clasificaciones taxonomicas
+  \item Top 5 clasificaciones taxonómicas
 \end{itemize}
 
 \vspace{1em}
@@ -1518,16 +1518,16 @@ para futuro fine-tuning del modelo.
 \item Duracion: \qty{5}{h} de operacion continua
 \item 3 nodos desplegados
 \item Distancia entre nodos: \qty{15}{m}
-\item Condiciones climaticas: soleado
+\item Condiciones climáticas: soleado
 \end{itemize}
 
 \vspace{0.3em}
 \textbf{Detecciones exitosas:}
 \begin{itemize}
 \item Personas (intrusos)
-\item Vehiculos
+\item Vehículos
 \item Aves silvestres (conf. 0.74-0.90)
-\item Gato domestico (conf. 0.96)
+\item Gato doméstico (conf. 0.96)
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
@@ -1542,7 +1542,7 @@ para futuro fine-tuning del modelo.
     \begin{subfigure}[b]{0.9\textwidth}
       \centering
       \includegraphics[height=3.3cm]{bachelor-thesis/img/capturaIntrusoProcesada.png}
-      \caption{Deteccion de Intruso}
+      \caption{Detección de Intruso}
     \end{subfigure}
   \end{figure}
 \end{column}
@@ -1616,10 +1616,10 @@ movimiento de vegetación fueron filtradas por la lógica de umbrales.
 \end{frame}
 
 
-\begin{frame}{Resultados - Deteccion}
+\begin{frame}{Resultados - Detección}
 \begin{columns}
 \begin{column}{0.5\textwidth}
-\textbf{Deteccion binaria} (\num{94} imagenes):
+\textbf{Detección binaria} (\num{94} imágenes):
 \begin{tblr}{
   width = 0.9\linewidth,
   colspec = {X[l] c},
@@ -1628,7 +1628,7 @@ movimiento de vegetación fueron filtradas por la lógica de umbrales.
 }
   Métrica & Valor \\
   Exactitud   & \qty{77.7}{\percent}  \\
-  Precision   & \qty{78.9}{\percent}  \\
+  Precisión   & \qty{78.9}{\percent}  \\
   Recall      & \qty{69.8}{\percent}  \\
 \end{tblr}
 
@@ -1637,7 +1637,7 @@ movimiento de vegetación fueron filtradas por la lógica de umbrales.
 \begin{itemize}
   \item Animales: \qty{52.9}{\percent}
   \item Personas: \qty{77.3}{\percent}
-  \item Vehiculos: \qty{100}{\percent}
+  \item Vehículos: \qty{100}{\percent}
 \end{itemize}
 \end{column}
 \begin{column}{0.55\textwidth}
@@ -1744,16 +1744,16 @@ todo código abierto.
   hline{1,2,Z} = {0.8pt, gray!50},
 }
   Objetivo & Resultado \\
-  Deteccion de fauna, personas y vehiculos & Accuracy \qty{77.7}{\percent} (\num{94} imgs) \\
+  Detección de fauna, personas y vehículos & Accuracy \qty{77.7}{\percent} (\num{94} imgs) \\
   Latencia de respuesta & $\sim$\qty{40}{s} (campo) / \qty{1.27}{s} (LAN) \\
-  Cobertura mesh & \qtyrange{15}{18}{m} (linea de vista) \\
-  Autonomia (Relay) & $\sim$\qty{5}{h} medidas \\
+  Cobertura mesh & \qtyrange{15}{18}{m} (línea de vista) \\
+  Autonomía (Relay) & $\sim$\qty{5}{h} medidas \\
   Consumo Leaf (ULP) & $\sim$\qty{13}{mA} \\
 \end{tblr}
 
 \vspace{0.3em}
-\begin{alertblock}{Conclusion}
-Se demostro la \textbf{viabilidad tecnica} del sistema propuesto. Mejora de \textbf{ordenes de magnitud} respecto a camaras trampa convencionales.
+\begin{alertblock}{Conclusión}
+Se demostró la \textbf{viabilidad técnica} del sistema propuesto. Mejora de \textbf{órdenes de magnitud} respecto a cámaras trampa convencionales.
 \end{alertblock}
 \note{
 Comparación objetivo vs. resultado. Detección funcional con 77.7\% accuracy.
@@ -1765,11 +1765,11 @@ Cobertura de 15-18 m suficiente para despliegue en cadena. Autonomía de
 
 \begin{frame}{Limitaciones Conocidas}
 \begin{description}
-\item[Operacion diurna:] Lente con filtro IR, sin vision nocturna
-\item[Sensor PIR:] Optimizado para humanos, puede no detectar fauna pequena
-\item[Resolucion:] VGA (640$\times$480), limitada por el balance entre calidad JPEG y tiempo de transmision
-\item[Consumo:] WiFi consume mas que camaras trampa comerciales optimizadas
-\item[Gestion de energia:] Nodos intermedios (Relay) deben mantener conectividad mesh permanente, limitando su autonomia
+\item[Operación diurna:] Lente con filtro IR, sin visión nocturna
+\item[Sensor PIR:] Optimizado para humanos, puede no detectar fauna pequeña
+\item[Resolución:] VGA (640$\times$480), limitada por el balance entre calidad JPEG y tiempo de transmisión
+\item[Consumo:] WiFi consume más que cámaras trampa comerciales optimizadas
+\item[Gestión de energía:] Nodos intermedios (Relay) deben mantener conectividad mesh permanente, limitando su autonomía
 \end{description}
 
 \vspace{0.5em}
@@ -1786,14 +1786,14 @@ autonomía. Tiempo real significa minutos, no milisegundos.
 
 \begin{frame}{Trabajos Futuros}
 \begin{description}
-\item[Vision nocturna:] Camaras con capacidad infrarroja
+\item[Visión nocturna:] Cámaras con capacidad infrarroja
 \item[Conectividad largo alcance:] LoRa, \num{4}G/LTE, satelital para zonas remotas
-\item[Nodo repetidor dedicado:] Nodo sin camara que mantenga la red mesh, permitiendo Deep Sleep puro en nodos camara
-\item[Optimizacion energetica:] Paneles solares, reguladores mas eficientes
-\item[Actualizacion OTA:] Firmware inalambrico sin recoleccion fisica de nodos
-\item[Optimizacion de alcance:] Antenas de mayor ganancia, calibracion RSSI, mayor compresion
-\item[Procesamiento en borde:] TinyML en nodos de camara
-\item[Modelos especificos:] Fine-tuning para fauna del Bosque Atlantico
+\item[Nodo repetidor dedicado:] Nodo sin cámara que mantenga la red mesh, permitiendo Deep Sleep puro en nodos cámara
+\item[Optimización energética:] Paneles solares, reguladores más eficientes
+\item[Actualización OTA:] Firmware inalámbrico sin recolección física de nodos
+\item[Optimización de alcance:] Antenas de mayor ganancia, calibración RSSI, mayor compresión
+\item[Procesamiento en borde:] TinyML en nodos de cámara
+\item[Modelos específicos:] Fine-tuning para fauna del Bosque Atlántico
 \end{description}
 \note{
 Líneas futuras: visión nocturna, conectividad largo alcance, nodo
@@ -2010,23 +2010,23 @@ de ser rentable.
 \end{frame}
 
 
-\begin{frame}{Nodo de Camara - Firmware}
+\begin{frame}{Nodo de Cámara - Firmware}
 \textbf{Desarrollado con ESP-IDF + ESP-MESH-LITE}
 
 \vspace{0.5em}
 \textbf{Funcionalidades compartidas:}
 \begin{itemize}
-\item Inicializacion de sistema (NVS, event loop, interfaces de red)
-\item Configuracion de red ESP-MESH-LITE en modo AP-STA
-\item Captura y compresion JPEG con camara OV2640
+\item Inicialización de sistema (NVS, event loop, interfaces de red)
+\item Configuración de red ESP-MESH-LITE en modo AP-STA
+\item Captura y compresión JPEG con cámara OV2640
 \item Almacenamiento en microSD (respaldo)
-\item Peticion \textbf{HTTP POST} estandar al servidor
+\item Petición \textbf{HTTP POST} estándar al servidor
 \end{itemize}
 
 \vspace{0.3em}
-\textbf{Diferenciacion por rol:}
+\textbf{Diferenciación por rol:}
 \begin{description}
-\item[Relay:] Interrupcion GPIO para PIR. Light Sleep + Modem Sleep.
+\item[Relay:] Interrupción GPIO para PIR. Light Sleep + Modem Sleep.
 \item[Leaf:] Coprocesador ULP (polling cada \qty{100}{ms}). Deep Sleep total.
 \end{description}
 \note{
@@ -2040,10 +2040,10 @@ y Deep Sleep completo. Cada nodo hace HTTP POST estándar, no hay Mwifi.
 \begin{frame}{Carcasa Impresa en 3D}
 \begin{columns}
 \begin{column}{0.5\textwidth}
-\textbf{Diseno basado en modelo CC \num{4.0}}
+\textbf{Diseño basado en modelo CC \num{4.0}}
 
 \vspace{0.5em}
-\textbf{Caracteristicas:}
+\textbf{Características:}
 \begin{itemize}
   \item Material: PLA
   \item Apertura para lente
@@ -2068,10 +2068,10 @@ en Printables para que cualquiera pueda fabricarla.
 }
 \end{frame}
 
-\begin{frame}{Nodo Raiz}
+\begin{frame}{Nodo Raíz}
 \begin{columns}
 \begin{column}{0.55\textwidth}
-\textbf{Hardware:} ESP32 DevKit V1 (sin camara)
+\textbf{Hardware:} ESP32 DevKit V1 (sin cámara)
 
 \vspace{0.5em}
 \textbf{Rol:} Puerta de enlace Mesh $\leftrightarrow$ Internet
@@ -2082,8 +2082,8 @@ en Printables para que cualquiera pueda fabricarla.
   \item Nivel 1 de la red ESP-MESH-LITE
   \item Punto de acceso permanente (SoftAP)
   \item Enrutamiento transparente (NAT, DHCP)
-  \item Conexion WiFi STA a router
-  \item Reporte periodico de estado (cada \qty{10}{s})
+  \item Conexión WiFi STA a router
+  \item Reporte periódico de estado (cada \qty{10}{s})
 \end{itemize}
 \end{column}
 \begin{column}{0.45\textwidth}
@@ -2098,15 +2098,15 @@ Reporta estado de la red cada 10 segundos. No usa modos de bajo consumo.
 }
 \end{frame}
 
-\begin{frame}{Configuracion de Pruebas}
+\begin{frame}{Configuración de Pruebas}
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \textbf{Hardware:}
 \begin{itemize}
-\item 3 nodos de camara (ESP32-CAM)
-\item 1 nodo raiz (ESP32 DevKit)
-\item Baterias 18650 (2S, \qty{3500}{mAh})
-\item Router WiFi domestico
+\item 3 nodos de cámara (ESP32-CAM)
+\item 1 nodo raíz (ESP32 DevKit)
+\item Baterías 18650 (2S, \qty{3500}{mAh})
+\item Router WiFi doméstico
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
@@ -2132,19 +2132,19 @@ Inferencia exclusivamente en CPU.
 
 \begin{frame}{Aportes del Trabajo}
 \begin{block}{Arquitectura integrada}
-Captura distribuida + transmision mesh + procesamiento IA centralizado
+Captura distribuida + transmisión mesh + procesamiento IA centralizado
 \end{block}
 
 \begin{block}{Prototipo de bajo costo}
-Componentes comerciales economicos + disenos 3D listos para fabricacion
+Componentes comerciales económicos + diseños 3D listos para fabricación
 \end{block}
 
-\begin{block}{Integracion de SpeciesNet}
-Pipeline de clasificacion taxonomica en tiempo operativo
+\begin{block}{Integración de SpeciesNet}
+Pipeline de clasificación taxonómica en tiempo operativo
 \end{block}
 
-\begin{block}{Codigo abierto}
-\num{3} repositorios publicos en GitHub
+\begin{block}{Código abierto}
+\num{3} repositorios públicos en GitHub
 \end{block}
 \note{
 Backup: Cuatro aportes principales: arquitectura integrada end-to-end, prototipo
@@ -2155,10 +2155,10 @@ operativo, y todo disponible como código abierto en 3 repositorios.
 
 \begin{frame}{Recomendaciones}
 \begin{enumerate}
-\item \textbf{Ubicaciones:} Considerar distancia entre nodos y obstaculos
-\item \textbf{Proteccion:} Usar PETG/ASA para despliegues permanentes
-\item \textbf{Baterias:} Dimensionar segun frecuencia de activaciones
-\item \textbf{Sensor PIR:} Evaluar alternativas para fauna pequena
+\item \textbf{Ubicaciones:} Considerar distancia entre nodos y obstáculos
+\item \textbf{Protección:} Usar PETG/ASA para despliegues permanentes
+\item \textbf{Baterías:} Dimensionar según frecuencia de activaciones
+\item \textbf{Sensor PIR:} Evaluar alternativas para fauna pequeña
 \item \textbf{Monitoreo:} Implementar seguimiento de estado de nodos
 \end{enumerate}
 \note{
