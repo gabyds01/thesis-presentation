@@ -430,175 +430,142 @@ Ejercicio
 %   }
 % \end{frame}
 
-\begin{frame}{Contramedidas Tradicionales}
-  \begin{columns}[c]
-    \begin{column}{0.6\textwidth}
-      \begin{tblr}{
-        width = \linewidth,
-        colspec = {X[1.1,l] X[0.9,l] X[l]},
-        row{1} = {font=\bfseries\scriptsize, bg=blue!10},
-        cells = {font=\scriptsize},
-        hline{1,2,Z} = {0.8pt, gray!50},
-      }
-        Método & Ventaja & Limitación \\
-        Monitoreo acústico & Detección de audio & Alcance reducido \\
-        Drones y satélites & Gran cobertura & Bloqueo por dosel \\
-        Cámaras pasivas & Bajo costo & Alta latencia \\
-      \end{tblr}
-    \end{column}
-    \begin{column}{0.4\textwidth}
-      \centering
-      \includegraphics[width=\textwidth]{img/contramedida.png}
-    \end{column}
-  \end{columns}
-  \note{
-    Para combatir estas amenazas, se utilizan diversas contramedidas. Los
-    patrullajes son limitados por recursos. Se usan drones y monitoreo de
-    audio, pero el método más extendido por su costo-beneficio son las
-    cámaras trampa pasivas.
-  }
-\end{frame}
-
-\begin{frame}{Uso de Cámaras Trampa}
+\begin{frame}{Monitoreo Acústico y Aéreo}
   \begin{columns}
-    \begin{column}{0.5\textwidth}
-      \textbf{Funcionamiento:}
+    \begin{column}{0.6\textwidth}
+      \textbf{Monitoreo Acústico:}
       \begin{itemize}
-        \item Activación por sensor \textbf{PIR}
-        \item Captura al detectar presencia
+        \item \textbf{Uso:} Grabadoras en árboles para fauna o amenazas (motosierras, disparos).
+        \item \textbf{Limitación:} Propensión a falsos positivos (ruidos naturales confundidos con disparos o motosierras).
       \end{itemize}
 
       \vspace{0.5em}
-      \textbf{Modalidades:}
+      \textbf{Drones y Satélites:}
       \begin{itemize}
-        \item \textbf{Pasivas:} Almacenamiento local (tarjeta SD)
-        \item \textbf{Activas:} Transmisión (celular o satelital)
+        \item \textbf{Uso:} Vigilancia aérea contra desmontes e incendios forestales.
+        \item \textbf{Limitación:} Las copas de los árboles ocultan el suelo. Baja autonomía (drones) y baja frecuencia de paso (satélites).
       \end{itemize}
     \end{column}
-    \begin{column}{0.5\textwidth}
+    \begin{column}{0.4\textwidth}
+      \centering
+      \includegraphics[width=0.85\textwidth]{img/monitoreoAcustico.jpg}
+      \vspace{1em}
+      \includegraphics[width=0.85\textwidth]{img/monitoreoDron.jpg}
+    \end{column}
+  \end{columns}
+  \note{
+    Para combatir las amenazas de caza y deforestación, el monitoreo acústico usa grabadoras automáticas en árboles, pero sufre de falsos positivos al confundirse ruidos naturales (como caídas de ramas o truenos) con amenazas reales.
+    Los drones y satélites permiten vigilar grandes extensiones de bosque desde el aire, pero las copas de los árboles impiden ver lo que ocurre a nivel del suelo o debajo de ellas, sumado a las limitaciones físicas de autonomía de drones y frecuencia de paso de satélites.
+  }
+\end{frame}
+
+\begin{frame}{Cámaras Trampa Pasivas}
+  \begin{columns}
+    \begin{column}{0.6\textwidth}
+      \begin{itemize}
+        \setlength{\itemsep}{1em}
+        \item \textbf{Funcionamiento:} Sensor \textbf{PIR} (movimiento/calor) y almacenamiento local de fotos y videos en tarjeta SD.
+        \item \textbf{Limitación (Alta Latencia):} Requiere recolectar manualmente la tarjeta SD de forma periódica (semanas/meses), impidiendo una alerta temprana.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{img/camaraTrampaConvencional.png}
+    \end{column}
+  \end{columns}
+  \note{
+    Las cámaras trampa pasivas capturan imágenes automáticamente usando sensores PIR y las guardan localmente en una tarjeta SD.
+    Su gran limitación es la alta latencia: para ver las fotos, alguien debe ir físicamente al sitio y retirar la tarjeta de memoria, lo cual toma semanas o meses, perdiendo la oportunidad de reaccionar a tiempo ante actividades ilícitas.
+  }
+\end{frame}
+
+\begin{frame}{Cámaras Trampa Activas}
+  \begin{columns}
+    \begin{column}{0.6\textwidth}
+      \textbf{Funcionamiento:}
+      \begin{itemize}
+        \item Transmisión casi instantánea por red celular (3G/4G) o enlace satelital.
+      \end{itemize}
+
+      \vspace{0.5em}
+      \textbf{Limitaciones Principales:}
+      \begin{itemize}
+        \item \textbf{Falta de cobertura:} Inexistente en selva profunda.
+        \item \textbf{Costos elevados:} Hardware y planes satelitales caros.
+        \item \textbf{Baja escalabilidad:} Inviable para despliegues masivos.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{img/camaraActiva.png}
+    \end{column}
+  \end{columns}
+  \note{
+    Las cámaras trampa activas intentan resolver la latencia enviando las imágenes al instante usando redes móviles o satélites.
+    Sin embargo, en zonas interiores y remotas de la selva profunda no existe cobertura celular. Además, el uso de enlaces satelitales tiene costos de suscripción y hardware que impiden escalar a decenas o cientos de cámaras en un despliegue masivo.
+  }
+\end{frame}
+
+\begin{frame}{El Desafío de la Comunicación en Entornos Vivos}
+  \begin{columns}
+    \begin{column}{0.55\textwidth}
+      \begin{itemize}
+        \setlength{\itemsep}{0.6em}
+        \item \textbf{Atenuación por humedad (Efecto ``Microondas''):} La vegetación con alto contenido de agua absorbe las ondas de radio (especialmente a 2.4 GHz).
+        \item \textbf{Dispersión por trayectos múltiples (\textit{Multipath}):} Las ramas y hojas desvían la señal, causando interferencia destructiva y ecos.
+        \item \textbf{Obstrucción de la Zona de Fresnel:} El relieve y la vegetación a nivel de suelo degradan la señal incluso con línea de vista óptica.
+        \item \textbf{Límites legales de potencia:} Limitaciones de potencia máxima permitida en bandas de uso libre.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.45\textwidth}
       \centering
       \begin{tikzpicture}[
-          font=\sffamily,
-          >=Latex,
-          camera/.style={draw=red!80!black, fill=red!15, rounded corners=4pt, minimum width=0.9cm, minimum height=1.6cm, line width=1.5pt},
-          detector/.style={fill=blue!20!gray, draw=blue!40!gray, opacity=0.35, line width=1pt, dashed}
+          scale=0.85,
+          font=\sffamily\tiny,
+          >=Latex
         ]
-        % Área de detección
-        \fill[detector] (0.45,0) -- +(40:3.5cm) arc (40:-40:3.5cm) -- cycle;
-        \node[text=blue!60!black, font=\small\bfseries, align=center] at (2.2,0) {Área de\\detección};
+        % Suelo
+        \draw[brown!60!black, line width=1pt] (-3.0,-1.0) -- (3.0,-1.0);
         
-        % Objeto en movimiento (entrando al área)
-        \draw[gray!60, line width=1.1pt, dashed, ->] (3.8,2.3) -- (3.1,1.8);
-        \node[circle, fill=red!80, minimum size=0.15cm, inner sep=0pt] (obj) at (3.1,1.8) {};
-        \draw[red!80!black, thick] (obj) circle (4pt);
+        % Tx
+        \fill[gray!80] (-2.6,-1.0) rectangle (-2.4,0.0);
+        \draw[line width=1pt, gray!80] (-2.5,0.0) -- (-2.5,0.4);
+        \fill[red!80] (-2.5,0.4) circle (1.5pt);
+        \node[above=1pt] at (-2.5,0.4) {Tx};
 
-        % Cuerpo de la cámara
-        \node[camera] (cam) at (0,0) {};
-        
-        % Lente y sensor PIR (detalles de la cámara)
-        \fill[red!80!black] (0.45,0.25) rectangle (0.55,-0.25);
-        \fill[black!80] (0.45,0.1) circle (2.2pt);
-        \fill[white!90!gray] (0.45,-0.17) rectangle (0.53,-0.07);
-        
-        % Etiqueta de la cámara
-        \node[below=0.2cm of cam, font=\small\bfseries, text=black!80, align=center] {Cámara\\trampa};
+        % Rx
+        \fill[gray!80] (2.4,-1.0) rectangle (2.6,0.0);
+        \draw[line width=1pt, gray!80] (2.5,0.0) -- (2.5,0.4);
+        \fill[red!80] (2.5,0.4) circle (1.5pt);
+        \node[above=1pt] at (2.5,0.4) {Rx};
+
+        % Árbol (Obstrucción en el centro)
+        \fill[brown!70!black] (-0.1,-1.0) rectangle (0.1,0.3);
+        \fill[green!50!black, opacity=0.9] (0.0,0.6) circle (0.5cm);
+        \node[below, font=\tiny\bfseries, text=brown!60!black] at (0.0,-1.0) {Obstáculo};
+
+        % Trayecto Directo (Obstruido)
+        \draw[red!80, dashed, line width=1.2pt] (-2.5,0.4) -- (-0.4,0.4);
+        \draw[red!80, dashed, line width=1.2pt, ->] (0.4,0.4) -- (2.5,0.4);
+        \node[red!80!black, font=\tiny\bfseries, fill=white, inner sep=0.8pt] at (-1.2,0.6) {Atenuación};
+
+        % Trayecto Indirecto (Multipath)
+        \draw[orange, line width=1.2pt, ->] (-2.5,0.4) to[out=45,in=135] (2.5,0.4);
+        \node[orange!85!black, font=\tiny\bfseries, above] at (0.0,1.3) {Dispersión};
+
+        % Gotas de Humedad / Gotitas
+        \foreach \x/\y in {-1.8/-0.2, -1.2/0.8, 1.2/0.8, 1.8/-0.2} {
+          \fill[cyan!60, opacity=0.8] (\x,\y) circle (1pt);
+        }
       \end{tikzpicture}
     \end{column}
   \end{columns}
   \note{
-    Las cámaras trampa se activan por movimiento mediante sensores PIR y capturan imágenes al detectar presencia (fauna o intrusos).
-    Existen dos modalidades:
-    - Pasivas: Guardan fotos localmente en tarjeta SD (requieren recolección manual, lo que genera alta latencia).
-    - Activas: Transmiten fotos al instante usando redes 3G/4G o satelitales (pero requieren infraestructura costosa o inexistente en selva profunda).
-  }
-\end{frame}
-
-\begin{frame}{Limitaciones del Monitoreo Actual}
-  \begin{block}{Cámaras Pasivas: El problema de la latencia}
-    ¿Cuánto tiempo transcurre entre una intrusión y su detección?
-  \end{block}
-
-  \begin{block}{Cámaras Activas: Infraestructura y Costos}
-    \begin{itemize}
-      \item \textbf{Dependencia celular:} Sin señal en selva profunda.
-      \item \textbf{Costos elevados:} Suscripciones satelitales y hardware costoso.
-      \item \textbf{Escasa escalabilidad:} Inviable para despliegues masivos.
-    \end{itemize}
-  \end{block}
-  \note{
-    Las cámaras pasivas tienen el gran problema de la latencia. Ante la pregunta: ¿Cuánto tiempo transcurre entre una intrusión y su detección?, la respuesta es: semanas o meses, hasta recolectar la tarjeta SD de forma manual. Para entonces, el daño ya está hecho.
-
-    Las cámaras activas resuelven la latencia pero fallan en la práctica por:
-    1. Falta de señal celular en zonas interiores.
-    2. Costo prohibitivo de planes satelitales y de hardware especial.
-    3. Imposibilidad de escalar a decenas o cientos de nodos por presupuesto.
-  }
-\end{frame}
-
-\begin{frame}{El Desafío de la Radiofrecuencia en Entornos Vivos}
-  \begin{itemize}
-    \setlength{\itemsep}{1em}
-    \item \textbf{Atenuación por humedad (Efecto ``Microondas'')}
-    \item \textbf{Dispersión por trayectos múltiples (\textit{Multipath})}
-    \item \textbf{Obstrucción de la Zona de Fresnel}
-    \item \textbf{Límites legales de potencia de transmisión}
-  \end{itemize}
-
-  \vspace{0.4em}
-  \centering
-  \begin{tikzpicture}[
-      scale=0.95,
-      font=\sffamily\scriptsize,
-      >=Latex
-    ]
-    % Suelo
-    \draw[brown!60!black, line width=1pt] (-5.0,-1.2) -- (5.0,-1.2);
-    
-    % Nodos (Antenas Tx / Rx)
-    % Tx
-    \fill[gray!80] (-4.5,-1.2) rectangle (-4.3,-0.2);
-    \draw[line width=1.2pt, gray!80] (-4.4,-0.2) -- (-4.4,0.3);
-    \fill[red!80] (-4.4,0.3) circle (0.08cm);
-    \node[above=0.08cm, font=\tiny\bfseries] at (-4.4,0.3) {Tx};
-    
-    % Rx
-    \fill[gray!80] (4.3,-1.2) rectangle (4.5,-0.2);
-    \draw[line width=1.2pt, gray!80] (4.4,-0.2) -- (4.4,0.3);
-    \fill[red!80] (4.4,0.3) circle (0.08cm);
-    \node[above=0.08cm, font=\tiny\bfseries] at (4.4,0.3) {Rx};
-
-    % Zona de Fresnel (Elipsoide)
-    \draw[blue!40, dashed, fill=blue!5, opacity=0.35] (0,0.3) ellipse (4.4cm and 0.9cm);
-    \node[blue!80!black, font=\tiny\bfseries] at (0,0.95) {Zona de Fresnel};
-
-    % Obstrucción (Suelo / Maleza)
-    \fill[brown!70!black] (0.8,-1.2) to[out=40,in=140] (2.2,-1.2) -- cycle;
-    \fill[green!45!black] (1.5,-1.2) circle (0.45cm);
-    \fill[green!35!black] (1.1,-1.2) circle (0.35cm);
-    \node[red!80!black, font=\tiny\bfseries, fill=white, inner sep=0.8pt, rounded corners=1pt] at (1.5,-0.4) {Obstrucción};
-
-    % Línea de vista directa (LoS)
-    \draw[blue!80!black, thick, ->] (-4.4,0.3) -- (4.4,0.3);
-
-    % Multipath (Reflexiones)
-    % Árbol y follaje
-    \fill[brown!60!black] (-1.8,-1.2) rectangle (-1.65,1.2);
-    \fill[green!50!black, opacity=0.85] (-1.725,1.6) circle (0.65cm);
-    \draw[orange!85, thick, dashed, ->] (-4.4,0.3) -- (-1.725,1.6) -- (4.4,0.3);
-    \node[orange!85!black, font=\tiny\bfseries] at (-1.7,2.4) {Ecos (Multipath)};
-
-    % Gotas de Humedad / Atenuación
-    \foreach \x/\y in {-3.2/0.4, -2.4/0.7, -1.0/-0.2, 0.2/0.6, 2.8/0.5, 3.5/-0.1} {
-      \fill[cyan!60, opacity=0.8] (\x,\y) ellipse (0.04cm and 0.08cm);
-    }
-    \node[cyan!80!black, font=\tiny\bfseries] at (-3.2,-0.4) {Atenuación H$_2$O};
-  \end{tikzpicture}
-  \note{
-    El entorno selvático impone severos límites a la propagación de radiofrecuencia en la banda de 2.4 GHz:
-    1. La banda de 2.4 GHz resuena con el agua, haciendo que la vegetación húmeda funcione como un blindaje que atenúa la señal (1 a 3 dB/m).
-    2. Las hojas y ramas difractan la señal, provocando múltiples ecos que interfieren entre sí (multipath fading) y corrompen los datos.
-    3. Aunque haya línea de vista óptica, la obstrucción del elipsoide de Fresnel por el suelo o maleza degrada la señal.
-    4. Existen límites legales estrictos de potencia de transmisión (20 dBm / 100 mW EIRP en ISM 2.4 GHz) que impiden aumentar la ganancia activa para compensar estas pérdidas de propagación.
+    El entorno selvático impone severos límites a la comunicación inalámbrica:
+    1. El agua presente en la vegetación (alta humedad) absorbe la energía electromagnética (atenuación por efecto microondas, especialmente a 2.4 GHz).
+    2. Las hojas y ramas difractan y dispersan la señal, provocando múltiples trayectos (multipath) que interfieren entre sí.
+    3. La obstrucción física (suelo, maleza) bloquea la zona de Fresnel disminuyendo la intensidad de la señal.
+    4. Las limitaciones legales de potencia impiden simplemente aumentar la potencia de transmisión para superar estas pérdidas.
   }
 \end{frame}
 
