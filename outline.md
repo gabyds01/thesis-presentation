@@ -26,8 +26,8 @@
 - Escenario de prueba (Jardin botanico) (F)
 - Resultados camara (F)
 - Resultados red malla (G)
-- Resultados inferencia (F)
 - Resultados bot de telegram (G)
+- Resultados inferencia (F)
 
 # Conclusion
 

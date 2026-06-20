@@ -925,44 +925,148 @@ desarrollamos.
 % ==============================================================================
 \section{Desarrollo}
 
-\begin{frame}{Nodo de Cámara - Hardware}
-  \begin{columns}[t]
-    \begin{column}{0.45\textwidth}
-      \begin{block}{Captura de Imagen y Conectividad}
+\begin{frame}{Nodo de Cámara: Captura y Conectividad}
+  \begin{columns}[c]
+    \begin{column}{0.5\textwidth}
+      \begin{block}{ESP32-CAM AI-Thinker}
         \begin{itemize}
-          \item MCU: ESP32-CAM (AI-Thinker)
-          \item Cámara: OV2640 (\num{2}~MP)
-          \item Resolución: \num{640}x\num{480}
-          \item Conectividad: Wi-Fi
-          \item Antena: Externa de \qty{3}{\deci\bel i} a \qty{2.4}{\giga\hertz} 
-        \end{itemize}
-      \end{block}
-
-      \begin{block}{Detección de Movimiento}
-        \begin{itemize}
-          \item Sensor PIR: HC-SR501
-          \item Disparo de captura de imagen por interrupción
+          \setlength{\itemsep}{0.6em}
+          \item \textbf{SoC:} ESP32-S (Wi-Fi + Bluetooth, bajo costo)
+          \item \textbf{Cámara:} OV2640 (\num{2}~MP, res. usada \num{640}x\num{480})
+          \item \textbf{Conectividad:} Antena externa de \qty{3}{\deci\bel i} (\qty{2.4}{\giga\hertz})
+          \item \textbf{Periféricos:} Ranura microSD y pines GPIO
+          \item \textbf{Aplicaciones:} IoT, seguridad y visión por computadora
         \end{itemize}
       \end{block}
     \end{column}
-    
-    \begin{column}{0.52\textwidth}
+    \begin{column}{0.5\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{img/espcam.png}
+    \end{column}
+  \end{columns}
+  \note{
+    Detalle del hardware de procesamiento y captura. Se utiliza la placa de desarrollo ESP32-CAM de AI-Thinker, basada en el SoC ESP32-S. Cuenta con conectividad Wi-Fi y Bluetooth, ranura microSD y pines GPIO, resultando una solución de bajo costo ideal para proyectos de IoT, seguridad y visión por computadora.
+  }
+\end{frame}
 
-      \begin{block}{Alimentación Externa}
+\begin{frame}{Nodo de Cámara: Detección de Movimiento}
+  \begin{columns}[c]
+    \begin{column}{0.5\textwidth}
+      \begin{block}{HC-SR501}
         \begin{itemize}
+          \setlength{\itemsep}{0.4em}
+          \item \textbf{Tipo:} Sensor Pasivo Infrarrojo
+          \item \textbf{Rango de Detección:} Hasta \qty{7}{\meter} (regulable mediante potenciómetro)
+          \item \textbf{Cono de detección:} \qty{110}{\degree}
+          \item \textbf{Consumo Estático:} \qty{65}{\micro\ampere}
+          \item \textbf{Aplicaciones comunes:} Domótica, seguridad e iluminación automática
+          \item \textbf{Interrupción:} Envía un pulso al MCU para iniciar la captura
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{img/pir.png}
+    \end{column}
+  \end{columns}
+  \note{
+    Detalles del sensor de movimiento HC-SR501. Es un sensor pasivo infrarrojo (PIR) con un alcance regulable de hasta 7 metros y un cono de 110 grados. Su consumo estático de apenas 65 microamperios permite mantener al ESP32-CAM en Deep Sleep la mayor parte del tiempo, despertándolo mediante una interrupción externa solo al detectar un evento físico (fauna o intrusos).
+  }
+\end{frame}
+
+% \begin{frame}{Principio de Funcionamiento}
+%   \begin{columns}[c]
+%     \begin{column}{0.5\textwidth}
+%       \begin{block}{Radiación Térmica}
+%         Todo cuerpo con temperatura superior al cero absoluto emite radiación infrarroja invisible.
+%       \end{block}
+      
+%       \begin{block}{Medición Diferencial}
+%         \begin{itemize}
+%           \setlength{\itemsep}{0.4em}
+%           \item El elemento piroeléctrico posee dos ranuras receptoras.
+%           \item La \textbf{lente de Fresnel} segmenta el espacio en zonas activas y pasivas.
+%           \item Al desplazarse un cuerpo cálido, activa una ranura tras otra, generando una señal diferencial.
+%         \end{itemize}
+%       \end{block}
+%     \end{column}
+%     \begin{column}{0.5\textwidth}
+%       \centering
+%         \begin{tikzpicture}[
+%             font=\sffamily\small,
+%             >=Latex,
+%             every node/.style={align=center}
+%           ]
+%           % Sensor piroeléctrico
+%           \draw[draw=gray, fill=gray!20, thick] (-1.5,-1) rectangle (1.5,-0.3);
+%           \node[above=0.01cm, font=\sffamily\small\bfseries] at (0,-0.3) {Sensor Piroeléctrico};
+          
+%           % Ranuras A y B
+%           \draw[fill=blue!30, draw=blue!80] (-0.8,-0.9) rectangle (-0.2,-0.4);
+%           \node at (-0.5,-0.65) {A};
+%           \draw[fill=red!30, draw=red!80] (0.2,-0.9) rectangle (0.8,-0.4);
+%           \node at (0.5,-0.65) {B};
+
+%           % Lente de Fresnel (Arco)
+%           \draw[cyan!60, very thick] (-1.8,1.0) arc (180:0:1.8cm);
+%           \draw[cyan!60!black, dashed] (-1.8,1.0) -- (1.8,1.0);
+%           \node[cyan!80!black, font=\sffamily\small\bfseries] at (0,1.2) {Lente de Fresnel};
+
+%           % Rayos focalizados
+%           \draw[orange, ->, dashed] (-2.2, 2.6) -- (-0.5,-0.4);
+%           \draw[orange, ->, dashed] (2.2, 2.6) -- (0.5,-0.4);
+
+%           % Objeto móvil (fuente IR)
+%           \draw[fill=orange!20, draw=orange!80, thick, rounded corners=3pt] (-2.8, 2.8) rectangle (-1.6, 3.5);
+%           \node[orange!85!black, font=\sffamily\small\bfseries] at (-2.2, 3.15) {Cuerpo\\Cálido};
+%           \draw[->, thick, orange!80] (-1.4, 3.15) -- (1.4, 3.15) node[midway, above, font=\sffamily\small] {Movimiento};
+          
+%           \draw[fill=orange!5, draw=orange!40, dashed, rounded corners=3pt] (1.6, 2.8) rectangle (2.8, 3.5);
+
+%           % Señal diferencial (onda)
+%           \begin{scope}[shift={(0,-2.2)}, scale=0.6]
+%             \draw[gray, ->] (-3,0) -- (3,0) node[right] {$t$};
+%             \draw[gray, ->] (0,-1.2) -- (0,1.2) node[above] {$V_{out}$};
+%             \draw[red, thick] (-2.5,0) -- (-1.5,0) to[out=90,in=180] (-1,0.8) to[out=0,in=90] (-0.5,0) to[out=270,in=180] (0.5,-0.8) to[out=0,in=270] (1,0) -- (2.5,0);
+%             \node[red, above] at (-1, 0.8) {$+$};
+%             \node[red, below] at (0.5, -0.8) {$-$};
+%             \node[black, font=\small\itshape] at (2.2, -0.6) {Señal\\Diferencial};
+%           \end{scope}
+%         \end{tikzpicture}
+%     \end{column}
+%   \end{columns}
+%   \note{
+%     El principio de funcionamiento de un sensor PIR se basa en la radiación térmica:
+%     1. Detección de radiación infrarroja térmica emitida por objetos templados (como fauna o personas).
+%     2. Una lente de Fresnel que divide el campo visual en zonas de enfoque y concentración.
+%     3. Un sensor piroeléctrico diferencial interno con dos ranuras (A y B).
+%     4. Cuando una fuente de calor se desplaza, estimula alternativamente las ranuras, induciendo una corriente diferencial de salida (onda positiva y negativa) que el circuito interpreta como movimiento.
+%   }
+% \end{frame}
+
+\begin{frame}{Nodo de Cámara: Alimentación}
+  \begin{columns}[c]
+    \begin{column}{0.5\textwidth}
+      \begin{block}{Módulo Fuente Conmutada}
+        \begin{itemize}
+          \setlength{\itemsep}{0.6em}
+          \item Basado en Regulador tipo \textit{Buck} LM2596
           \item Pack de baterías 18650 2S 
           \item Voltaje nominal: \qty{7.4}{\volt}
           \item Capacidad nominal: \qty{3500}{mAh}
-          \item Regulador: Módulo convertidor tipo \textit{Buck} LM2596
           % \item Corte por caída de tensión del regulador a \qty{6.5}{\volt}
-          \item Capacidad utilizable: \qty{1400}{mAh} debido a la caída de tensión del regulador
+          \item Capacidad utilizable: \qty{1400}{mAh}
           \item Eficiencia (\qty{92}{\percent}) y versatilidad de tensión de entrada (\qty{40}{\volt})
         \end{itemize}
       \end{block}
     \end{column}
+    \begin{column}{0.5\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{img/regulador.png}
+    \end{column}
   \end{columns}
   \note{
-    
+    La alimentación externa utiliza un pack de baterías 18650 en configuración 2S. A pesar de tener 3500 mAh de capacidad nominal, la caída de tensión en el regulador lineal/buck LM2596 reduce la capacidad utilizable a 1400 mAh, lo que resalta el trade-off del diseño de bajo costo.
   }
 \end{frame}
 
@@ -1516,16 +1620,13 @@ para futuro fine-tuning del modelo.
 
 \begin{frame}{Pruebas de Campo}
 \begin{columns}
-\begin{column}{0.5\textwidth}
-\textbf{Lugar:} Jardin botanico
-
-\vspace{0.3em}
+\begin{column}{0.55\textwidth}
 \textbf{Condiciones:}
 \begin{itemize}
-\item Duracion: \qty{5}{h} de operacion continua
-\item 3 nodos desplegados
-\item Distancia entre nodos: \qty{15}{m}
-\item Condiciones climáticas: soleado
+\item Duración: \qty{5}{h} de operación continua
+\item 3 nodos cámara + 1 nodo root desplegados
+\item Distancia entre nodos: \qty{15}{m} a \qty{20}{m}
+\item Condiciones climáticas favorables
 \end{itemize}
 
 \vspace{0.3em}
@@ -1537,16 +1638,16 @@ para futuro fine-tuning del modelo.
 \item Gato doméstico (conf. 0.96)
 \end{itemize}
 \end{column}
-\begin{column}{0.5\textwidth}
+\begin{column}{0.45\textwidth}
   \centering
   \begin{figure}
-    \begin{subfigure}[b]{0.9\textwidth}
+    \begin{subfigure}[b]{\textwidth}
       \centering
       \includegraphics[height=3.3cm]{bachelor-thesis/img/nodoCampo1.jpg}
       \caption{Despliegue en Campo}
     \end{subfigure}
-    \vfill
-    \begin{subfigure}[b]{0.9\textwidth}
+
+    \begin{subfigure}[b]{\textwidth}
       \centering
       \includegraphics[height=3.3cm]{bachelor-thesis/img/capturaIntrusoProcesada.png}
       \caption{Detección de Intruso}
@@ -1622,6 +1723,52 @@ movimiento de vegetación fueron filtradas por la lógica de umbrales.
   }
 \end{frame}
 
+% El frame de Consumo Energético fue movido a la Sección 3 (Diseño y Energía)
+
+\begin{frame}{Resultados - Bot de Telegram (HITL)}
+  \only<1>{
+    \centering
+    \textbf{Paso 1:} Clasificación errónea inicial en el panel web
+
+    \vspace{0.5em}
+    \includegraphics[height=0.7\textheight]{img/pajaroSinCorregir.jpg}
+  }
+  \only<2>{
+    \centering
+    \textbf{Paso 2:} El usuario indica el error desde el bot de Telegram
+
+    \vspace{0.5em}
+    \includegraphics[height=0.7\textheight]{img/botSinCorregir.jpg}
+  }
+  \only<3>{
+    \centering
+    \textbf{Paso 3:} Selección de la etiqueta correcta (\textit{human})
+
+    \vspace{0.5em}
+    \includegraphics[height=0.7\textheight]{img/botCorreccion.jpg}
+  }
+  \only<4>{
+    \centering
+    \textbf{Paso 4:} Registro actualizado y auditado en el panel web
+
+    \vspace{0.5em}
+    \includegraphics[height=0.7\textheight]{img/pajaroCorregido.jpg}
+  }
+  \note{
+    Este flujo demuestra el mecanismo Human-in-the-loop en acción.
+    Paso 1: el modelo clasifica erróneamente una imagen (ej. confunde persona con animal).
+    Paso 2: el usuario recibe la notificación en Telegram y mediante un teclado inline
+    indica que la clasificación es incorrecta.
+    Paso 3: el bot presenta las alternativas sugeridas por el modelo y el usuario
+    selecciona la etiqueta correcta (human).
+    Paso 4: el sistema actualiza la base de datos y el panel web refleja el cambio
+    inmediatamente, marcando el evento como auditado.
+
+    Esto no solo corrige errores en tiempo real, sino que genera datos etiquetados
+    de alta calidad para futuro fine-tuning del modelo con imágenes del ecosistema local.
+  }
+\end{frame}
+
 
 \begin{frame}{Resultados - Detección Binaria}
   \begin{columns}[c]
@@ -1686,52 +1833,6 @@ movimiento de vegetación fueron filtradas por la lógica de umbrales.
   \note{
     Resultados de la clasificación multiclase (Vacío, Animales, Personas, Vehículos) con SpeciesNet. La clase vehículos tiene 100\% de acierto. Personas alcanza un 77.3\% (importante para detectar intrusos). Los animales son los más difíciles de identificar (52.9\%) debido a especies pequeñas o camufladas, justificando la intervención humana (HITL) para corregir etiquetas desde Telegram.
     Los animales pequeños y el camuflaje natural en el follaje explican el menor recall. El mecanismo \textit{Human-in-the-loop} permite subsanar estos errores y auditar los registros en el servidor.
-  }
-\end{frame}
-
-% El frame de Consumo Energético fue movido a la Sección 3 (Diseño y Energía)
-
-\begin{frame}{Resultados - Bot de Telegram (HITL)}
-  \only<1>{
-    \centering
-    \textbf{Paso 1:} Clasificación errónea inicial en el panel web
-
-    \vspace{0.5em}
-    \includegraphics[height=0.7\textheight]{img/pajaroSinCorregir.jpg}
-  }
-  \only<2>{
-    \centering
-    \textbf{Paso 2:} El usuario indica el error desde el bot de Telegram
-
-    \vspace{0.5em}
-    \includegraphics[height=0.7\textheight]{img/botSinCorregir.jpg}
-  }
-  \only<3>{
-    \centering
-    \textbf{Paso 3:} Selección de la etiqueta correcta (\textit{human})
-
-    \vspace{0.5em}
-    \includegraphics[height=0.7\textheight]{img/botCorreccion.jpg}
-  }
-  \only<4>{
-    \centering
-    \textbf{Paso 4:} Registro actualizado y auditado en el panel web
-
-    \vspace{0.5em}
-    \includegraphics[height=0.7\textheight]{img/pajaroCorregido.jpg}
-  }
-  \note{
-    Este flujo demuestra el mecanismo Human-in-the-loop en acción.
-    Paso 1: el modelo clasifica erróneamente una imagen (ej. confunde persona con animal).
-    Paso 2: el usuario recibe la notificación en Telegram y mediante un teclado inline
-    indica que la clasificación es incorrecta.
-    Paso 3: el bot presenta las alternativas sugeridas por el modelo y el usuario
-    selecciona la etiqueta correcta (human).
-    Paso 4: el sistema actualiza la base de datos y el panel web refleja el cambio
-    inmediatamente, marcando el evento como auditado.
-
-    Esto no solo corrige errores en tiempo real, sino que genera datos etiquetados
-    de alta calidad para futuro fine-tuning del modelo con imágenes del ecosistema local.
   }
 \end{frame}
 
