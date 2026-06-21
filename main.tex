@@ -1852,61 +1852,48 @@ movimiento de vegetación fueron filtradas por la lógica de umbrales.
 \end{frame}
 
 \begin{frame}{Resultados - Red Mesh}
-  \begin{columns}[t]
-    \begin{column}{0.55\textwidth}
-      \textbf{Latencia de Transmisión}
-      \vspace{0.3em}
-      \begin{tblr}{
-        width = \linewidth,
-        colspec = {X[l] c c},
-        row{1} = {font=\bfseries, bg=blue!10},
-        hline{1,2,Z} = {0.8pt, gray!50},
-      }
-        Métrica  & LAN & Campo \\
-        Transmisión (\qty{12.9}{\kilo\byte})  & $\sim$\qty{463}{ms} & \qtyrange{20}{60}{s} \\
-        Ciclo completo    & $\sim$\qty{1.27}{s} & --- \\
-      \end{tblr}
-    \end{column}
-    \begin{column}{0.45\textwidth}
-      \textbf{Alcance Máximo}
-      \vspace{0.3em}
-      \begin{tblr}{
-        width = \linewidth,
-        colspec = {X[l] c},
-        row{1} = {font=\bfseries, bg=blue!10},
-        hline{1,2,Z} = {0.8pt, gray!50},
-      }
-        Escenario  & Distancia \\
-        Línea de vista      & \qtyrange{15}{18}{m} \\
-        Con vegetación      & $\sim$\qty{12}{m} \\
-        Interior            & $\sim$\qty{10}{m} \\
-      \end{tblr}
-    \end{column}
-  \end{columns}
+  \centering
+  
+  \textbf{Latencia de Transmisión}
+  \vspace{0.3em}
+  \begin{tblr}{
+    width = 0.9\linewidth,
+    colspec = {X[l] c c},
+    row{1} = {font=\bfseries, bg=blue!10},
+    hline{1,2,Z} = {0.8pt, gray!50},
+  }
+    Métrica  & Laboratorio & Campo \\
+    Tamaño de imagen & \qty{12.9}{\kilo\byte} & $\sim$\qty{30}{\kilo\byte} \\
+    Transmisión & \qty{463}{ms} & \qtyrange{20}{60}{s} \\
+    Ciclo completo    & $\sim$\qty{1.27}{s} & \qtyrange{3}{5}{min} \\
+  \end{tblr}
 
-  \vspace{0.5em}
-  {\footnotesize\textit{Nota: La prueba de campo se realizó sobre un hotspot celular
-  con cobertura limitada y ancho de banda compartido, representando
-  un escenario de conectividad adverso.}}
+  \vspace{0.8em}
+
+  \textbf{Alcance Máximo entre Nodos}
+  \vspace{0.3em}
+  \begin{tblr}{
+    width = 0.9\linewidth,
+    colspec = {X[l] c},
+    row{1} = {font=\bfseries, bg=blue!10},
+    hline{1,2,Z} = {0.8pt, gray!50},
+  }
+    Escenario  & Distancia \\
+    Línea de vista      & \qtyrange{15}{20}{m} \\
+    Con vegetación      & $\sim$\qty{12}{m} \\
+  \end{tblr}
 
   \note{
-    En condiciones controladas de laboratorio (red LAN local, servidor en la
-    misma subred), el sistema logra una latencia de transmisión HTTP de 463~ms
-    para una imagen de 12.9~KB, con un ciclo completo wake-up-to-sleep de solo
-    1.27~s, lo cual valida la eficiencia del firmware.
-
-    La prueba de campo se realizó intencionalmente en condiciones de
-    conectividad adversas: un hotspot de celular con señal débil,
-    compartido simultáneamente entre los nodos mesh, la computadora
-    ejecutando el servidor HTTP, el bot de Telegram y otros servicios.
-    Esta saturación del canal inalámbrico y la alta latencia del uplink
-    celular explican la diferencia de dos órdenes de magnitud respecto
-    a la prueba LAN. El valor de 40~s promedio refleja las limitaciones
-    del enlace de salida (backhaul), no del protocolo mesh ni del firmware.
-
-    En un despliegue real con un router WiFi dedicado (o incluso un
-    hotspot con mejor cobertura), se esperaría un rendimiento
-    significativamente más cercano al obtenido en laboratorio.
+    \textbf{Resultados de la Red Mesh:}\\
+    - \textbf{Métricas y Entornos}: Comparamos las pruebas en Laboratorio (bajo una red local LAN con servidor en la misma subred) frente a las de Campo (utilizando un hotspot celular con cobertura limitada y ancho de banda compartido, representando un escenario adverso).\\
+    - \textbf{Nota de conectividad}: La prueba de campo se realizó sobre un hotspot celular con cobertura limitada y ancho de banda compartido, representando un escenario de conectividad adverso. Esta saturación del canal inalámbrico y la alta latencia del uplink celular explican la diferencia de dos órdenes de magnitud respecto a la prueba de laboratorio.\\
+    - \textbf{Definiciones para comentar}:
+      1. \textbf{Transmisión}: Tiempo transcurrido desde que la cámara captura el evento hasta que el paquete llega al nodo raíz (puerta de enlace).
+      2. \textbf{Ciclo completo}: Tiempo total desde que se genera el disparo en el PIR hasta que la alerta con la imagen clasificada llega al teléfono del usuario final. Requiere pasar por la red mesh, el uplink celular del root, el procesamiento en el servidor remoto, la inferencia de SpeciesNet y la API de Telegram.\\
+    - \textbf{Rendimiento de transmisión y ciclo}:
+      - En Laboratorio, con imágenes de \num{12.9}~KB, la transmisión toma \num{463}~ms y el ciclo completo \num{1.27}~s.
+      - En Campo, con imágenes de aproximadamente \num{30}~KB, la transmisión demora de \num{20} a \num{60}~s por salto y congestión, y el ciclo completo puede ir de \num{3} a \num{5}~minutos debido al cuello de botella en el enlace celular (hotspot compartido para toda la red y servidores).\\
+    - \textbf{Alcance entre Nodos}: En línea de vista directa alcanzamos de \num{15} a \num{18}~m; con vegetación densa intermedia se reduce a aproximadamente \num{12}~m. Se removieron las métricas en interiores (donde daba unos \num{10}~m) dado que el despliegue final es al aire libre en áreas protegidas.
   }
 \end{frame}
 
