@@ -234,7 +234,6 @@ Ejercicio
         \item Mas del \textbf{\qty{50}{\percent} de la biodiversidad} de Argentina \footcite{dibitetti2003yaguarete}
         \item En menos del \qty{0.5}{\percent} del territorio nacional
         \item \num{1.1} millones de hectareas protegidas
-        \item \textbf{Corredor Verde de Misiones}
       \end{itemize}
 
       \vspace{1em}
@@ -382,7 +381,7 @@ Ejercicio
       \begin{itemize}
         \item \textbf{Contaminación:} Vertidos de aguas residuales sin tratar y residuos industriales en cuencas hidrográficas.
         \item \textbf{Infraestructura fragmentadora:} Construcción de viviendas y carreteras que cortan los corredores biológicos.
-        \item \textbf{Atropellamientos de fauna:} Más de \num{5000} animales al año mueren en rutas que cruzan áreas protegidas \footcite{vidasilvestre2024atropellamiento}.
+        \item \textbf{Atropellamientos de fauna:} Más de \num{5000} animales al año mueren en rutas que cruzan áreas protegidas\footcite{vidasilvestre2024atropellamiento}.
       \end{itemize}
     \end{column}
     \begin{column}{0.45\textwidth}
@@ -1839,6 +1838,12 @@ para futuro fine-tuning del modelo.
   \includegraphics[width=\textwidth]{bachelor-thesis/img/entrada_jardin.jpg}
 \end{frame}
 
+\begin{frame}{Escenario de Prueba (cont.)}
+  \centering
+  \includegraphics[width=0.49\textwidth]{bachelor-thesis/img/nodoCampo1Lejos.jpg}\hfill
+  \includegraphics[width=0.49\textwidth]{bachelor-thesis/img/nodoCampo2Lejos.jpg}
+\end{frame}
+
 \begin{frame}{Pruebas de Campo}
 \begin{columns}
 \begin{column}{0.55\textwidth}
@@ -1849,30 +1854,23 @@ para futuro fine-tuning del modelo.
 \item Distancia entre nodos: \qty{15}{m} a \qty{20}{m}
 \item Condiciones climáticas favorables
 \end{itemize}
-
-\vspace{0.3em}
-\textbf{Detecciones exitosas:}
+\vspace{0.5em}
+\textbf{Total de imágenes procesadas:} \num{94}
 \begin{itemize}
-\item Personas (intrusos)
-\item Vehículos
-\item Aves silvestres (conf. 0.74-0.90)
-\item Gato doméstico (conf. 0.96)
-\end{itemize}
+  \item Filtrado de falsos positivos 
+  \item Detecciones exitosas
+    \begin{itemize}
+      \item Personas
+      \item Vehículos
+      \item Aves silvestres
+      \item Animales domésticos
+    \end{itemize}
+  \end{itemize}
 \end{column}
 \begin{column}{0.45\textwidth}
   \centering
   \begin{figure}
-    \begin{subfigure}[b]{\textwidth}
-      \centering
-      \includegraphics[height=3.3cm]{bachelor-thesis/img/nodoCampo1.jpg}
-      \caption{Despliegue en Campo}
-    \end{subfigure}
-
-    \begin{subfigure}[b]{\textwidth}
-      \centering
-      \includegraphics[height=3.3cm]{bachelor-thesis/img/capturaIntrusoProcesada.png}
-      \caption{Detección de Intruso}
-    \end{subfigure}
+    \includegraphics[width=\linewidth]{bachelor-thesis/img/nodoCampo2.jpg}
   \end{figure}
 \end{column}
 \end{columns}
@@ -1889,7 +1887,8 @@ movimiento de vegetación fueron filtradas por la lógica de umbrales.
   \centering
   
   \textbf{Latencia de Transmisión}
-  \vspace{0.3em}
+  \vspace{0.4em}
+
   \begin{tblr}{
     width = 0.9\linewidth,
     colspec = {X[l] c c},
@@ -1905,7 +1904,8 @@ movimiento de vegetación fueron filtradas por la lógica de umbrales.
   \vspace{0.8em}
 
   \textbf{Alcance Máximo entre Nodos}
-  \vspace{0.3em}
+  \vspace{0.4em}
+
   \begin{tblr}{
     width = 0.9\linewidth,
     colspec = {X[l] c},
