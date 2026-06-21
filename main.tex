@@ -1438,23 +1438,23 @@ desarrollamos.
       \begin{tikzpicture}[
           font=\sffamily,
           >=Latex,
-          box/.style={draw=gray!30, fill=white, rounded corners=6pt, minimum width=5.2cm, minimum height=2.5cm, line width=0.8pt},
-          node_root/.style={circle, draw=orange!80!black, fill=orange!10, minimum size=0.8cm, thick, font=\scriptsize\bfseries},
-          node_relay/.style={circle, draw=teal!80!black, fill=teal!10, minimum size=0.8cm, thick, font=\scriptsize\bfseries},
-          node_leaf/.style={circle, draw=teal!80!black, fill=teal!10, minimum size=0.8cm, thick, font=\scriptsize\bfseries},
+          box/.style={draw=gray!30, fill=white, rounded corners=6pt, minimum width=5.2cm, minimum height=2.7cm, line width=0.8pt},
+          node_root/.style={circle, draw=orange!80!black, fill=orange!10, minimum size=0.9cm, thick, font=\scriptsize\bfseries, align=center},
+          node_relay/.style={circle, draw=teal!80!black, fill=teal!10, minimum size=0.9cm, thick, font=\scriptsize\bfseries, align=center},
+          node_leaf/.style={circle, draw=teal!80!black, fill=teal!10, minimum size=0.9cm, thick, font=\scriptsize\bfseries, align=center},
           link_ok/.style={draw=teal!80!black, <-, line width=1.5pt}
         ]
         \node[box] (bg) at (0,0) {};
-        \node[anchor=north, font=\scriptsize\bfseries\color{teal!80!black}, yshift=-0.15cm] at (bg.north) {Intermedio en Light Sleep (Activo)};
+        \node[anchor=north, font=\scriptsize\bfseries\color{teal!80!black}, yshift=-0.2cm] at (bg.north) {Intermedio en Light Sleep (Activo)};
         
-        \node[node_root] (R) at (-1.4, -0.15) {Raíz};
-        \node[node_relay] (Re) at (0, -0.15) {Intermedio};
-        \node[node_leaf] (L) at (1.4, -0.15) {Hoja};
+        \node[node_root] (R) at (-1.5, 0.05) {Raíz};
+        \node[node_relay] (Re) at (0, 0.05) {Inter-\\medio};
+        \node[node_leaf] (L) at (1.5, 0.05) {Hoja};
         
         \draw[link_ok] (R) -- (Re);
         \draw[link_ok] (Re) -- (L);
         
-        \node[anchor=south, font=\tiny\color{teal!80!black}, yshift=0.15cm] at (bg.south) {Enlace de malla activo e hijos conectados};
+        \node[anchor=south, font=\scriptsize\color{teal!80!black}, yshift=0.15cm] at (bg.south) {Enlace de malla activo e hijos conectados};
       \end{tikzpicture}
     \end{column}
     
@@ -1463,24 +1463,24 @@ desarrollamos.
       \begin{tikzpicture}[
           font=\sffamily,
           >=Latex,
-          box/.style={draw=red!20, fill=white, rounded corners=6pt, minimum width=5.2cm, minimum height=2.5cm, line width=0.8pt},
-          node_root/.style={circle, draw=orange!80!black, fill=orange!10, minimum size=0.8cm, thick, font=\scriptsize\bfseries},
-          node_relay_ds/.style={circle, draw=gray!60, fill=gray!10, minimum size=0.8cm, thick, dashed, font=\scriptsize\bfseries, text=gray!70},
-          node_leaf_fail/.style={circle, draw=red!80, fill=red!5, minimum size=0.8cm, thick, font=\scriptsize\bfseries, text=red!80!black},
+          box/.style={draw=red!20, fill=white, rounded corners=6pt, minimum width=5.2cm, minimum height=2.7cm, line width=0.8pt},
+          node_root/.style={circle, draw=orange!80!black, fill=orange!10, minimum size=0.9cm, thick, font=\scriptsize\bfseries, align=center},
+          node_relay_ds/.style={circle, draw=gray!60, fill=gray!10, minimum size=0.9cm, thick, dashed, font=\scriptsize\bfseries, text=gray!70, align=center},
+          node_leaf_fail/.style={circle, draw=red!80, fill=red!5, minimum size=0.9cm, thick, font=\scriptsize\bfseries, text=red!80!black, align=center},
           link_ok/.style={draw=teal!80!black, <-, line width=1.5pt},
           link_fail/.style={draw=red!80, <-, dashed, line width=1.5pt}
         ]
         \node[box] (bg) at (0,0) {};
-        \node[anchor=north, font=\scriptsize\bfseries\color{red!80!black}, yshift=-0.15cm] at (bg.north) {Intermedio en Deep Sleep (Inactivo)};
+        \node[anchor=north, font=\scriptsize\bfseries\color{red!80!black}, yshift=-0.2cm] at (bg.north) {Intermedio en Deep Sleep (Inactivo)};
         
-        \node[node_root] (R) at (-1.4, -0.15) {Raíz};
-        \node[node_relay_ds] (Re) at (0, -0.15) {Intermedio};
-        \node[node_leaf_fail] (L) at (1.4, -0.15) {Hoja};
+        \node[node_root] (R) at (-1.5, 0.05) {Raíz};
+        \node[node_relay_ds] (Re) at (0, 0.05) {Inter-\\medio};
+        \node[node_leaf_fail] (L) at (1.5, 0.05) {Hoja};
         
         \draw[link_ok] (R) -- (Re);
         \draw[link_fail] (Re) -- (L) node[midway, above, font=\tiny\bfseries\color{red}, yshift=-1pt] {Roto};
         
-        \node[anchor=south, font=\tiny\color{red!85!black}, yshift=0.15cm] at (bg.south) {Nodos hijos aislados de la red};
+        \node[anchor=south, font=\scriptsize\color{red!85!black}, yshift=0.15cm] at (bg.south) {Nodos hijos aislados de la red};
       \end{tikzpicture}
     \end{column}
   \end{columns}
