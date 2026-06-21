@@ -58,7 +58,7 @@
 
 \maketitle
 
-\begin{frame}{Índice}
+\begin{frame}{Agenda}
   \tableofcontents
   \note{
     Presentar brevemente la estructura de la exposición.
@@ -299,34 +299,42 @@ Ejercicio
     \item \textbf{Regulación hídrica:} Control del ciclo hidrológico y prevención de inundaciones.
     \item \textbf{Mitigación del cambio climático:} Secuestro y almacenamiento de carbono atmosférico.
     \item \textbf{Conservación del suelo:} Protección contra la erosión provocada por lluvias intensas.
-    \item \textbf{Estabilidad ecológica:} Preservación de hábitats que sostienen la biodiversidad.
+    % \item \textbf{Estabilidad ecológica:} Preservación de hábitats que sostienen la biodiversidad.
   \end{itemize}
   \note{
     Además del valor biológico de las especies, cuidar la selva misionera contribuye de manera directa a proveer servicios ecosistémicos indispensables para la región. Regular el ciclo hídrico, capturar carbono y proteger el suelo son fundamentales para evitar catástrofes climáticas y erosión regional.
   }
 \end{frame}
 
-\begin{frame}{Importancia Ecológica - Regulación}
-  \textbf{Marco legal para la conservación}
-  
-  Para regular y asegurar la preservación del bosque nativo, se implementa la \textbf{Ley 26.331 de Protección de Bosques Nativos} \footcite{ley26331bosques}:
+\begin{frame}{Importancia Ecológica - Iniciativas de Conservación}
+  \textbf{Políticas y marcos de fomento nacional y provincial:}
   
   \vspace{0.8em}
-  \begin{description}
-    \setlength{\itemsep}{0.8em}
-    \item[Categoría I (Rojo):] Muy alto valor de conservación - no se transforma.
-    \item[Categoría II (Amarillo):] Mediano valor - aprovechamiento sostenible y turismo.
-    \item[Categoría III (Verde):] Bajo valor - sectores permitidos para transformación.
-  \end{description}
+  \begin{itemize}
+    \setlength{\itemsep}{0.5em}
+    \item \textbf{Ley Nacional 26.331 (Ley de Bosques):} Distribución de fondos de compensación para planes de conservación y aprovechamiento sostenible
+    % \item \textbf{Áreas Protegidas Nacionales:} Gestión y resguardo integral de reservas clave como el Parque Nacional Iguazú
+    \item \textbf{Corredor Verde de Misiones:} Ley provincial pionera que busca conectar las reservas para evitar la fragmentación de la selva
+    \item \textbf{Ministerio de Cambio Climático:} Primera cartera de Latinoamérica dedicada a la mitigación y preservación de biodiversidad
+    \item \textbf{Pago por Servicios Ambientales:} Ley provincial que retribuye económicamente a propietarios que cuidan la selva en sus tierras
+  \end{itemize}
   \note{
-    Para lograr estos objetivos de preservación y evitar la pérdida del bosque, se implementa este marco legal nacional. La ley clasifica los bosques en tres categorías según su valor. En Misiones, la mayoría del territorio está bajo Categoría I y II, lo que prohíbe desmontes pero exige un monitoreo eficaz para combatir intrusiones ilegales.
+    Para regular y asegurar la preservación del bosque nativo, existen esfuerzos coordinados. A nivel nacional, la Ley de Bosques asigna fondos de fomento y compensación no reembolsables. A nivel provincial, Misiones cuenta con el Corredor Verde para evitar el efecto isla de las reservas, el primer Ministerio de Cambio Climático de la región, y leyes de pago por servicios ambientales para retribuir directamente a productores y colonos que eligen conservar.
   }
 \end{frame}
 
 \section*{Amenazas}
 \begin{frame}{Cambio de Uso del Suelo y Degradación Forestal}
   \begin{columns}
-    \begin{column}{0.4\textwidth}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+        \centering
+        \includegraphics[width=\textwidth]{img/cambio_uso_suelo.png}
+        \par\vspace{0.3em}
+        \tiny Fuente: \href{https://cambioclimatico.misiones.gob.ar/bosque-atlantico/}{cambioclimatico.misiones.gob.ar}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.5\textwidth}
       \begin{itemize}
         \setlength{\itemsep}{1em}
         \item \textbf{Expansión agrícola}
@@ -334,14 +342,6 @@ Ejercicio
         \item \textbf{Fragmentación del hábitat}
         \item \textbf{Efecto de borde}
       \end{itemize}
-    \end{column}
-    \begin{column}{0.6\textwidth}
-      \begin{figure}
-        \centering
-        \includegraphics[width=.85\textwidth]{img/cambio_uso_suelo.png}
-        \par\vspace{0.3em}
-        \tiny Fuente: \href{https://cambioclimatico.misiones.gob.ar/bosque-atlantico/}{cambioclimatico.misiones.gob.ar}
-      \end{figure}
     \end{column}
   \end{columns}
   \note{
@@ -1146,12 +1146,10 @@ desarrollamos.
 % ---------- Slide 1: WiFi Tradicional ----------
 \begin{frame}{¿Por qué no WiFi tradicional?}
   \centering
-  \vspace{-0.5em}
-  {\large \textbf{Estructura Centralizada} \quad $\bullet$ \quad \textbf{Alcance Limitado} \\
-  \textbf{Nodos Aislados}}
-  
-  \vspace{0.6em}
-  \includegraphics[width=0.85\textwidth]{img/funcion_wifi.png}
+  \textbf{Estructura Centralizada} \hfill $\bullet$ \hfill \textbf{Alcance Limitado} \hfill $\bullet$ \hfill \textbf{Nodos Aislados}
+
+  \vspace{2em}
+  \includegraphics[width=\textwidth]{img/funcion_wifi.png}
   
   \note{
     \textbf{¿Por qué no WiFi tradicional?}\\
@@ -1162,17 +1160,15 @@ desarrollamos.
 \end{frame}
 
 % ---------- Slide 2: La Solución — Red Malla ----------
-\begin{frame}{La Solución: Red Malla (\textit{Mesh})}
+\begin{frame}{La Solución: Red Malla}
   \centering
-  \vspace{-0.5em}
-  {\large \textbf{Descentralizada} \quad $\bullet$ \quad \textbf{Cobertura Extensible} \\
-  \textbf{Transmisión Transparente}}
-  
-  \vspace{0.6em}
-  \includegraphics[width=0.85\textwidth]{img/funcion_mesh.png}
+  \textbf{Cobertura Extensible} \hfill $\bullet$ \hfill \textbf{Transmisión Transparente} \hfill $\bullet$ \hfill \textbf{Robustez}
+
+  \vspace{2em}
+  \includegraphics[width=\textwidth]{img/funcion_mesh.png}
   
   \note{
-    \textbf{La Solución: Red Malla (Mesh)}\\
+    \textbf{La Solución: Red en Malla}\\
     1. \textbf{Nodos interconectados}: Los nodos cooperan reenviando datos de sus vecinos (sin depender de un punto central).\\
     2. \textbf{Cobertura extensible}: El rango útil de la red se expande dinámicamente con cada nodo agregado.\\
     3. \textbf{Direccionamiento IP}: Cada nodo recibe una dirección IP a través de su nodo padre, comportándose como si estuviera conectado directamente al router.\\
@@ -1180,16 +1176,15 @@ desarrollamos.
   }
 \end{frame}
 
-% ---------- Slide 3: Aplicaciones comunes ----------
-\begin{frame}{Aplicaciones Comunes de Redes Malla}
+% ---------- Slide 3: ESP-MESH-LITE ----------
+\begin{frame}{ESP-MESH-LITE}
   \begin{columns}[c]
     \begin{column}{0.55\textwidth}
       \begin{itemize}
         \setlength{\itemsep}{0.6em}
-        \item \textbf{Domótica:} Control de dispositivos inteligentes del hogar
-        \item \textbf{Agricultura inteligente:} Sensores distribuidos en campos de cultivo
-        \item \textbf{Iluminación:} Control grupal de luminarias
-        \item \textbf{Monitoreo ambiental:} Recolección de datos de múltiples sensores
+        \item Protocolo de \textbf{red en malla} de código abierto desarrollado por \textbf{Espressif Systems} para sus microcontroladores
+        \item \textbf{Características:} Topología en árbol autoorganizada, admite hasta \num{15} capas y \num{100} nodos, enrutamiento IP transparente y reconexión automática
+        \item \textbf{Aplicaciones comunes:} domótica, redes de sensores agrícolas, control de iluminación y automatización industrial liviana
       \end{itemize}
     \end{column}
     \begin{column}{0.45\textwidth}
@@ -1202,14 +1197,14 @@ desarrollamos.
     \end{column}
   \end{columns}
   \note{
-    Las redes malla se usan ampliamente en IoT: domótica, agricultura, iluminación y monitoreo ambiental. Pero un denominador común es que todas transmiten datos muy livianos: temperaturas, comandos de encendido, estados. Nuestro proyecto presenta un desafío distinto: debemos enviar imágenes JPEG de entre 30 y 50 KB por evento, lo cual requiere una implementación mucho más robusta del enlace de datos.
+    ESP-MESH-LITE es un protocolo de código abierto (bajo licencia Apache 2.0) desarrollado por Espressif Systems. Permite conectar dispositivos ESP32 en una red en malla jerárquica con direccionamiento IP transparente. A diferencia de las aplicaciones tradicionales de IoT como domótica o iluminación, que solo envían pequeñas mediciones o comandos de pocos bytes, nuestro desafío es transmitir imágenes JPEG completas (entre 30 y 50 KB), exigiendo el máximo rendimiento del protocolo.
   }
 \end{frame}
 
 % ---------- Slide 4: Topología y Tipos de Nodos ----------
 \begin{frame}{Red Malla - Topología y Tipos de Nodos}
   \centering
-  \includegraphics[height=0.82\textheight,keepaspectratio]{img/tipos_nodos.png}
+  \includegraphics[width=\textwidth]{img/tipos_nodos.png}
   
   \note{
     La topología de la red es un árbol jerárquico auto-organizado. Se distinguen cuatro tipos de nodos:
@@ -1575,25 +1570,21 @@ desarrollamos.
   }
 \end{frame}
 
-\begin{frame}{Módulo de Clasificación: SpeciesNet} % TODO: resumir
-  \begin{columns}[t]
+\begin{frame}{Módulo de Clasificación: SpeciesNet\footcite{speciesnet2024}}
+  \begin{columns}
     \begin{column}{0.5\textwidth}
-      \textbf{¿Qué es SpeciesNet\footcite{speciesnet2024}?}
       \begin{itemize}
         \setlength{\itemsep}{0.4em}
-        \item \textbf{Tecnología de Google:} Pipeline de aprendizaje automático desarrollado para el monitoreo de fauna silvestre
-        \item \textbf{Licencia libre:} Apache 2.0
-        \item \textbf{Ensemble de modelos:} Combina un detector de objetos (MegaDetector) con un clasificador de especies
+        \item \textbf{Pipeline de aprendizaje automático} de código abierto desarrollado por \textbf{Google} para el monitoreo de fauna silvestre
+        \item Provee un \textbf{ensemble de modelos} que combina un detector de objetos (MegaDetector) con un clasificador de especies
         \item \textbf{Clasificador base:} Red entrenada a gran escala con más de 65M de imágenes
       \end{itemize}
     \end{column}
-    
     \begin{column}{0.5\textwidth}
-      \textbf{Capacidades principales:}
       \begin{itemize}
         \setlength{\itemsep}{0.4em}
-        \item \textbf{Rango taxonómico:} Clasificación en más de 2000 etiquetas, incluyendo especies específicas
         \item \textbf{Localización espacial:} Identificación y encuadrado de animales, personas y vehículos mediante cajas delimitadoras
+        \item \textbf{Rango taxonómico:} Clasificación en más de 2000 etiquetas, incluyendo especies específicas
         \item \textbf{Heurísticas geográficas:} Filtrado por ubicación para refinar predicciones según el ecosistema regional
       \end{itemize}
     \end{column}
@@ -1602,6 +1593,11 @@ desarrollamos.
     Google SpeciesNet es un pipeline de IA que combina MegaDetector (YOLOv5) para detectar la presencia de objetos en la imagen y generar las cajas delimitadoras, y un conjunto de modelos clasificadores taxonómicos para identificar las especies. 
     En el proyecto, lo desplegamos de forma 100\% local en un contenedor Docker, exponiendo un endpoint con LitServe para que el orquestador Django le envíe imágenes de forma asíncrona. Al procesar localmente, no dependemos de internet ni de nubes de terceros.
   }
+\end{frame}
+
+\begin{frame}{Módulo de Clasificación: SpeciesNet (cont.)} 
+  \centering
+  \includegraphics[width=\textwidth]{img/speciesnet.png}
 \end{frame}
 
 \begin{frame}{Módulo de Clasificación: Flujo de Inferencia}
@@ -2218,9 +2214,7 @@ sido posible sin su apoyo.
 \printbibliography[heading=none]
 \end{frame}
 
-\begin{frame}[standout]
-¿Preguntas?
-\end{frame}
+\section*{Preguntas}
 
 % ==============================================================================
 % Slides de Backup
