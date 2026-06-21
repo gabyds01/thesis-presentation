@@ -669,26 +669,26 @@ Ejercicio
 % ==============================================================================
 \section{Objetivos}
 
-\begin{frame}{Escenario Objetivo}
-  \begin{alertblock}{Solución}
-    Diseño e implementación de un \textbf{Sistema de Monitoreo y Alerta Temprana basado en IA} para áreas protegidas.
-  \end{alertblock}
+% \begin{frame}{Escenario Objetivo}
+%   \begin{alertblock}{Solución}
+%     Diseño e implementación de un \textbf{Sistema de Monitoreo y Alerta Temprana basado en IA} para áreas protegidas.
+%   \end{alertblock}
   
-  \vspace{1em}
-  \textbf{Pilares del sistema:}
-  \begin{itemize}
-    \item \textbf{Barato y escalable} (hardware económico y open source)
-    \item \textbf{Reducción del tiempo de respuesta} (de semanas a minutos)
-    \item \textbf{Cobertura en zonas remotas} (red malla independiente)
-    \item \textbf{Eliminación de ruido} (IA para evitar falsos positivos)
-  \end{itemize}
-  \note{
-    Nuestra propuesta es un Sistema de Monitoreo y Alerta Temprana. Sus 4
-    pilares son: que sea barato y escalable, que reduzca drásticamente la
-    latencia, que funcione en zonas remotas sin celular, y que elimine los
-    falsos positivos usando IA.
-  }
-\end{frame}
+%   \vspace{1em}
+%   \textbf{Pilares del sistema:}
+%   \begin{itemize}
+%     \item \textbf{Barato y escalable} (hardware económico y open source)
+%     \item \textbf{Reducción del tiempo de respuesta} (de semanas a minutos)
+%     \item \textbf{Cobertura en zonas remotas} (red malla independiente)
+%     \item \textbf{Eliminación de ruido} (IA para evitar falsos positivos)
+%   \end{itemize}
+%   \note{
+%     Nuestra propuesta es un Sistema de Monitoreo y Alerta Temprana. Sus 4
+%     pilares son: que sea barato y escalable, que reduzca drásticamente la
+%     latencia, que funcione en zonas remotas sin celular, y que elimine los
+%     falsos positivos usando IA.
+%   }
+% \end{frame}
 
 \begin{frame}{Escenario de Despliegue Objetivo}
   % \hspace{-0.7cm}
@@ -1105,97 +1105,137 @@ desarrollamos.
 
 \section*{Firmware}
 
-\begin{frame}{Red Malla - El Concepto}
-\textbf{¿Como sacamos la foto de la selva profunda?}
-
-\vspace{0.5em}
-\textbf{Protocolo: ESP-MESH-LITE}
-\begin{itemize}
-\item Solucion sobre WiFi $2.4$GHz (Modo SoftAP + Station)
-\item Extiende el alcance sin depender de infraestructura celular
-\item Comportamiento de router: el reenvio de paquetes de otros nodos ocurre transparentemente a nivel de red (IP)
-\end{itemize}
-
-\vspace{1em}
-\begin{alertblock}{Flujo de Datos Transparente}
-Cuando el PIR detecta movimiento, el nodo despierta y realiza una \textbf{peticion HTTP POST}. A partir de ahi, los nodos intermedios simplemente leen la direccion IP destino y enrutan los paquetes salto por salto hasta el servidor.
-\end{alertblock}
-\note{
-Para sacar la foto de la selva usamos ESP-MESH-LITE. Un detalle clave a 
-destacar: los nodos actúan literalmente como routers. La capa de
-aplicación de cada nodo solo se encarga de originar su propia foto. Cuando un
-nodo ``Relay'' recibe paquetes de otros nodos, los reenvía directamente
-viendo la IP, sin involucrar a su capa de aplicación.
-}
-\end{frame}
-
-\begin{frame}{Red Malla - Topología}
+% ---------- Slide 1: WiFi Tradicional ----------
+\begin{frame}{¿Por qué no WiFi tradicional?}
   \centering
-  \includegraphics[height=0.55\paperheight,keepaspectratio]{img/mesh-tree-topology.png}
+  \vspace{-0.5em}
+  {\large \textbf{Estructura Centralizada} \quad $\bullet$ \quad \textbf{Alcance Limitado} \\
+  \textbf{Nodos Aislados}}
   
-  \vspace{1em}
-  \begin{columns}[t]
-    \begin{column}{0.5\textwidth}
-      \centering
-      \textbf{Conexión Ascendente} (Station)
-    \end{column}
-    \begin{column}{0.5\textwidth}
-      \centering
-      \textbf{Conexiones Descendentes} (SoftAP)
-    \end{column}
-  \end{columns}
+  \vspace{0.6em}
+  \includegraphics[width=0.85\textwidth]{img/funcion_wifi.png}
+  
   \note{
-    La red tiene topología de árbol basada en ESP-MESH-LITE. Cada nodo se conecta al padre como Station (conexión ascendente) y permite que múltiples hijos se conecten a él a través de su SoftAP (conexiones descendentes) de forma jerárquica.
+    \textbf{¿Por qué no WiFi tradicional?}\\
+    1. \textbf{Estructura centralizada}: Todos los dispositivos se conectan a un único punto de acceso (router).\\
+    2. \textbf{Alcance limitado}: El router tiene un rango de cobertura acotado y capacidad máxima de conexiones simultáneas.\\
+    3. \textbf{Nodos aislados}: Los dispositivos fuera del rango del router quedan incomunicados. Esto hace inviable el despliegue en la selva sin infraestructura previa.
   }
 \end{frame}
 
+% ---------- Slide 2: La Solución — Red Malla ----------
+\begin{frame}{La Solución: Red Malla (\textit{Mesh})}
+  \centering
+  \vspace{-0.5em}
+  {\large \textbf{Descentralizada} \quad $\bullet$ \quad \textbf{Cobertura Extensible} \\
+  \textbf{Transmisión Transparente}}
+  
+  \vspace{0.6em}
+  \includegraphics[width=0.85\textwidth]{img/funcion_mesh.png}
+  
+  \note{
+    \textbf{La Solución: Red Malla (Mesh)}\\
+    1. \textbf{Nodos interconectados}: Los nodos cooperan reenviando datos de sus vecinos (sin depender de un punto central).\\
+    2. \textbf{Cobertura extensible}: El rango útil de la red se expande dinámicamente con cada nodo agregado.\\
+    3. \textbf{Direccionamiento IP}: Cada nodo recibe una dirección IP a través de su nodo padre, comportándose como si estuviera conectado directamente al router.\\
+    4. \textbf{Transmisión transparente}: El nodo de origen realiza una petición HTTP POST estándar y los nodos intermedios enrutan los paquetes salto por salto a nivel de red, de forma invisible para la aplicación.
+  }
+\end{frame}
+
+% ---------- Slide 3: Aplicaciones comunes ----------
+\begin{frame}{Aplicaciones Comunes de Redes Malla}
+  \begin{columns}[c]
+    \begin{column}{0.55\textwidth}
+      \begin{itemize}
+        \setlength{\itemsep}{0.6em}
+        \item \textbf{Domótica:} Control de dispositivos inteligentes del hogar
+        \item \textbf{Agricultura inteligente:} Sensores distribuidos en campos de cultivo
+        \item \textbf{Iluminación:} Control grupal de luminarias
+        \item \textbf{Monitoreo ambiental:} Recolección de datos de múltiples sensores
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      \begin{alertblock}{Nuestro desafío}
+        Todas estas aplicaciones transmiten \textbf{datos livianos} (texto, mediciones, comandos).
+
+        \vspace{0.5em}
+        Nuestro proyecto debe transmitir \textbf{imágenes JPEG} ($\sim$\qty{30}{\kilo\byte}--\qty{50}{\kilo\byte}), un volumen de datos significativamente mayor por evento.
+      \end{alertblock}
+    \end{column}
+  \end{columns}
+  \note{
+    Las redes malla se usan ampliamente en IoT: domótica, agricultura, iluminación y monitoreo ambiental. Pero un denominador común es que todas transmiten datos muy livianos: temperaturas, comandos de encendido, estados. Nuestro proyecto presenta un desafío distinto: debemos enviar imágenes JPEG de entre 30 y 50 KB por evento, lo cual requiere una implementación mucho más robusta del enlace de datos.
+  }
+\end{frame}
+
+% ---------- Slide 4: Topología y Tipos de Nodos ----------
+\begin{frame}{Red Malla - Topología y Tipos de Nodos}
+  \centering
+  \includegraphics[height=0.82\textheight,keepaspectratio]{img/tipos_nodos.png}
+  
+  \note{
+    La topología de la red es un árbol jerárquico auto-organizado. Se distinguen cuatro tipos de nodos:
+    1. Root Node (amarillo): el nodo raíz, conectado directamente al router de salida.
+    2. Intermediate Parent Node (azul): nodos intermedios que retransmiten datos de sus hijos hacia arriba.
+    3. Leaf Node (verde): nodos hoja que solo generan datos, no retransmiten.
+    4. Idle Node (blanco): nodos que aún no se han asociado a la red.
+    La profundidad máxima (capas) es configurable. Esta estructura permite escalar la red agregando nodos sin reconfigurar los existentes.
+  }
+\end{frame}
+
+% ---------- Slide 5: Roles y Energía ----------
 \begin{frame}{Red Malla - Roles y Energía}
-  \textbf{Trade-off de Energía y Funcionalidad:}
+  \textbf{Trade-off de energía y funcionalidad:}
   
   \vspace{1em}
   \begin{columns}[t]
     \begin{column}{0.32\textwidth}
-      \begin{block}{Leaf}
+      \begin{block}{Leaf (Hoja)}
         \small
-        \textbf{Bajo consumo}
+        \textbf{Máxima autonomía}
         \begin{itemize}
           \scriptsize
-          \item Deep Sleep + ULP
-          \item Sin enrutar tráfico
-          \item Máxima autonomía
+          \item Solo captura y envía
+          \item No retransmite tráfico ajeno
+          \item Modo de bajo consumo profundo
         \end{itemize}
       \end{block}
     \end{column}
     \begin{column}{0.32\textwidth}
-      \begin{block}{Relay}
+      \begin{block}{Relay (Intermedio)}
         \small
-        \textbf{Nodo intermedio}
+        \textbf{Extensor de cobertura}
         \begin{itemize}
           \scriptsize
-          \item Light Sleep
-          \item Enruta tráfico
-          \item Antena: Externa omnidireccional
+          \item Captura y envía
+          \item Retransmite tráfico de vecinos
+          \item Modo de bajo consumo parcial
         \end{itemize}
       \end{block}
     \end{column}
     \begin{column}{0.32\textwidth}
-      \begin{block}{Root}
+      \begin{block}{Root (Raíz)}
         \small
-        \textbf{Nodo Raíz}
+        \textbf{Puerta de enlace}
         \begin{itemize}
           \scriptsize
-          \item 100\% activo
-          \item Puerta al Router
-          \item Sin cámara (ESP32)
+          \item Siempre activo (100\%)
+          \item Conectado al router
+          \item Sin cámara (solo enruta)
         \end{itemize}
       \end{block}
     \end{column}
   \end{columns}
+
+  \vspace{0.8em}
+  \centering
+  \small
+  \textbf{Leaf} $\xrightarrow{\text{más consumo}}$ \textbf{Relay} $\xrightarrow{\text{más consumo}}$ \textbf{Root}
   \note{
     Explicamos los tres roles de la red malla y su balance energético.
-    1. El Leaf prioriza el ahorro de batería (Deep sleep con ULP), no ayuda a enrutar y tiene la mayor autonomía.
-    2. El Relay sacrifica batería permaneciendo en Light sleep para poder recibir y enrutar paquetes de otros nodos.
-    3. El Root es la única puerta de enlace, está 100% activo sin cámara y conectado directamente a una fuente de alimentación o router.
+    1. El Leaf prioriza el ahorro de batería: solo origina sus propias capturas y no ayuda a enrutar, obteniendo la mayor autonomía.
+    2. El Relay sacrifica batería permaneciendo parcialmente activo para poder recibir y retransmitir paquetes de otros nodos, extendiendo la cobertura.
+    3. El Root es la única puerta de enlace hacia internet, está 100\% activo, no tiene cámara y se alimenta directamente de una fuente de energía externa.
   }
 \end{frame}
 
