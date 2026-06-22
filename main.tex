@@ -1374,92 +1374,161 @@ desarrollamos.
 \end{frame}
 
 \begin{frame}{Red Malla - Roles y Energía}
-  \textbf{Trade-off de energía y funcionalidad:}
-  
-  \vspace{1em}
+  % \textbf{Trade-off de energía y funcionalidad:}
+  % 
+  % \vspace{1em}
+  % \begin{columns}[t]
+  %   \begin{column}{0.32\textwidth}
+  %     \begin{block}{Nodo Hoja}
+  %       \small
+  %       \textbf{Máxima autonomía}
+  %       \begin{itemize}
+  %         \scriptsize
+  %         \item Solo captura y envía
+  %         \item No retransmite tráfico ajeno
+  %         \item Modo de bajo consumo profundo
+  %       \end{itemize}
+  %     \end{block}
+  %   \end{column}
+  %   \begin{column}{0.32\textwidth}
+  %     \begin{block}{Nodo Intermedio}
+  %       \small
+  %       \textbf{Extensor de cobertura}
+  %       \begin{itemize}
+  %         \scriptsize
+  %         \item Captura y envía
+  %         \item Retransmite tráfico de vecinos
+  %         \item Modo de bajo consumo parcial
+  %       \end{itemize}
+  %     \end{block}
+  %   \end{column}
+  %   \begin{column}{0.32\textwidth}
+  %     \begin{block}{Nodo Raíz}
+  %       \small
+  %       \textbf{Puerta de enlace}
+  %       \begin{itemize}
+  %         \scriptsize
+  %         \item Siempre activo (100\%)
+  %         \item Conectado al router
+  %         \item Sin cámara (solo enruta)
+  %       \end{itemize}
+  %     \end{block}
+  %   \end{column}
+  % \end{columns}
+  % 
+  % \vspace{0.8em}
+  % \centering
+  % \small
+  % \textbf{Hoja} $\dots \xrightarrow{\text{más consumo}}$ \textbf{Intermedio} $\dots \xrightarrow{\text{más consumo}}$ \textbf{Raíz}
+
+  \centering
+  \begin{tikzpicture}[
+      font=\sffamily,
+      >=Latex,
+      node_root/.style={circle, draw=orange!80!black, fill=orange!15, minimum size=0.9cm, thick, line width=1.1pt, font=\scriptsize\bfseries, align=center},
+      node_relay/.style={circle, draw=teal!80!black, fill=teal!10, minimum size=0.9cm, thick, line width=1.1pt, font=\scriptsize\bfseries, align=center},
+      node_leaf/.style={circle, draw=teal!80!black, fill=teal!10, minimum size=0.9cm, thick, line width=1.1pt, dashed, font=\scriptsize\bfseries, align=center},
+      link/.style={draw=teal!80!black, <-, line width=1.2pt}
+    ]
+    
+    \node[node_root] (R) at (0, 0) {Raíz};
+    \node[node_relay] (I1) at (2.0, 0.6) {Inter-\\medio};
+    \node[node_leaf] (L1) at (2.0, -0.6) {Hoja};
+    \node[node_relay] (I2) at (4.2, 0.6) {Inter-\\medio};
+    \node[node_leaf] (L2) at (4.2, -0.6) {Hoja};
+    
+    \draw[link] (R) -- (I1);
+    \draw[link] (I1) -- (L1);
+    \draw[link] (I1) -- (I2);
+    \draw[link] (I2) -- (L2);
+  \end{tikzpicture}
+
+  \vspace{0.4em}
+
   \begin{columns}[t]
-    \begin{column}{0.32\textwidth}
-      \begin{block}{Nodo Hoja}
-        \small
-        \textbf{Máxima autonomía}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Nodos Hoja (Línea Punteada)}
+        \scriptsize
         \begin{itemize}
-          \scriptsize
-          \item Solo captura y envía
-          \item No retransmite tráfico ajeno
-          \item Modo de bajo consumo profundo
+          \item Representan los extremos de la red (no tienen hijos).
+          \item Pueden desconectarse libremente para ahorrar energía.
+          \item Su ausencia temporal no afecta al resto de la topología.
         \end{itemize}
       \end{block}
     \end{column}
-    \begin{column}{0.32\textwidth}
-      \begin{block}{Nodo Intermedio}
-        \small
-        \textbf{Extensor de cobertura}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Nodos Intermedios (Línea Continua)}
+        \scriptsize
         \begin{itemize}
-          \scriptsize
-          \item Captura y envía
-          \item Retransmite tráfico de vecinos
-          \item Modo de bajo consumo parcial
-        \end{itemize}
-      \end{block}
-    \end{column}
-    \begin{column}{0.32\textwidth}
-      \begin{block}{Nodo Raíz}
-        \small
-        \textbf{Puerta de enlace}
-        \begin{itemize}
-          \scriptsize
-          \item Siempre activo (100\%)
-          \item Conectado al router
-          \item Sin cámara (solo enruta)
+          \item Actúan como repetidores para dar cobertura a otros nodos.
+          \item Si entran en bajo consumo profundo, \textbf{dejan de retransmitir}.
+          \item Esto provoca que sus nodos hijos queden \textbf{aislados e incomunicados}.
         \end{itemize}
       \end{block}
     \end{column}
   \end{columns}
-
-  \vspace{0.8em}
-  \centering
-  \small
-  \textbf{Hoja} $\dots \xrightarrow{\text{más consumo}}$ \textbf{Intermedio} $\dots \xrightarrow{\text{más consumo}}$ \textbf{Raíz}
+  
   \note{
-    Explicamos los tres roles de la red malla y su balance energético.
-    1. El nodo Hoja prioriza el ahorro de batería: solo origina sus propias capturas y no ayuda a enrutar, obteniendo la mayor autonomía.
-    2. El nodo Intermedio sacrifica batería permaneciendo parcialmente activo para poder recibir y retransmitir paquetes de otros nodos, extendiendo la cobertura.
-    3. El nodo Raíz es la única puerta de enlace hacia internet, está 100\% activo, no tiene cámara y se alimenta directamente de una fuente de energía externa.
+    Explicamos la diferencia energética según los roles en la topología mostrada.
+    El Nodo Raíz permanece 100\% activo al estar conectado a la alimentación externa.
+    Los Nodos Intermedios (línea continua) usan Light Sleep + Power Save para enrutar tráfico (como el Intermedio 1 hacia el Hoja 1 y el Intermedio 2).
+    Los Nodos Hoja (línea punteada) pueden usar Deep Sleep completo apagando su CPU y radio Wi-Fi, ya que al ser extremos de la red ningún otro dispositivo depende de ellos.
   }
 \end{frame}
 
 \begin{frame}{Gestión de Energía: Hoja vs. Intermedio}
-  \begin{columns}[t]
-    \begin{column}{0.48\textwidth}
-      {
-        \setbeamercolor{block title}{fg=black!80, bg=black!10}
-        \setbeamercolor{block body}{bg=black!5}
-        \begin{block}{Nodo Hoja}
-          \small
-          \begin{itemize}
-            \item \textbf{Deep Sleep completo:} Apagado absoluto de CPU y radio WiFi.
-            \item \textbf{Sin dependencia:} No tiene nodos hijos asociados. Su desconexión temporal no afecta a terceros.
-            \item \textbf{Consumo mínimo:} Ahorro crítico de batería.
-          \end{itemize}
-        \end{block}
-      }
-    \end{column}
-    
-    \begin{column}{0.48\textwidth}
-      {
-        \setbeamercolor{block title}{fg=orange!80!black, bg=black!10}
-        \setbeamercolor{block body}{bg=black!5}
-        \begin{block}{Nodo Intermedio}
-          \small
-          \begin{itemize}
-            \item \textbf{Prohibido el Deep Sleep:} Si se apagara del todo, rompería la topología mesh.
-            \item \textbf{Restricción:} Debe mantener el AP activo para que sus hijos no queden aislados.
-            \item \textbf{Solución:} Light Sleep + Modem Power Save para suspender la CPU sin perder la sesión WiFi.
-          \end{itemize}
-        \end{block}
-      }
-    \end{column}
-  \end{columns}
+  % \begin{columns}[t]
+  %   \begin{column}{0.48\textwidth}
+  %     {
+  %       \setbeamercolor{block title}{fg=black!80, bg=black!10}
+  %       \setbeamercolor{block body}{bg=black!5}
+  %       \begin{block}{Nodo Hoja}
+  %         \small
+  %         \begin{itemize}
+  %           \item \textbf{Deep Sleep completo:} Apagado absoluto de CPU y radio WiFi.
+  %           \item \textbf{Sin dependencia:} No tiene nodos hijos asociados. Su desconexión temporal no afecta a terceros.
+  %           \item \textbf{Consumo mínimo:} Ahorro crítico de batería.
+  %         \end{itemize}
+  %       \end{block}
+  %     }
+  %   \end{column}
+  %   
+  %   \begin{column}{0.48\textwidth}
+  %     {
+  %       \setbeamercolor{block title}{fg=orange!80!black, bg=black!10}
+  %       \setbeamercolor{block body}{bg=black!5}
+  %       \begin{block}{Nodo Intermedio}
+  %         \small
+  %         \begin{itemize}
+  %           \item \textbf{Prohibido el Deep Sleep:} Si se apagara del todo, rompería la topología mesh.
+  %           \item \textbf{Restricción:} Debe mantener el AP activo para que sus hijos no queden aislados.
+  %           \item \textbf{Solución:} Light Sleep + Modem Power Save para suspender la CPU sin perder la sesión WiFi.
+  %         \end{itemize}
+  %       \end{block}
+  %     }
+  %   \end{column}
+  % \end{columns}
+
+  \centering
+  \small
+  \begin{tblr}{
+    width = \linewidth,
+    colspec = {X[1.2,l,m] X[l,m] X[1.2,l,m]},
+    row{1} = {font=\bfseries, bg=blue!10, halign=c},
+    column{1} = {font=\bfseries, bg=black!2},
+    hline{1,2,Z} = {0.8pt, gray!50},
+    hline{3-Z} = {0.4pt, gray!20},
+    cells = {font=\scriptsize},
+    colsep = 4pt,
+    rowsep = 3.5pt,
+  }
+    Característica & Nodo Hoja (\textbf{Deep Sleep}) & Nodo Intermedio (\textbf{Light Sleep} + \textbf{Power Save}) \\
+    \textbf{CPU} & Apagado absoluto & Suspendida \\
+    \textbf{Radio Wi-Fi} & Apagada por completo & Activa periódicamente \\
+    \textbf{Memoria RAM} & Se borra & Se preserva íntegramente \\
+    \textbf{Al despertar} & Reinicio completo & Retorno instantáneo \\
+    \textbf{Rol en Malla} & No enruta tráfico & \textbf{Obligatorio retransmitir} \\
+  \end{tblr}
   
   \note{
     Explicamos la diferencia de gestión de energía entre nodos Hoja y nodos Intermedios.
