@@ -2166,62 +2166,110 @@ movimiento de vegetación fueron filtradas por la lógica de umbrales.
 \section{Conclusión}
 
 \begin{frame}{Logros Alcanzados}
-\begin{itemize}
-\item[$\checkmark$] Sistema completo de monitoreo con \textbf{hardware de bajo costo}
-\item[$\checkmark$] Reduccion de tiempo de procesamiento: \textbf{dias $\rightarrow$ minutos}
-\item[$\checkmark$] Red de malla funcional con \textbf{ESP-MESH-LITE} (roles Hoja/Intermedio/Raíz)
-\item[$\checkmark$] Integracion exitosa de \textbf{SpeciesNet/MegaDetector}
-\item[$\checkmark$] Sistema de alertas via \textbf{Telegram} con retroalimentacion \textit{Human-in-the-loop}
-\item[$\checkmark$] Carcasa imprimible en 3D (disponible en Printables)
-\item[$\checkmark$] \textbf{Codigo abierto} disponible en GitHub
-\end{itemize}
-\note{
-Resumen de logros: sistema completo funcionando, reducción de tiempo de
-días a minutos, red de malla estable con ESP-MESH-LITE y roles diferenciados,
-IA integrada, alertas por Telegram con Human-in-the-loop, carcasa 3D,
-todo código abierto.
-}
+  \begin{columns}[t]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Hardware y Diseño 3D}
+        \scriptsize
+        \begin{itemize}
+          \item Prototipo de \textbf{bajo costo} ($\sim$\qty{45}{USD})
+          \item Carcasa estanca optimizada e impresa en 3D (Printables)
+        \end{itemize}
+      \end{block}
+      
+      \vspace{0.4em}
+      
+      \begin{block}{Conectividad Inalámbrica}
+        \scriptsize
+        \begin{itemize}
+          \item Red de malla robusta con \textbf{ESP-MESH-LITE}
+          \item Roles funcionales adaptativos (Hoja, Intermedio, Raíz)
+        \end{itemize}
+      \end{block}
+    \end{column}
+    
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Software e Inteligencia}
+        \scriptsize
+        \begin{itemize}
+          \item Pipeline local con \textbf{MegaDetector} y \textbf{SpeciesNet}
+          \item Alertas vía Telegram y corrección \textbf{Human-in-the-loop}
+        \end{itemize}
+      \end{block}
+      
+      \vspace{0.4em}
+      
+      \begin{block}{Impacto y Código Abierto}
+        \scriptsize
+        \begin{itemize}
+          \item Tiempo de procesamiento: \textbf{días $\rightarrow$ minutos}
+          \item Prototipo \textbf{100\% de código abierto} (GitHub)
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+  
+  \note{
+    Resumen de logros en cuatro áreas clave:
+    1. Hardware: Diseño viable y económico con carcasa impresa en 3D.
+    2. Conectividad: Malla robusta que extiende cobertura sin infraestructura celular.
+    3. Inteligencia: Procesamiento local acoplado con retroalimentación humana interactiva.
+    4. Impacto: Aceleración dramática en la obtención del dato científico y compromiso con el código abierto.
+  }
 \end{frame}
 
-% Aportes del Trabajo movido a Anexos
+\begin{frame}{Comparación con Objetivos}
+  \centering
+  \begin{tikzpicture}[
+      font=\sffamily,
+      card/.style={draw=gray!20, fill=black!5, rounded corners=4pt, minimum width=5.2cm, minimum height=1.6cm, line width=0.8pt, align=center}
+    ]
+    % Cards
+    \node[card] (c1) at (-2.8, 1.0) {
+      \textbf{\color{teal!80!black}\large 77.7\% Exactitud}\\
+      \scriptsize Detección binaria (94 imágenes de campo)
+    };
+    
+    \node[card] (c2) at (2.8, 1.0) {
+      \textbf{\color{teal!80!black}\large $\sim$40 s Latencia}\\
+      \scriptsize Ciclo completo en campo (Hotspot celular)
+    };
+    
+    \node[card] (c3) at (-2.8, -1.0) {
+      \textbf{\color{teal!80!black}\large 13 mA}\\
+      \scriptsize Consumo Hoja
+    };
+    
+    \node[card] (c4) at (2.8, -1.0) {
+      \textbf{\color{teal!80!black}\large 15--18 m Alcance}\\
+      \scriptsize Entre nodos en línea de vista directa
+    };
+  \end{tikzpicture}
 
-\begin{frame}{Comparacion con Objetivos}
-\begin{tblr}{
-  width = \linewidth,
-  colspec = {X[l] X[l]},
-  row{1} = {font=\bfseries, bg=blue!10},
-  hline{1,2,Z} = {0.8pt, gray!50},
-}
-  Objetivo & Resultado \\
-  Detección de fauna, personas y vehículos & Accuracy \qty{77.7}{\percent} (\num{94} imgs) \\
-  Latencia de respuesta & $\sim$\qty{40}{s} (campo) / \qty{1.27}{s} (LAN) \\
-  Cobertura de malla & \qtyrange{15}{18}{m} (línea de vista) \\
-  Autonomía (Intermedio) & $\sim$\qty{5}{h} medidas \\
-  Consumo Hoja (ULP) & $\sim$\qty{13}{mA} \\
-\end{tblr}
-
-\vspace{0.3em}
-\begin{alertblock}{Conclusión}
-Se demostró la \textbf{viabilidad técnica} del sistema propuesto. Mejora de \textbf{órdenes de magnitud} respecto a cámaras trampa convencionales.
-\end{alertblock}
-\note{
-Comparación objetivo vs. resultado. Detección funcional con 77.7\% accuracy.
-Latencia de 40 s en campo (vs. semanas en cámaras convencionales).
-Cobertura de 15-18 m suficiente para despliegue en cadena. Autonomía de
-5 h en el Intermedio, consumo de la Hoja de apenas 13 mA.
-}
+  \vspace{0.4em}
+  \begin{alertblock}{Conclusión}
+    \centering\small
+    Se demostró la \textbf{viabilidad técnica} del sistema, logrando una mejora de \textbf{órdenes de magnitud} en la latencia operativa frente a cámaras trampa tradicionales.
+  \end{alertblock}
+  
+  \note{
+    Resumen cuantitativo frente a objetivos:
+    - Precisión: Detección robusta de 77.7% en condiciones reales de campo.
+    - Latencia: Envío y análisis en ~40s frente a semanas/meses en cámaras tradicionales.
+    - Autonomía: Consumo de la Hoja de apenas 13mA asegura excelente viabilidad a largo plazo.
+    - Cobertura: El rango de 15-18m permite crear barreras eficaces en senderos y picadas.
+  }
 \end{frame}
 
 \begin{frame}{Trabajos Futuros}
-\begin{description}
-\item[Visión nocturna:] Cámaras con capacidad infrarroja
-\item[Conectividad largo alcance:] LoRa, \num{4}G/LTE, satelital para zonas remotas
-\item[Nodo repetidor dedicado:] Nodo sin cámara que mantenga la red de malla, permitiendo Deep Sleep puro en nodos cámara
-\item[Optimización energética:] Paneles solares, reguladores más eficientes
-\item[Retransmisión de imágenes:] Mecanismo robusto de reenvío (con ACK) ante pérdidas de conectividad externa
-\item[Optimización de alcance:] Antenas de mayor ganancia, calibración RSSI, mayor compresión
-\item[Modelos específicos:] Fine-tuning para fauna del Bosque Atlántico
-\end{description}
+\begin{itemize}
+\setlength{\itemsep}{0.8em}
+\item \textbf{Visión nocturna:} Cámaras con capacidad infrarroja
+\item \textbf{Conectividad largo alcance nodo raíz:} LoRa, \num{4}G/LTE, satelital para zonas remotas
+\item \textbf{Nodo repetidor dedicado:} Nodo sin cámara que mantenga la red de malla, permitiendo Deep Sleep puro en nodos cámara
+\item \textbf{Optimización energética:} Paneles solares, reguladores más eficientes
+\item \textbf{Optimización de alcance:} Antenas de mayor ganancia, calibración RSSI, mayor compresión
+\item \textbf{Modelos específicos:} Fine-tuning para fauna del Bosque Atlántico
+\end{itemize}
 \note{
 Líneas futuras: visión nocturna, conectividad largo alcance, nodo
 repetidor dedicado para mejorar autonomía, retransmisión robusta de imágenes
