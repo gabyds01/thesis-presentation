@@ -1219,20 +1219,19 @@ desarrollamos.
 \begin{frame}{Red Malla - Robustez (Auto-recuperación)}
   \begin{columns}[c]
     \begin{column}{0.5\textwidth}
-      \textbf{Auto-recuperación:}
       \vspace{1em}
       
       \only<1>{
         \textbf{1. Estado Normal}
         \begin{itemize}
           \item Estructura jerárquica activa.
-          \item El nodo Hoja C envía datos a través del Intermedio A.
+          \item El nodo Hoja~C envía datos a través del Intermedio~A.
         \end{itemize}
       }
       \only<2>{
         \textbf{2. Pérdida de Enlace}
         \begin{itemize}
-          \item El nodo Intermedio A falla o se apaga.
+          \item El nodo Intermedio~A falla o se apaga.
           \item C detecta la pérdida del enlace y queda desconectado.
         \end{itemize}
       }
@@ -1240,13 +1239,13 @@ desarrollamos.
         \textbf{3. Re-escaneo}
         \begin{itemize}
           \item C realiza un escaneo activo del entorno de radio.
-          \item Busca balizas e identifica al Intermedio B como nuevo padre potencial.
+          \item Busca balizas e identifica al Intermedio~B como nuevo padre potencial.
         \end{itemize}
       }
       \only<4>{
         \textbf{4. Conexión Restablecida}
         \begin{itemize}
-          \item C se asocia con el Intermedio B.
+          \item C se asocia con el Intermedio~B.
           \item La red se reestructura automáticamente.
         \end{itemize}
       }
@@ -1314,8 +1313,8 @@ desarrollamos.
         \setlength{\itemsep}{0.6em}
         \small
         \item Los candidatos evalúan su potencia de señal \textbf{RSSI} al Router.
-        \item El nodo con mejor señal (\textbf{-58 dBm}) se establece automáticamente como \textbf{Raíz}.
-        \item Nodos con señal más débil (\textbf{-85 dBm}) se reconfiguran como \textbf{Intermedios} y se conectan a la Raíz.
+        \item El nodo con mejor señal (\textbf{\qty{-58}{dBm}}) se establece automáticamente como \textbf{Raíz}.
+        \item Nodos con señal más débil (\textbf{\qty{-85}{dBm}}) se reconfiguran como \textbf{Intermedios} y se conectan a la Raíz.
       \end{itemize}
       
     %   \vspace{0.8em}
@@ -1357,12 +1356,12 @@ desarrollamos.
 
         % Nodos candidatos
         \node[node_root] (A) at (0.7, 0.9) {Raíz};
-        \node[node_relay] (B) at (0.2, -0.9) {Intermedio};
+        \node[node_relay] (B) at (0.2, -0.9) {Inter-\\medio};
         \node[node_leaf] (C) at (-1.0, 0.0) {Hoja};
 
         % Enlaces de evaluación RSSI
-        \draw[link_root] (router.west) -- (A.east) node[midway, above, sloped, font=\tiny\bfseries, text=orange!80!black] {-58 dBm\\(Mejor)};
-        \draw[link_weak] (router.west) -- (B.east) node[midway, below, sloped, font=\tiny\bfseries, text=black!50] {-85 dBm\\(Débil)};
+        \draw[link_root] (router.west) -- (A.east) node[midway, above, sloped, font=\tiny\bfseries, text=orange!80!black] {\qty{-58}{dBm}\\\\(Mejor)};
+        \draw[link_weak] (router.west) -- (B.east) node[midway, below, sloped, font=\tiny\bfseries, text=black!50] {\qty{-85}{dBm}\\\\(Débil)};
 
         % Enlaces de la topología formada
         \draw[link_mesh] (B) -- (A);
@@ -1434,66 +1433,11 @@ desarrollamos.
 \begin{frame}{Gestión de Energía: Hoja vs. Intermedio}
   \begin{columns}[t]
     \begin{column}{0.48\textwidth}
-      \centering
-      \begin{tikzpicture}[
-          font=\sffamily,
-          >=Latex,
-          box/.style={draw=gray!30, fill=white, rounded corners=6pt, minimum width=5.2cm, minimum height=2.7cm, line width=0.8pt},
-          node_root/.style={circle, draw=orange!80!black, fill=orange!10, minimum size=0.9cm, thick, font=\scriptsize\bfseries, align=center},
-          node_relay/.style={circle, draw=teal!80!black, fill=teal!10, minimum size=0.9cm, thick, font=\scriptsize\bfseries, align=center},
-          node_leaf/.style={circle, draw=teal!80!black, fill=teal!10, minimum size=0.9cm, thick, font=\scriptsize\bfseries, align=center},
-          link_ok/.style={draw=teal!80!black, <-, line width=1.5pt}
-        ]
-        \node[box] (bg) at (0,0) {};
-        \node[anchor=north, font=\scriptsize\bfseries\color{teal!80!black}, yshift=-0.2cm] at (bg.north) {Intermedio en Light Sleep (Activo)};
-        
-        \node[node_root] (R) at (-1.5, 0.05) {Raíz};
-        \node[node_relay] (Re) at (0, 0.05) {Inter-\\medio};
-        \node[node_leaf] (L) at (1.5, 0.05) {Hoja};
-        
-        \draw[link_ok] (R) -- (Re);
-        \draw[link_ok] (Re) -- (L);
-        
-        \node[anchor=south, font=\scriptsize\color{teal!80!black}, yshift=0.15cm] at (bg.south) {Enlace de malla activo e hijos conectados};
-      \end{tikzpicture}
-    \end{column}
-    
-    \begin{column}{0.48\textwidth}
-      \centering
-      \begin{tikzpicture}[
-          font=\sffamily,
-          >=Latex,
-          box/.style={draw=red!20, fill=white, rounded corners=6pt, minimum width=5.2cm, minimum height=2.7cm, line width=0.8pt},
-          node_root/.style={circle, draw=orange!80!black, fill=orange!10, minimum size=0.9cm, thick, font=\scriptsize\bfseries, align=center},
-          node_relay_ds/.style={circle, draw=gray!60, fill=gray!10, minimum size=0.9cm, thick, dashed, font=\scriptsize\bfseries, text=gray!70, align=center},
-          node_leaf_fail/.style={circle, draw=red!80, fill=red!5, minimum size=0.9cm, thick, font=\scriptsize\bfseries, text=red!80!black, align=center},
-          link_ok/.style={draw=teal!80!black, <-, line width=1.5pt},
-          link_fail/.style={draw=red!80, <-, dashed, line width=1.5pt}
-        ]
-        \node[box] (bg) at (0,0) {};
-        \node[anchor=north, font=\scriptsize\bfseries\color{red!80!black}, yshift=-0.2cm] at (bg.north) {Intermedio en Deep Sleep (Inactivo)};
-        
-        \node[node_root] (R) at (-1.5, 0.05) {Raíz};
-        \node[node_relay_ds] (Re) at (0, 0.05) {Inter-\\medio};
-        \node[node_leaf_fail] (L) at (1.5, 0.05) {Hoja};
-        
-        \draw[link_ok] (R) -- (Re);
-        \draw[link_fail] (Re) -- (L) node[midway, above, font=\tiny\bfseries\color{red}, yshift=-1pt] {Roto};
-        
-        \node[anchor=south, font=\scriptsize\color{red!85!black}, yshift=0.15cm] at (bg.south) {Nodos hijos aislados de la red};
-      \end{tikzpicture}
-    \end{column}
-  \end{columns}
-
-  \vspace{0.45em}
-
-  \begin{columns}[t]
-    \begin{column}{0.48\textwidth}
       {
         \setbeamercolor{block title}{fg=black!80, bg=black!10}
         \setbeamercolor{block body}{bg=black!5}
         \begin{block}{Nodo Hoja}
-          \scriptsize
+          \small
           \begin{itemize}
             \item \textbf{Deep Sleep completo:} Apagado absoluto de CPU y radio WiFi.
             \item \textbf{Sin dependencia:} No tiene nodos hijos asociados. Su desconexión temporal no afecta a terceros.
@@ -1508,7 +1452,7 @@ desarrollamos.
         \setbeamercolor{block title}{fg=orange!80!black, bg=black!10}
         \setbeamercolor{block body}{bg=black!5}
         \begin{block}{Nodo Intermedio}
-          \scriptsize
+          \small
           \begin{itemize}
             \item \textbf{Prohibido el Deep Sleep:} Si se apagara del todo, rompería la topología mesh.
             \item \textbf{Restricción:} Debe mantener el AP activo para que sus hijos no queden aislados.
@@ -1828,7 +1772,7 @@ Cada alerta incluye:
 \end{column}
 \begin{column}{0.4\textwidth}
 \centering
-\includegraphics[width=\textwidth]{bachelor-thesis/img/notificacionTelegramLab.png}
+\includegraphics[width=\textwidth]{img/bot.png}
 \end{column}
 \end{columns}
 \footnotetext{Identificado por MAC, no visible en capturas}
@@ -2347,7 +2291,65 @@ sido posible sin su apoyo.
 % ==============================================================================
 % Slides de Backup
 % ==============================================================================
-% \appendix
+\appendix
+
+\begin{frame}{Anexo: Gestión de Energía}
+  \begin{columns}[t]
+    \begin{column}{0.48\textwidth}
+      \centering
+      \begin{tikzpicture}[
+          font=\sffamily,
+          >=Latex,
+          box/.style={draw=gray!30, fill=white, rounded corners=6pt, minimum width=5.2cm, minimum height=2.7cm, line width=0.8pt},
+          node_root/.style={circle, draw=orange!80!black, fill=orange!10, minimum size=0.9cm, thick, font=\scriptsize\bfseries, align=center},
+          node_relay/.style={circle, draw=teal!80!black, fill=teal!10, minimum size=0.9cm, thick, font=\scriptsize\bfseries, align=center},
+          node_leaf/.style={circle, draw=teal!80!black, fill=teal!10, minimum size=0.9cm, thick, font=\scriptsize\bfseries, align=center},
+          link_ok/.style={draw=teal!80!black, <-, line width=1.5pt}
+        ]
+        \node[box] (bg) at (0,0) {};
+        \node[anchor=north, font=\scriptsize\bfseries\color{teal!80!black}, yshift=-0.2cm] at (bg.north) {Intermedio en Light Sleep (Activo)};
+        
+        \node[node_root] (R) at (-1.5, 0.05) {Raíz};
+        \node[node_relay] (Re) at (0, 0.05) {Inter-\\medio};
+        \node[node_leaf] (L) at (1.5, 0.05) {Hoja};
+        
+        \draw[link_ok] (R) -- (Re);
+        \draw[link_ok] (Re) -- (L);
+        
+        \node[anchor=south, font=\scriptsize\color{teal!80!black}, yshift=0.15cm] at (bg.south) {Enlace de malla activo e hijos conectados};
+      \end{tikzpicture}
+    \end{column}
+    
+    \begin{column}{0.48\textwidth}
+      \centering
+      \begin{tikzpicture}[
+          font=\sffamily,
+          >=Latex,
+          box/.style={draw=red!20, fill=white, rounded corners=6pt, minimum width=5.2cm, minimum height=2.7cm, line width=0.8pt},
+          node_root/.style={circle, draw=orange!80!black, fill=orange!10, minimum size=0.9cm, thick, font=\scriptsize\bfseries, align=center},
+          node_relay_ds/.style={circle, draw=gray!60, fill=gray!10, minimum size=0.9cm, thick, dashed, font=\scriptsize\bfseries, text=gray!70, align=center},
+          node_leaf_fail/.style={circle, draw=red!80, fill=red!5, minimum size=0.9cm, thick, font=\scriptsize\bfseries, text=red!80!black, align=center},
+          link_ok/.style={draw=teal!80!black, <-, line width=1.5pt},
+          link_fail/.style={draw=red!80, <-, dashed, line width=1.5pt}
+        ]
+        \node[box] (bg) at (0,0) {};
+        \node[anchor=north, font=\scriptsize\bfseries\color{red!80!black}, yshift=-0.2cm] at (bg.north) {Intermedio en Deep Sleep (Inactivo)};
+        
+        \node[node_root] (R) at (-1.5, 0.05) {Raíz};
+        \node[node_relay_ds] (Re) at (0, 0.05) {Inter-\\medio};
+        \node[node_leaf_fail] (L) at (1.5, 0.05) {Hoja};
+        
+        \draw[link_ok] (R) -- (Re);
+        \draw[link_fail] (Re) -- (L) node[midway, above, font=\tiny\bfseries\color{red}, yshift=-1pt] {Roto};
+        
+        \node[anchor=south, font=\scriptsize\color{red!85!black}, yshift=0.15cm] at (bg.south) {Nodos hijos aislados de la red};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+  \note{
+    Anexo: Comparación gráfica de topología activa vs. inactiva si un nodo intermedio se apagara por completo en Deep Sleep (derecha), rompiendo los enlaces con sus nodos hijos y dejándolos aislados.
+  }
+\end{frame}
 
 % \begin{frame}{Esquemático del Hardware}
 % \centering
