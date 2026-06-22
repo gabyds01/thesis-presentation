@@ -485,7 +485,7 @@ Ejercicio
   }
 \end{frame}
 
-\begin{frame}{Cámaras Trampa Pasivas}
+\begin{frame}{Cámaras Trampa Tradicionales}
   \begin{columns}
     \begin{column}{0.6\textwidth}
       \begin{itemize}
@@ -505,7 +505,7 @@ Ejercicio
   }
 \end{frame}
 
-\begin{frame}{Cámaras Trampa Activas}
+\begin{frame}{Cámaras Trampa Modernas}
   \begin{columns}
     \begin{column}{0.6\textwidth}
       \textbf{Funcionamiento:}
@@ -532,7 +532,7 @@ Ejercicio
   }
 \end{frame}
 
-\begin{frame}{El Desafío de la Comunicación en Entornos Vivos}
+\begin{frame}{El Desafío de la Comunicación en la Selva}
   \begin{itemize}
     \setlength{\itemsep}{0.4em}
     \item \textbf{Absorción por humedad:} la vegetación con alto contenido de agua atenúa la señal RF (2.4\,GHz).
@@ -1143,7 +1143,7 @@ desarrollamos.
 \section*{Firmware}
 
 % ---------- Slide 1: WiFi Tradicional ----------
-\begin{frame}{¿Por qué no WiFi tradicional?}
+\begin{frame}{Conectividad mediante WIFI}
   \centering
   \textbf{Estructura Centralizada} \hfill $\bullet$ \hfill \textbf{Alcance Limitado} \hfill $\bullet$ \hfill \textbf{Nodos Aislados}
 
@@ -1318,11 +1318,11 @@ desarrollamos.
         \item Nodos con señal más débil (\textbf{-85 dBm}) se reconfiguran como \textbf{Intermedios} y se conectan a la Raíz.
       \end{itemize}
       
-      \vspace{0.8em}
-      \begin{block}{Prevención de Bucles}
-        \scriptsize
-        Evita reenvíos cíclicos de paquetes durante la autoconfiguración jerárquica de la topología.
-      \end{block}
+    %   \vspace{0.8em}
+    %   \begin{block}{Prevención de Bucles}
+    %     \scriptsize
+    %     Evita reenvíos cíclicos de paquetes durante la autoconfiguración jerárquica de la topología.
+    %   \end{block}
     \end{column}
     
     \begin{column}{0.48\textwidth}
@@ -1593,7 +1593,7 @@ desarrollamos.
           \draw[app] (speciesnet.east) -| (db.south);
 
           % External communication
-          \draw[incoming] ($(web.west)+(-2,0)$) -- node[above, font=\sffamily\small] {Red de Malla} (web.west);
+          \draw[incoming] ($(web.west)+(-2.5,0)$) -- node[above, font=\sffamily\small] {Red de Malla} (web.west);
 
         \end{tikzpicture}
     \end{column}
