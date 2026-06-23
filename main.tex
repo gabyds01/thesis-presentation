@@ -910,8 +910,8 @@ Más que eso...
 % }
 % \end{frame}
 
-\begin{frame}{Objetivo General}
-  \begin{block}{Objetivo Principal}
+\begin{frame}{Objetivo}
+  \begin{block}{Objetivo General}
     \centering \vspace{0.5em}
     Demostrar la \textbf{viabilidad técnica} del sistema propuesto, automatizando la recolección y clasificación de imágenes captadas, reduciendo el procesamiento de:
     
@@ -1659,23 +1659,23 @@ desarrollamos.
     \begin{column}{0.5\textwidth}
       \begin{itemize}
         \setlength{\itemsep}{0.4em}
-        \item \textbf{Pipeline de aprendizaje automático} de código abierto desarrollado por \textbf{Google} para el monitoreo de fauna silvestre
-        \item Provee un \textbf{ensemble de modelos} que combina un detector de objetos (MegaDetector) con un clasificador de especies
-        \item \textbf{Clasificador base:} Red entrenada a gran escala con más de 65M de imágenes
+        \item \textbf{Solución de código abierto} desarrollada por \textbf{Google} para el \textbf{monitoreo de fauna silvestre}.
+        \item \textbf{Enfoque de dos etapas:} Combina detección de presencia (MegaDetector) con clasificación de especies.
+        \item Modelos base \textbf{preentrenados por Google} con más de \textbf{65M de imágenes} de todo el mundo.
       \end{itemize}
     \end{column}
     \begin{column}{0.5\textwidth}
       \begin{itemize}
         \setlength{\itemsep}{0.4em}
-        \item \textbf{Localización espacial:} Identificación y encuadrado de animales, personas y vehículos mediante cajas delimitadoras
-        \item \textbf{Rango taxonómico:} Clasificación en más de 2000 etiquetas, incluyendo especies específicas
-        \item \textbf{Heurísticas geográficas:} Filtrado por ubicación para refinar predicciones según el ecosistema regional
+        \item \textbf{Detección (MegaDetector):} Localización espacial de animales, personas y vehículos usando YOLOv5.
+        \item \textbf{Clasificación (EfficientNet V2):} Identificación taxonómica con soporte para más de 2000 etiquetas.
+        \item \textbf{Filtros geográficos:} Heurísticas de ubicación para refinar las predicciones según el ecosistema.
       \end{itemize}
     \end{column}
   \end{columns}
   \note{
-    Google SpeciesNet es un pipeline de IA que combina MegaDetector (YOLOv5) para detectar la presencia de objetos en la imagen y generar las cajas delimitadoras, y un conjunto de modelos clasificadores taxonómicos para identificar las especies. 
-    En el proyecto, lo desplegamos de forma 100\% local en un contenedor Docker, exponiendo un endpoint con LitServe para que el orquestador Django le envíe imágenes de forma asíncrona. Al procesar localmente, no dependemos de internet ni de nubes de terceros.
+    Google SpeciesNet es un flujo de procesamiento de dos etapas: primero ejecuta MegaDetector (YOLOv5) para detectar presencia y recortar la imagen (caja delimitadora). Luego, el clasificador EfficientNet V2 identifica la especie en dicho recorte. 
+    Se entrenó con 65 millones de imágenes globales (de Wildlife Insights). Lo desplegamos 100\% local en un contenedor Docker con LitServe, logrando independencia de internet para el procesamiento asíncrono.
   }
 \end{frame}
 
@@ -2347,7 +2347,7 @@ movimiento de vegetación fueron filtradas por la lógica de umbrales.
 \begin{itemize}
 \setlength{\itemsep}{0.8em}
 \item \textbf{Firmware nodos:} \\ \href{https://github.com/GabyDs/trapcam_mesh}{github.com/GabyDs/trapcam\_mesh}
-\item \textbf{Servidor de aplicación:} \\ \href{https://github.com/fabcontigiani/server-capstone-project}{github.com/fabcontigiani/server-capstone-project}
+\item \textbf{Servidor de aplicación (orquestador + alertas):} \\ \href{https://github.com/fabcontigiani/server-capstone-project}{github.com/fabcontigiani/server-capstone-project}
 \item \textbf{Servidor de inferencia:} \\ \href{https://github.com/fabcontigiani/wildlife-detection-capstone-project}{github.com/fabcontigiani/wildlife-detection-capstone-project}
 \item \textbf{Modelo 3D carcasa:} \\ \href{https://www.printables.com/model/1532349-case-for-esp32_cam-trail-camera-pir-sensor-buck-co}{printables.com/model/1532349}
 \item \textbf{Informe Final:} \\ \href{https://github.com/fabcontigiani/bachelor-thesis}{github.com/fabcontigiani/bachelor-thesis}
