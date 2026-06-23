@@ -92,9 +92,9 @@ Este documento es una guía estructurada y práctica para ensayar la presentaci�
 *   **Cómo arrancar (Señalando el diagrama de propagación):**
     > *"El entorno selvático es uno de los escenarios más hostiles del mundo para la propagación de ondas de radio. Como se ilustra en el esquema..."*
 *   **Puntos clave a decir:**
-    *   **Absorción por agua (H₂O):** La alta humedad relativa y el agua acumulada en las hojas absorben la energía electromagnética a 2.4 GHz (frecuencia típica del Wi-Fi).
-    *   **Efecto multipath:** Las hojas y ramas actúan como reflectores, dispersando la señal y generando cancelaciones destructivas por múltiples caminos.
-    *   **Obstrucción de la zona de Fresnel:** El relieve y la vegetación densa bloquean la línea de vista directa indispensable para enlaces punto a punto tradicionales.
+    *   **Obstrucción de la Zona de Fresnel:** El relieve y la vegetación densa bloquean la zona elipsoidal de propagación, provocando como consecuencia la atenuación (pérdida de potencia) y la dispersión de la señal.
+    *   **Dispersión (Efecto multipath):** Las ramas y hojas actúan como reflectores que desvían la señal, generando ecos e interferencias destructivas de fase.
+    *   **Atenuación por Absorción:** A la pérdida de señal por bloqueo físico, se le suma la absorción directa de la energía por parte de la alta humedad y agua contenida en el follaje (especialmente crítica en 2.4 GHz, frecuencia típica de Wi-Fi).
 *   **Gancho al siguiente slide:**
     > *"Ante estas barreras de comunicación y terreno, analicemos cuáles son las herramientas de monitoreo que se utilizan actualmente y cuáles son sus limitaciones..."*
 
