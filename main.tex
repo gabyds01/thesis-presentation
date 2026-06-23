@@ -910,7 +910,7 @@ Ejercicio
 \begin{frame}{Objetivo General}
   \begin{block}{Objetivo Principal}
     \centering \vspace{0.5em}
-    Demostrar la \textbf{viabilidad técnica} del sistema de monitoreo mencionado anteriormente, con el objetivo de reducir el procesamiento de:
+    Demostrar la \textbf{viabilidad técnica} del sistema propuesto, automatizando la recolección y clasificación de imágenes captadas, reduciendo el procesamiento de:
     
     \vspace{0.8em}
     {\large \textbf{Semanas / días} $\longrightarrow$ \textbf{Minutos}}
@@ -1625,16 +1625,16 @@ desarrollamos.
             box/.style={rectangle, draw=black!70, rounded corners=2pt, fill=blue!5, text width=3.4cm, text centered, minimum height=0.7cm, font=\sffamily\small, line width=0.8pt},
             io/.style={rectangle, draw=teal!80, rounded corners=2pt, fill=teal!5, text width=3.4cm, text centered, minimum height=0.7cm, font=\sffamily\small, line width=0.8pt},
             process/.style={rectangle, draw=orange!80, rounded corners=2pt, fill=orange!5, text width=3.4cm, text centered, minimum height=0.7cm, font=\sffamily\small, line width=0.8pt},
-            decision/.style={diamond, draw=red!80, fill=red!5, text width=1.5cm, text centered, inner sep=0pt, font=\sffamily\small, line width=0.8pt},
+            decision/.style={diamond, draw=red!80, fill=red!5, text width=1.8cm, text centered, inner sep=0pt, font=\sffamily\small, line width=0.8pt},
             arrow/.style={thick, -Latex}
           ]
           
-          \node (receive) [io] {1. HTTP POST \texttt{/upload/}};
-          \node (persist) [process, below=of receive] {2. Guardar imagen y\\metadatos};
-          \node (infer) [box, below=of persist] {3. Inferencia};
-          \node (decide) [decision, below=of infer, yshift=-0.15cm] {¿Alerta?};
-          \node (alert) [io, right=of decide, xshift=0.3cm, text width=2.0cm] {4. Alerta\\Telegram};
-          \node (end) [process, below=of decide, yshift=-0.15cm] {5. Registro Histórico};
+          \node (receive) [io] {HTTP POST \texttt{/upload/}};
+          \node (persist) [process, below=of receive] {Guardar imagen y\\metadatos};
+          \node (infer) [box, below=of persist] {Inferencia};
+          \node (decide) [decision, below=of infer, yshift=-0.15cm] {¿Detección?};
+          \node (alert) [io, right=of decide, xshift=0.3cm, text width=2.0cm] {Emitir alerta};;
+          \node (end) [process, below=of decide, yshift=-0.15cm] {Guardar resultado};
 
           \draw [arrow] (receive) -- (persist);
           \draw [arrow] (persist) -- (infer);
@@ -1826,13 +1826,13 @@ genera una imagen anotada. Todo expuesto via API REST con LitServe.
 
 \begin{frame}{Implementación del Prototipo}
   \begin{columns}[c]
-    \begin{column}{0.55\textwidth}
-      \centering
-      \includegraphics[height=0.8\textheight]{bachelor-thesis/img/carcasaEnsamblado.jpg}
-    \end{column}
-    \begin{column}{0.45\textwidth}
+    \begin{column}{0.2\textwidth}
       \centering
       \includegraphics[height=0.8\textheight]{img/nodoEnsamblado.jpg}
+    \end{column}
+    \begin{column}{0.6\textwidth}
+      \centering
+      \includegraphics[height=0.8\textheight]{bachelor-thesis/img/carcasaEnsamblado.jpg}
     \end{column}
   \end{columns}
   \note{
@@ -1841,6 +1841,69 @@ genera una imagen anotada. Todo expuesto via API REST con LitServe.
     A la derecha se observa el ensamblado interno de los componentes y las baterías.
   }
 \end{frame}
+
+\begin{frame}{Consumo Energético del Prototipo}
+  \centering
+  \begin{tblr}{
+    width = 0.8\linewidth,
+    colspec = {X[l] c},
+    cells = {font=\small},
+    row{1} = {font=\bfseries\small, bg=blue!10},
+    row{Z} = {font=\bfseries\small, bg=blue!5},
+    hline{1,2,Z} = {0.8pt, gray!50},
+  }
+    Modo de Operación & Consumo\\
+    Nodo Hoja (\textit{Deep Sleep} + ULP) & \qty{13}{mA} \\
+    Pico de captura y envío & \qtyrange{200}{300}{mA} \\
+    Nodo Repetidor (\textit{Light Sleep}) & \qty{180}{mA} \\
+  \end{tblr}
+  
+  \vspace{0.8em}
+  \begin{itemize}
+    \setlength{\itemsep}{0.4em}
+    \small
+    \item \textbf{Limitación del regulador (LM2596):} Requiere entrada $\ge$ \qty{6.5}{V} (dropout de \qty{1.5}{V}), reduciendo la capacidad útil real de la batería 2S 18650 al \qty{40}{\percent} ($\approx$\qty{1400}{mAh}).
+    \item \textbf{Autonomía medida y proyectada:} \qty{5}{h} continuas en modo Relay (medido en campo) y semanas/meses en modo Leaf.
+    \item \textbf{Gestión de Energía Híbrida:} Los nodos intermedios (Relay) mantienen activa la red de malla, mientras que los nodos periféricos (Leaf) usan Deep Sleep y despiertan solo por eventos del PIR.
+  \end{itemize}
+
+  \note{
+    Análisis de consumo y autonomía del prototipo:
+    1. Consumo por roles: El modo Hoja en Deep Sleep + ULP consume 13 mA en reposo. El modo Relay consume 180 mA continuos para mantener activa la red de malla (radio Wi-Fi activa). Los picos de captura y envío oscilan entre 200 y 300 mA.
+    2. Caída por regulador (LM2596): El regulador buck corta el circuito funcional en 6.5V. Por debajo de esto, los picos de consumo causan brownout en el ESP32.
+    3. Capacidad real útil: La limitación del LM2596 (requiere 6.5V de entrada para dar 5V estables) restringe el uso de la batería 2S 18650 al 40% de su capacidad total, rindiendo 5 horas medidas en modo repetidor continuo.
+  }
+\end{frame}
+
+\begin{frame}{Comparativa de Consumo}
+  \centering
+  \begin{tblr}{
+    width = 0.9\linewidth,
+    colspec = {X[l] c c},
+    cells = {font=\small},
+    row{1} = {font=\bfseries\small, bg=blue!10},
+    hline{1,2,Z} = {0.8pt, gray!50},
+  }
+    Estado / Evento & Prototipo (Malla) & Spartan GoCam (Celular) \\
+    Reposo & \qty{13}{mA} & $<\qty{0.20}{mA} $ \\
+    Transmisión (Pico) & \qtyrange{200}{300}{mA} & \qty{1000}{mA} \\
+  \end{tblr}
+
+  \begin{itemize}
+    \setlength{\itemsep}{0.4em}
+    \small
+    \item \textbf{Disponibilidad vs. Ahorro:} Repetidores del prototipo en escucha continua (\textit{Light Sleep}) para ruteo instantáneo, frente al \textbf{ciclo útil programado} de la Spartan (desconexión por horas).
+    \item \textbf{Compromiso de Latencia:} Se priorizó la disponibilidad constante para alertas en tiempo real, posponiendo el ciclo de trabajo para trabajos futuros.
+  \end{itemize}
+
+  \note{
+    Comparación de consumos y estrategias de energía:
+    1. Estrategia del Repetidor: El prototipo mantiene a los repetidores en Light Sleep (180 mA) escuchando permanentemente para ruteo instantáneo. La Spartan no tiene repetidores; apaga su receptor celular por completo y solo se comunica en intervalos programados (ciclo útil) para ahorrar energía.
+    2. Trade-off de Latencia: Mantener la red de malla escuchando de forma continua nos da alertas en tiempo real (40 s en campo). Aplicar un ciclo útil programado (como la Spartan) aumentaría drásticamente la latencia, pero es deseable a futuro para mejorar la autonomía.
+    3. Picos de corriente: Destacar que transmitir vía Wi-Fi (200-300 mA) es energéticamente más eficiente en pico que el módem celular de la Spartan (1A).
+  }
+\end{frame}
+
 
 \begin{frame}{Estructura de Costos del Prototipo}
   \begin{columns}[t]
@@ -1886,6 +1949,67 @@ genera una imagen anotada. Todo expuesto via API REST con LitServe.
   \note{
     Detalle de la estructura de costos del nodo de cámara (Capítulo 7, Tabla 7.3 de la tesis).
     Dividimos el costo en dos partes: el nodo de cámara en sí, que suma 21 USD, y el pack de alimentación (incluyendo celdas 18650, cables, conectores y caja estanca), que suma 24 USD, totalizando exactamente 45 USD.
+  }
+\end{frame}
+
+\begin{frame}{Comparativa de Costos y Sostenibilidad}
+  \renewcommand{\thefootnote}{\fnsymbol{footnote}}
+  \setcounter{footnote}{0}
+  \begin{columns}[t]
+    \begin{column}{0.48\textwidth}
+      \centering
+      \begin{tblr}{
+        width = \linewidth,
+        colspec = {X[l] c},
+        cells = {font=\small},
+        row{1} = {font=\bfseries\small, bg=blue!10},
+        row{4} = {font=\bfseries\small, bg=blue!5},
+        row{7} = {font=\bfseries\small, bg=blue!5},
+        hline{1,2,4,5,7,Z} = {0.8pt, gray!50},
+      }
+        Concepto & Costo (USD) \\
+        Prototipo Nodo Cámara & \num{20.00} \\
+        Batería Spartan 12V 18Ah & \num{59.95} \\
+        Costo Inicial & \num{84.95} \\
+        Plan de datos (mensual) & \num{0.00} \\
+        Suscripción Premium & \num{0.00} \\
+        Costo Operativo Anual & \num{0.00} \\
+      \end{tblr}
+    \end{column}
+    
+    \begin{column}{0.48\textwidth}
+      \centering
+      \begin{tblr}{
+        width = \linewidth,
+        colspec = {X[l] c},
+        cells = {font=\small},
+        row{1} = {font=\bfseries\small, bg=red!10},
+        row{4} = {font=\bfseries\small, bg=red!5},
+        row{7} = {font=\bfseries\small, bg=red!5},
+        hline{1,2,4,5,7,Z} = {0.8pt, gray!50},
+      }
+        Concepto & Costo (USD) \\
+        Cámara Spartan GoCam & \num{159.95} \\
+        Batería Spartan 12V 18Ah & \num{59.95} \\
+        Costo Inicial & \num{219.90} \\
+        Plan de datos (mensual) & $\sim$\num{10.00} \\
+        Suscripción Premium & $\sim$\num{4.00} \\
+        Costo Operativo Anual & $\sim$\num{168.00} \\
+      \end{tblr}
+    \end{column}
+  \end{columns}
+  \begin{block}{Reducción de costos}
+    \centering\small
+    \textbf{\qty{61.4}{\percent}} en el costo inicial y del \textbf{\qty{87.5}{\percent}} en la cámara en sí\footnotemark.
+  \end{block}
+  \footnotetext{Nos da margen a mejorar el prototipo para un eventual despliegue a largo plazo.}
+
+  \note{
+    Comparación económica entre el prototipo y una cámara comercial celular como la Spartan GoCam.
+    Ambas alimentadas con la misma batería de 12V 18Ah.
+    1. CAPEX (Inversión Inicial): El prototipo cuesta 84.95 USD frente a los 219.90 USD de la Spartan (que requiere la batería de 59.95 USD y la cámara de 159.95 USD).
+    2. OPEX (Costo Operativo): La Spartan requiere un plan celular individual mensual de 10 USD y una suscripción premium de 4 USD para habilitar todas sus funciones. Esto resulta en 168 USD anuales recurrentes por cámara.
+    3. Escalabilidad: En nuestro sistema, la red mesh transmite de manera gratuita entre nodos. Solo el nodo raíz requiere un plan de datos, prorrateando ese costo operativo entre todas las cámaras desplegadas.
   }
 \end{frame}
 
@@ -1994,7 +2118,7 @@ movimiento de vegetación fueron filtradas por la lógica de umbrales.
     hline{1,2,Z} = {0.8pt, gray!50},
   }
     Escenario  & Distancia \\
-    Línea de vista      & \qtyrange{15}{20}{m} \\
+    Línea de vista      & \qty{15}{m} \\
     Con vegetación      & $\sim$\qty{12}{m} \\
   \end{tblr}
 
@@ -2051,23 +2175,12 @@ movimiento de vegetación fueron filtradas por la lógica de umbrales.
     \begin{column}{0.5\textwidth}
       \textbf{Detección} (\num{94} imágenes):
       
-      \vspace{0.5em}
-      \begin{tblr}{
-        width = \linewidth,
-        colspec = {X[l] c},
-        row{1} = {font=\bfseries, bg=blue!10},
-        hline{1,2,Z} = {0.8pt, gray!50},
-      }
-        Métrica & Valor \\
-        Exactitud   & \qty{77.7}{\percent}  \\
-        Precisión   & \qty{78.9}{\percent}  \\
-        Recall      & \qty{69.8}{\percent}  \\
-      \end{tblr}
-      
       \vspace{0.8em}
       \begin{itemize}
-        \item \textbf{MegaDetector:} Filtro de falsos positivos (viento, ramas).
-        \item \textbf{Sensibilidad:} Priorización de alertas operativas.
+        \setlength{\itemsep}{0.8em}
+        \item \textbf{Exactitud:} \qty{77.7}{\percent} (\num{73}/\num{94})
+        \item \textbf{Precisión:} \qty{78.9}{\percent} (\num{30}/\num{38})
+        \item \textbf{Sensibilidad:} \qty{69.8}{\percent} (\num{30}/\num{43})
       \end{itemize}
     \end{column}
     
@@ -2085,19 +2198,13 @@ movimiento de vegetación fueron filtradas por la lógica de umbrales.
 \begin{frame}{Resultados - Clasificación}
   \begin{columns}[c]
     \begin{column}{0.5\textwidth}
-      \textbf{Recall por clase (SpeciesNet):}
+      \textbf{Sensibilidad por clase:}
       \vspace{0.8em}
       \begin{itemize}
         \setlength{\itemsep}{0.8em}
         \item \textbf{Vehículos:} \qty{100}{\percent} (\num{2}/\num{2})
         \item \textbf{Personas:} \qty{77.3}{\percent} (\num{17}/\num{22})
         \item \textbf{Animales:} \qty{52.9}{\percent} (\num{9}/\num{17})
-      \end{itemize}
-
-      \vspace{0.8em}
-      \begin{itemize}
-        \item \textbf{Fauna pequeña:} Dificultad por camuflaje y escala.
-        \item \textbf{HITL:} Corrección y auditoría desde el bot.
       \end{itemize}
     \end{column}
     
@@ -2124,7 +2231,6 @@ movimiento de vegetación fueron filtradas por la lógica de umbrales.
         \scriptsize
         \begin{itemize}
           \item Prototipo de \textbf{bajo costo} ($\sim$\qty{45}{USD})
-          \item Carcasa estanca optimizada e impresa en 3D (Printables)
         \end{itemize}
       \end{block}
       
@@ -2134,7 +2240,6 @@ movimiento de vegetación fueron filtradas por la lógica de umbrales.
         \scriptsize
         \begin{itemize}
           \item Red de malla robusta con \textbf{ESP-MESH-LITE}
-          % \item Extensión de cobertura sin infraestructura móvil
         \end{itemize}
       \end{block}
     \end{column}
@@ -2150,11 +2255,10 @@ movimiento de vegetación fueron filtradas por la lógica de umbrales.
       
       \vspace{0.4em}
       
-      \begin{block}{Impacto y Escalabilidad}
+      \begin{block}{Automatización}
         \scriptsize
         \begin{itemize}
-          \item Tiempo de procesamiento: \textbf{días $\rightarrow$ minutos}
-          \item Enfoque en un sistema \textbf{altamente escalable} y de bajo costo
+          \item Tiempo entre captura y clasificación: \textbf{días $\rightarrow$ minutos}
         \end{itemize}
       \end{block}
     \end{column}
@@ -2165,11 +2269,11 @@ movimiento de vegetación fueron filtradas por la lógica de umbrales.
     1. Hardware: Diseño viable y económico con carcasa impresa en 3D.
     2. Conectividad: Malla robusta que extiende cobertura sin infraestructura celular.
     3. Inteligencia: Procesamiento local acoplado con retroalimentación humana interactiva.
-    4. Impacto: Aceleración dramática en la obtención del dato científico y compromiso con el código abierto.
+    4. Automatización: Reducción drástica en el tiempo de procesamiento de imágenes frente a métodos tradicionales.
   }
 \end{frame}
 
-\begin{frame}{Comparación con Objetivos}
+\begin{frame}{Validación y Viabilidad Técnica}
   \centering
   \begin{tikzpicture}[
       font=\sffamily,
@@ -2177,38 +2281,38 @@ movimiento de vegetación fueron filtradas por la lógica de umbrales.
     ]
     % Cards
     \node[card] (c1) at (-2.8, 1.0) {
-      \textbf{\color{teal!80!black}\large 77.7\% Exactitud}\\
-      \scriptsize Detección binaria (94 imágenes de campo)
+      \textbf{\color{teal!80!black}\Large \qty{77.7}{\%}}\\
+      \small Exactitud sobre 94 imágenes
     };
     
     \node[card] (c2) at (2.8, 1.0) {
-      \textbf{\color{teal!80!black}\large $\sim$40 s Latencia}\\
-      \scriptsize Ciclo completo en campo (Hotspot celular)
+      \textbf{\color{teal!80!black}\Large $\sim$\qty{40}{s}}\\
+      \small Entre captura y alerta
     };
     
     \node[card] (c3) at (-2.8, -1.0) {
-      \textbf{\color{teal!80!black}\large 13 mA}\\
-      \scriptsize Consumo Hoja
+      \textbf{\color{teal!80!black}\Large \qty{13}{mA}}\\
+      \small Consumo Nodo Hoja
     };
     
     \node[card] (c4) at (2.8, -1.0) {
-      \textbf{\color{teal!80!black}\large 15--18 m Alcance}\\
-      \scriptsize Entre nodos en línea de vista directa
+      \textbf{\color{teal!80!black}\Large \qty{15}{m}}\\
+      \small Entre nodos
     };
   \end{tikzpicture}
 
   \vspace{0.4em}
   \begin{alertblock}{Conclusión}
     \centering\small
-    Se demostró la \textbf{viabilidad técnica} del sistema, logrando una mejora de \textbf{órdenes de magnitud} en la latencia operativa frente a cámaras trampa tradicionales.
+    Se demostró la \textbf{viabilidad técnica} del sistema, logrando una mejora de \textbf{órdenes de magnitud} en la latencia operativa frente a cámaras trampa tradicionales al automatizar el proceso de recolección y clasificación.
   \end{alertblock}
   
   \note{
     Resumen cuantitativo frente a objetivos:
-    - Precisión: Detección robusta de 77.7% en condiciones reales de campo.
-    - Latencia: Envío y análisis en ~40s frente a semanas/meses en cámaras tradicionales.
-    - Autonomía: Consumo de la Hoja de apenas 13mA asegura excelente viabilidad a largo plazo.
-    - Cobertura: El rango de 15-18m permite crear barreras eficaces en senderos y picadas.
+    - Precisión: Detección robusta de \qty{77.7}{\percent} en condiciones reales de campo.
+    - Latencia: Envío y análisis en $\sim$\qty{40}{s} frente a semanas/meses en cámaras tradicionales.
+    - Autonomía: Consumo de la Hoja de apenas \qty{13}{mA} asegura excelente viabilidad a largo plazo.
+    - Cobertura: El rango de \qty{15}{m} permite crear barreras eficaces en senderos y picadas.
   }
 \end{frame}
 
@@ -2343,20 +2447,14 @@ sido posible sin su apoyo.
 
 \begin{frame}{Trabajos Futuros}
 \begin{itemize}
-\setlength{\itemsep}{0.8em}
+\setlength{\itemsep}{0.5em}
 \item \textbf{Visión nocturna:} Cámaras con capacidad infrarroja
-\item \textbf{Conectividad largo alcance nodo raíz:} LoRa, \num{4}G/LTE, satelital para zonas remotas
-\item \textbf{Nodo repetidor dedicado:} Nodo sin cámara que mantenga la red de malla, permitiendo Deep Sleep puro en nodos cámara
-\item \textbf{Optimización energética:} Paneles solares, reguladores más eficientes
-\item \textbf{Optimización de alcance:} Antenas de mayor ganancia, calibración RSSI, mayor compresión
-\item \textbf{Modelos específicos:} Fine-tuning para fauna del Bosque Atlántico
+\item \textbf{Conectividad largo alcance para nodo raíz:} LoRa, \num{4}G/LTE, satelital
+\item \textbf{Nodo repetidor dedicado:} Nodo repetidor sin cámara que mantenga activa la red de malla, permitiendo extender la red con un
+\item \textbf{Alimentación alternativa:} Paneles solares, generadores eólicos
+\item \textbf{Ciclo de trabajo sincronizado:} Activación programada de la red con almacenamiento temporal local (MicroSD) para reducir el consumo en nodos repetidores
+\item \textbf{Optimización de modelos:} Fine-tuning con datos del Human-in-the-loop.
 \end{itemize}
-\note{
-Líneas futuras: visión nocturna, conectividad largo alcance, nodo
-repetidor dedicado para mejorar autonomía, retransmisión robusta de imágenes
-con confirmación, optimización de alcance, TinyML, fine-tuning con datos del
-Human-in-the-loop.
-}
 \end{frame}
 
 % \begin{frame}{Esquemático del Hardware}
