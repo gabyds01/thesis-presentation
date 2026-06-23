@@ -670,16 +670,16 @@ Más que eso...
 
 \section*{El Rol de la Tecnología}
 
-\begin{frame}{Avances en Hardware y Sensores de Campo}
+\begin{frame}{Avances en Hardware y Sensores}
   \begin{columns}
     \begin{column}{0.55\textwidth}
-      \textbf{Dispositivos de captura autónomos y procesamiento local:}
+      \textbf{Hardware autónomo y procesamiento local:}
       
       \vspace{0.5em}
       \begin{itemize}
-        \item \textbf{Cómputo en el Borde:} Microcomputadoras y microcontroladores de bajo costo que procesan datos localmente
-        \item \textbf{Cámaras Trampa:} Optimización de sensores PIR, flash IR invisible y alta eficiencia energética
-        \item \textbf{Sistemas Integrados:} Prototipos académicos orientados a la inferencia y captura automatizada
+        \item \textbf{Cómputo en el Borde:} Microcontroladores y computadoras de bajo costo para procesamiento local.
+        \item \textbf{Cámaras Trampa:} Optimización de sensores PIR, flash IR invisible y bajo consumo.
+        \item \textbf{Sistemas Integrados:} Prototipos académicos para captura e inferencia automática.
       \end{itemize}
     \end{column}
     \begin{column}{0.45\textwidth}
@@ -704,13 +704,13 @@ Más que eso...
       \end{figure}
     \end{column}
     \begin{column}{0.6\textwidth}
-      \textbf{Comunicación y transmisión de datos en áreas sin cobertura comercial:}
+      \textbf{Transmisión de datos en áreas sin cobertura celular:}
       
       \vspace{0.5em}
       \begin{itemize}
-        \item \textbf{Redes Auto-organizadas (Mesh):} Redes descentralizadas basadas en protocolos como WiFi, Bluetooth o Zigbee, donde cada sensor actúa como repetidor para extender la cobertura
-        \item \textbf{Protocolos de Largo Alcance (LoRaWAN):} Tecnologías de modulación de radio de bajo consumo que enlazan sensores a kilómetros de distancia con un ancho de banda mínimo
-        \item \textbf{Comunicación Satelital:} Integración de módulos satelitales compactos (ej. red Iridium) para transmitir alertas críticas en tiempo real desde áreas remotas
+        \item \textbf{Redes Mesh:} Topologías auto-organizadas (WiFi, BLE, Zigbee) donde cada nodo actúa como repetidor.
+        \item \textbf{Largo Alcance (LoRa/LoRaWAN):} Enlaces a kilómetros con mínimo ancho de banda y consumo.
+        \item \textbf{Enlace Satelital:} Módulos compactos (ej. Iridium) para alertas críticas en zonas remotas.
       \end{itemize}
     \end{column}
   \end{columns}
@@ -722,9 +722,9 @@ Más que eso...
 \begin{frame}{Avances en Software y Visión por Computadora}
   \begin{itemize}
     \setlength{\itemsep}{0.2em}
-    \item \textbf{Detección en Tiempo Real (YOLO):} Modelos neuronales aplicados a video y fotografía para clasificar e identificar fauna, personas y vehículos de forma instantánea
-    \item \textbf{Modelos Pre-entrenados (MegaDetector):} Algoritmos abiertos para cámaras trampa que automatizan el descarte de falsos positivos (viento, sombras) y aíslan la actividad biológica
-    \item \textbf{Apoyo de Grandes Tecnológicas:} Iniciativas con respaldo de empresas como Microsoft (\textit{Microsoft Biodiversity}) o Google (\textit{SpeciesNet}) que proveen modelos abiertos y plataformas en la nube
+    \item \textbf{Detección en Tiempo Real:} Modelos como YOLO para clasificar e identificar objetos de forma instantánea.
+    \item \textbf{Modelos Preentrenados (MegaDetector):} Algoritmos abiertos que automatizan el descarte de falsos positivos (viento, sombras).
+    \item \textbf{Plataformas e Iniciativas Globales:} Soporte y modelos abiertos respaldados por Microsoft (\textit{AI for Earth}) y Google (\textit{SpeciesNet}).
   \end{itemize}
   \begin{figure}
     \centering
@@ -947,7 +947,7 @@ desarrollamos.
     \item \textbf{Transmisión:} Ancho de banda y rango acorde a MCU; el envío de paquetes grandes añade complicaciones extra en estas redes malla.
     \item \textbf{Enlace de larga distancia:} No se implementa un nodo raíz con protocolo de comunicación de larga distancia (satelital/celular dedicada).
     \item \textbf{Despliegue Físico:} No se contempla el diseño de carcasas con grado de protección IP, ni el despliegue permanente en campo.
-    \item \textbf{Modelos de IA:} Se utilizan modelos preentrenados; no se incluye el entrenamiento de un modelo específico para la fauna local, aunque si se tiene en cuenta esta posibilidad a futuro.
+    \item \textbf{Modelos de IA:} Se utilizan modelos preentrenados; no se incluye el entrenamiento de un modelo específico para la fauna local, aunque sí se tiene en cuenta esta posibilidad a futuro.
   \end{itemize}
   \note{
     Es importante explicitar las limitaciones técnicas del prototipo al priorizar el bajo costo:
@@ -1866,7 +1866,7 @@ genera una imagen anotada. Todo expuesto via API REST con LitServe.
     \setlength{\itemsep}{0.4em}
     \small
     \item \textbf{Limitación del regulador (LM2596):} Requiere entrada $\ge$ \qty{6.5}{V} (dropout de \qty{1.5}{V}), reduciendo la capacidad útil real de la batería 2S 18650 al \qty{40}{\percent} ($\approx$\qty{1400}{mAh}).
-    \item \textbf{Autonomía medida y proyectada:} \qty{5}{h} continuas en para el nodo intermedio (medido en campo) y 4 días en para el nodo hoja.
+    \item \textbf{Autonomía medida y proyectada:} \qty{5}{h} continuas para el nodo intermedio (medido en campo) y 4 días para el nodo hoja.
   \end{itemize}
 
   \note{
@@ -2316,7 +2316,7 @@ movimiento de vegetación fueron filtradas por la lógica de umbrales.
   }
 \end{frame}
 
-\begin{frame}{Materias Aplicadas de la Carrera}
+\begin{frame}{Aplicación con Materias de la Carrera}
   \begin{columns}[t]
     \begin{column}{0.48\textwidth}
       \begin{itemize}
@@ -2477,7 +2477,7 @@ sido posible sin su apoyo.
 \setlength{\itemsep}{0.5em}
 \item \textbf{Visión nocturna:} Cámaras con capacidad infrarroja
 \item \textbf{Conectividad largo alcance para nodo raíz:} LoRa, \num{4}G/LTE, satelital
-\item \textbf{Nodo repetidor dedicado:} Nodo repetidor sin cámara que mantenga activa la red de malla, permitiendo extender la red con un
+\item \textbf{Nodo repetidor dedicado:} Nodo repetidor sin cámara que mantenga activa la red de malla, permitiendo extender la red con un consumo de energía reducido en los nodos de cámara.
 \item \textbf{Alimentación alternativa:} Paneles solares, generadores eólicos
 \item \textbf{Ciclo de trabajo sincronizado:} Activación programada de la red con almacenamiento temporal local (MicroSD) para reducir el consumo en nodos repetidores
 \item \textbf{Optimización de modelos:} Fine-tuning con datos del Human-in-the-loop.
@@ -2535,7 +2535,7 @@ sido posible sin su apoyo.
 % \item VAN: \qty{7517.55}{\$} USD
 % \item TIR: \qty{25}{\percent}
 % \item TREMA: \qty{15}{\percent}
-% \item Recupero: Ano \num{4}
+% \item Recupero: Año \num{4}
 % \end{itemize}
 
 % \vspace{0.5em}
@@ -2608,7 +2608,7 @@ sido posible sin su apoyo.
 
 % \begin{itemize}
 %   \scriptsize
-%   \item Punto de equilibrio: \num{24} suscripciones/ano
+%   \item Punto de equilibrio: \num{24} suscripciones/año
 %   \item Precio minimo viable: \qty{40}{\$} USD/mes
 % \end{itemize}
 % \note{
