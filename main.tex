@@ -5,7 +5,7 @@
 
 \setbeameroption{hide notes} % Only slides
 %\setbeameroption{show only notes} % Only notes
-%\setbeameroption{show notes on second screen=bottom} % Both
+% \setbeameroption{show notes on second screen=bottom} % Both
 
 \usepackage{graphicx}
 \usepackage{colortbl}
@@ -291,13 +291,11 @@ Ejercicio
   \begin{columns}
     \begin{column}{0.5\textwidth}
       \begin{itemize}
-        \item Mas del \textbf{\qty{50}{\percent} de la biodiversidad} de Argentina \footcite{dibitetti2003yaguarete}
-        \item En menos del \qty{0.5}{\percent} del territorio nacional
-        \item \num{1.1} millones de hectareas protegidas
+        \setlength{\itemsep}{0.6em}
+        \item \textbf{Remanente continuo más extenso} del Bosque Atlántico en el Cono Sur.
+        \item \textbf{\num{1.1} millones de hectáreas} protegidas.
+        \item Menos del \textbf{\qty{0.5}{\percent} del territorio} nacional, albergando más del \textbf{\qty{50}{\percent} de la biodiversidad} del país \footcite{dibitetti2003yaguarete}.
       \end{itemize}
-
-      \vspace{1em}
-      Es el \textbf{remanente continuo mas extenso} del Bosque Atlántico en el Cono Sur.
     \end{column}
     \begin{column}{0.5\textwidth}
       \centering
@@ -314,6 +312,11 @@ Ejercicio
 
 \begin{frame}{Biodiversidad Excepcional}
   \begin{columns}
+    \begin{column}{0.45\textwidth}
+      \begin{figure}
+        \includegraphics[width=\textwidth]{./img/collage.png}
+      \end{figure}
+    \end{column}
     \begin{column}{0.55\textwidth}
       \textbf{Concentración de especies:}
       \begin{itemize}
@@ -322,25 +325,6 @@ Ejercicio
         \item \num{120} especies de mamíferos
         \item \num{79} reptiles y \num{55} anfibios
       \end{itemize}
-
-      \vspace{0.5em}
-      \textbf{Especies emblemáticas:}
-      \begin{itemize}
-        \item Yaguareté (\textit{Panthera onca})
-        \item Tapir (\textit{Tapirus terrestris})
-        \item Águila harpía (\textit{Harpia harpyja})
-        \item Yacutinga (\textit{Aburria jacutinga})
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.45\textwidth}
-      % TODO: Collage de fauna emblematica
-      % \centering
-      % \fbox{\parbox{0.9\textwidth}{\centering\vspace{2.5cm}
-      %     [Collage fauna emblematica]
-      % \vspace{2.5cm}}}
-      \begin{figure}
-        \includegraphics[width=\textwidth]{./img/collage.png}
-      \end{figure}
     \end{column}
   \end{columns}
   \note{
@@ -493,110 +477,11 @@ Ejercicio
   }
 \end{frame}
 
-% \begin{frame}{Desafios de la Vigilancia}
-%   \textbf{\num{780000} hectareas} distribuidas en \textbf{\num{106}+ areas protegidas}
-
-%   \vspace{0.5em}
-%   \begin{description}
-%     \item[Extension:] Terreno accidentado, vegetacion densa, acceso limitado
-%     \item[Comunicaciones:] Sin cobertura celular en zonas interiores
-%     \item[Latencia:] Semanas/meses entre captura de evento y descubrimiento
-%     \item[Volumen:] Miles de imagenes requieren clasificacion manual
-%   \end{description}
-
-%   % TODO: Foto de terreno/vegetacion densa
-%   \centering
-%   \fbox{\parbox{0.5\textwidth}{\centering\vspace{1.2cm}
-%       [Foto vegetacion densa]
-%   \vspace{1.2cm}}}
-%   \note{
-%     \num{780000} hectáreas en más de \num{100} áreas protegidas. Sin cobertura celular,
-%     con terreno difícil y miles de imágenes que clasificar manualmente. Estos
-%     desafíos motivan nuestra propuesta tecnológica.
-%   }
-% \end{frame}
-
-\begin{frame}{Monitoreo Acústico y Aéreo}
-  \begin{columns}
-    \begin{column}{0.6\textwidth}
-      \textbf{Monitoreo Acústico:}
-      \begin{itemize}
-        \item \textbf{Uso:} Grabadoras en árboles para fauna o amenazas (motosierras, disparos).
-        \item \textbf{Limitación:} Propensión a falsos positivos (ruidos naturales confundidos con disparos o motosierras).
-      \end{itemize}
-
-      \vspace{0.5em}
-      \textbf{Drones y Satélites:}
-      \begin{itemize}
-        \item \textbf{Uso:} Vigilancia aérea contra desmontes e incendios forestales.
-        \item \textbf{Limitación:} Las copas de los árboles ocultan el suelo. Baja autonomía (drones) y baja frecuencia de paso (satélites).
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.4\textwidth}
-      \centering
-      \includegraphics[width=0.85\textwidth]{img/monitoreoAcustico.jpg}
-      \vspace{1em}
-      \includegraphics[width=0.85\textwidth]{img/monitoreoDron.jpg}
-    \end{column}
-  \end{columns}
-  \note{
-    Para combatir las amenazas de caza y deforestación, el monitoreo acústico usa grabadoras automáticas en árboles, pero sufre de falsos positivos al confundirse ruidos naturales (como caídas de ramas o truenos) con amenazas reales.
-    Los drones y satélites permiten vigilar grandes extensiones de bosque desde el aire, pero las copas de los árboles impiden ver lo que ocurre a nivel del suelo o debajo de ellas, sumado a las limitaciones físicas de autonomía de drones y frecuencia de paso de satélites.
-  }
-\end{frame}
-
-\begin{frame}{Cámaras Trampa Tradicionales}
-  \begin{columns}
-    \begin{column}{0.6\textwidth}
-      \begin{itemize}
-        \setlength{\itemsep}{1em}
-        \item \textbf{Funcionamiento:} Sensor \textbf{PIR} (movimiento/calor) y almacenamiento local de fotos y videos en tarjeta SD.
-        \item \textbf{Limitación (Alta Latencia):} Requiere recolectar manualmente la tarjeta SD de forma periódica (semanas/meses), impidiendo una alerta temprana.
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.4\textwidth}
-      \centering
-      \includegraphics[width=\textwidth]{img/camaraTrampaConvencional.png}
-    \end{column}
-  \end{columns}
-  \note{
-    Las cámaras trampa pasivas capturan imágenes automáticamente usando sensores PIR y las guardan localmente en una tarjeta SD.
-    Su gran limitación es la alta latencia: para ver las fotos, alguien debe ir físicamente al sitio y retirar la tarjeta de memoria, lo cual toma semanas o meses, perdiendo la oportunidad de reaccionar a tiempo ante actividades ilícitas.
-  }
-\end{frame}
-
-\begin{frame}{Cámaras Trampa Modernas}
-  \begin{columns}
-    \begin{column}{0.6\textwidth}
-      \textbf{Funcionamiento:}
-      \begin{itemize}
-        \item Transmisión casi instantánea por red celular (3G/4G) o enlace satelital.
-      \end{itemize}
-
-      \vspace{0.5em}
-      \textbf{Limitaciones Principales:}
-      \begin{itemize}
-        \item \textbf{Falta de cobertura:} Inexistente en selva profunda.
-        \item \textbf{Costos elevados:} Hardware y planes satelitales caros.
-        \item \textbf{Baja escalabilidad:} Inviable para despliegues masivos.
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.4\textwidth}
-      \centering
-      \includegraphics[width=\textwidth]{img/camaraActiva.png}
-    \end{column}
-  \end{columns}
-  \note{
-    Las cámaras trampa activas intentan resolver la latencia enviando las imágenes al instante usando redes móviles o satélites.
-    Sin embargo, en zonas interiores y remotas de la selva profunda no existe cobertura celular. Además, el uso de enlaces satelitales tiene costos de suscripción y hardware que impiden escalar a decenas o cientos de cámaras en un despliegue masivo.
-  }
-\end{frame}
-
 \begin{frame}{El Desafío de la Comunicación en la Selva}
   \begin{itemize}
     \setlength{\itemsep}{0.4em}
     \item \textbf{Absorción por humedad:} la vegetación con alto contenido de agua atenúa la señal RF (2.4\,GHz).
-    \item \textbf{Dispersión \textit{multipath}:} ramas y hojas desvían la señal, generando ecos destructivos.
+    \item \textbf{Dispersión multicamino:} ramas y hojas desvían la señal, generando ecos destructivos.
     \item \textbf{Obstrucción de la Zona de Fresnel:} vegetación y relieve degradan el enlace aun con línea de vista.
   \end{itemize}
 
@@ -702,6 +587,84 @@ Ejercicio
   }
 \end{frame}
 
+\begin{frame}{Monitoreo Acústico y Aéreo}
+  \begin{columns}
+    \begin{column}{0.6\textwidth}
+      \textbf{Monitoreo Acústico:}
+      \begin{itemize}
+        \item \textbf{Uso:} Grabadoras en árboles para fauna o amenazas (motosierras, disparos).
+        \item \textbf{Limitación:} Propensión a falsos positivos (ruidos naturales confundidos con disparos o motosierras).
+      \end{itemize}
+
+      \vspace{0.5em}
+      \textbf{Drones y Satélites:}
+      \begin{itemize}
+        \item \textbf{Uso:} Vigilancia aérea contra desmontes e incendios forestales.
+        \item \textbf{Limitación:} Las copas de los árboles ocultan el suelo. Baja autonomía (drones) y baja frecuencia de paso (satélites).
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+      \centering
+      \includegraphics[width=0.85\textwidth]{img/monitoreoAcustico.jpg}
+      \vspace{1em}
+      \includegraphics[width=0.85\textwidth]{img/monitoreoDron.jpg}
+    \end{column}
+  \end{columns}
+  \note{
+    Para combatir las amenazas de caza y deforestación, el monitoreo acústico usa grabadoras automáticas en árboles, pero sufre de falsos positivos al confundirse ruidos naturales (como caídas de ramas o truenos) con amenazas reales.
+    Los drones y satélites permiten vigilar grandes extensiones de bosque desde el aire, pero las copas de los árboles impiden ver lo que ocurre a nivel del suelo o debajo de ellas, sumado a las limitaciones físicas de autonomía de drones y frecuencia de paso de satélites.
+  }
+\end{frame}
+
+\begin{frame}{Cámaras Trampa Tradicionales}
+  \begin{columns}
+    \begin{column}{0.4\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{img/camaraTrampaConvencional.png}
+    \end{column}
+    \begin{column}{0.6\textwidth}
+      \begin{itemize}
+        \setlength{\itemsep}{1em}
+        \item \textbf{Funcionamiento:} Sensor \textbf{PIR} (movimiento/calor) y almacenamiento local de fotos y videos en tarjeta SD.
+        \item \textbf{Limitación (Alta Latencia):} Requiere recolectar manualmente la tarjeta SD de forma periódica (semanas/meses), impidiendo una alerta temprana.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+  \note{
+    Las cámaras trampa pasivas capturan imágenes automáticamente usando sensores PIR y las guardan localmente en una tarjeta SD.
+    Su gran limitación es la alta latencia: para ver las fotos, alguien debe ir físicamente al sitio y retirar la tarjeta de memoria, lo cual toma semanas o meses, perdiendo la oportunidad de reaccionar a tiempo ante actividades ilícitas.
+  }
+\end{frame}
+
+\begin{frame}{Cámaras Trampa Modernas}
+  \begin{columns}
+    \begin{column}{0.4\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{img/camaraActiva.png}
+    \end{column}
+    \begin{column}{0.6\textwidth}
+      \textbf{Funcionamiento:}
+      \begin{itemize}
+        \item Transmisión casi instantánea por red celular (3G/4G) o enlace satelital.
+      \end{itemize}
+
+      \vspace{0.5em}
+      \textbf{Limitaciones Principales:}
+      \begin{itemize}
+        \item \textbf{Falta de cobertura:} Inexistente en selva profunda.
+        \item \textbf{Costos elevados:} Hardware y planes satelitales caros.
+        \item \textbf{Baja escalabilidad:} Inviable para despliegues masivos.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+  \note{
+    Las cámaras trampa activas intentan resolver la latencia enviando las imágenes al instante usando redes móviles o satélites.
+    Sin embargo, en zonas interiores y remotas de la selva profunda no existe cobertura celular. Además, el uso de enlaces satelitales tiene costos de suscripción y hardware que impiden escalar a decenas o cientos de cámaras en un despliegue masivo.
+  }
+\end{frame}
+
+
+
 \section*{El Rol de la Tecnología}
 
 \begin{frame}{Avances en Hardware y Sensores de Campo}
@@ -774,27 +737,6 @@ Ejercicio
 % Sección 2: Objetivos (Nuestra Propuesta)
 % ==============================================================================
 \section{Objetivos}
-
-% \begin{frame}{Escenario Objetivo}
-%   \begin{alertblock}{Solución}
-%     Diseño e implementación de un \textbf{Sistema de Monitoreo y Alerta Temprana basado en IA} para áreas protegidas.
-%   \end{alertblock}
-  
-%   \vspace{1em}
-%   \textbf{Pilares del sistema:}
-%   \begin{itemize}
-%     \item \textbf{Barato y escalable} (hardware económico y open source)
-%     \item \textbf{Reducción del tiempo de respuesta} (de semanas a minutos)
-%     \item \textbf{Cobertura en zonas remotas} (red malla independiente)
-%     \item \textbf{Eliminación de ruido} (IA para evitar falsos positivos)
-%   \end{itemize}
-%   \note{
-%     Nuestra propuesta es un Sistema de Monitoreo y Alerta Temprana. Sus 4
-%     pilares son: que sea barato y escalable, que reduzca drásticamente la
-%     latencia, que funcione en zonas remotas sin celular, y que elimine los
-%     falsos positivos usando IA.
-%   }
-% \end{frame}
 
 \begin{frame}{Escenario de Despliegue Objetivo}
   % \hspace{-0.7cm}
@@ -966,25 +908,17 @@ Ejercicio
 % \end{frame}
 
 \begin{frame}{Objetivo General}
-\begin{block}{Objetivo}
-Demostrar la \textbf{viabilidad técnica} de un sistema de monitoreo de bajo costo para áreas protegidas, basado en:
-\begin{itemize}
-\item Nodos de cámara con \textbf{conectividad en malla}
-\item \textbf{Clasificación automática} de imágenes mediante IA
-\end{itemize}
-\end{block}
-
-\begin{block}{Meta}
-Reducir el tiempo de procesamiento de las imágenes:
-\begin{center}
-\textbf{Días/semanas} $\longrightarrow$ \textbf{Minutos}
-\end{center}
-\end{block}
-\note{
-El objetivo central es demostrar viabilidad técnica. No comercialización,
-sino prueba de concepto funcional. El cambio clave: reducir el tiempo de
-procesamiento de días a minutos.
-}
+  \begin{block}{Objetivo Principal}
+    \centering \vspace{0.5em}
+    Demostrar la \textbf{viabilidad técnica} del sistema de monitoreo mencionado anteriormente, con el objetivo de reducir el procesamiento de:
+    
+    \vspace{0.8em}
+    {\large \textbf{Semanas / días} $\longrightarrow$ \textbf{Minutos}}
+    \vspace{0.5em}
+  \end{block}
+  \note{
+    Demostrar la viabilidad técnica del sistema de monitoreo mencionado anteriormente, con el objetivo principal de reducir el procesamiento de las imágenes de semanas o días a minutos.
+  }
 \end{frame}
 
 \begin{frame}{Objetivos Específicos}
@@ -1002,35 +936,6 @@ validación. Cada uno corresponde a un componente del sistema que
 desarrollamos.
 }
 \end{frame}
-
-% \begin{frame}{Alcance del Proyecto}
-% \begin{columns}
-% \begin{column}{0.5\textwidth}
-% \textbf{Dentro del alcance:}
-% \begin{itemize}
-%   \item Nodos ESP32-CAM + sensor PIR
-%   \item Red de malla funcional
-%   \item Servidor de recepción y clasificación
-%   \item Bot de Telegram para alertas
-%   \item Pruebas en laboratorio y campo
-% \end{itemize}
-% \end{column}
-% \begin{column}{0.5\textwidth}
-% \textbf{Fuera del alcance:}
-% \begin{itemize}
-%   \item Despliegue en selva densa
-%   \item Carcasas con grado IP
-%   \item Entrenamiento de modelos específicos
-%   \item Certificación comercial
-% \end{itemize}
-% \end{column}
-% \end{columns}
-% \note{
-% Definimos claramente qué sí y qué no incluye el proyecto. Prototipo
-% funcional para pruebas, no producto comercial. Sin despliegue en selva
-% real ni carcasas industriales.
-% }
-% \end{frame}
 
 \begin{frame}{Alcance y Limitaciones}
   \begin{itemize}
@@ -1417,7 +1322,7 @@ desarrollamos.
           \draw[draw=black, line width=0.7pt] (-0.17,0.06) to[out=45, in=135] (0.17,0.06);
           \node (router) at (0,0.02) [minimum width=0.8cm, minimum height=0.6cm] {};
         \end{scope}
-        \node[below=0.4cm of router, font=\tiny\bfseries, text=black!70] {Router\\(Salida)};
+        \node[right=0.1cm of router, font=\tiny\bfseries, text=black!70, align=left] {Router\\(Salida)};
 
         \begin{scope}[on background layer]
           \draw[draw=blue!30, fill=blue!5, fill opacity=0.15, dashed, line width=1pt] (2.2, 0.0) -- ++(120:2.45cm) arc (120:240:2.45cm) -- cycle;
@@ -1445,92 +1350,161 @@ desarrollamos.
 \end{frame}
 
 \begin{frame}{Red Malla - Roles y Energía}
-  \textbf{Trade-off de energía y funcionalidad:}
-  
-  \vspace{1em}
+  % \textbf{Trade-off de energía y funcionalidad:}
+  % 
+  % \vspace{1em}
+  % \begin{columns}[t]
+  %   \begin{column}{0.32\textwidth}
+  %     \begin{block}{Nodo Hoja}
+  %       \small
+  %       \textbf{Máxima autonomía}
+  %       \begin{itemize}
+  %         \scriptsize
+  %         \item Solo captura y envía
+  %         \item No retransmite tráfico ajeno
+  %         \item Modo de bajo consumo profundo
+  %       \end{itemize}
+  %     \end{block}
+  %   \end{column}
+  %   \begin{column}{0.32\textwidth}
+  %     \begin{block}{Nodo Intermedio}
+  %       \small
+  %       \textbf{Extensor de cobertura}
+  %       \begin{itemize}
+  %         \scriptsize
+  %         \item Captura y envía
+  %         \item Retransmite tráfico de vecinos
+  %         \item Modo de bajo consumo parcial
+  %       \end{itemize}
+  %     \end{block}
+  %   \end{column}
+  %   \begin{column}{0.32\textwidth}
+  %     \begin{block}{Nodo Raíz}
+  %       \small
+  %       \textbf{Puerta de enlace}
+  %       \begin{itemize}
+  %         \scriptsize
+  %         \item Siempre activo (100\%)
+  %         \item Conectado al router
+  %         \item Sin cámara (solo enruta)
+  %       \end{itemize}
+  %     \end{block}
+  %   \end{column}
+  % \end{columns}
+  % 
+  % \vspace{0.8em}
+  % \centering
+  % \small
+  % \textbf{Hoja} $\dots \xrightarrow{\text{más consumo}}$ \textbf{Intermedio} $\dots \xrightarrow{\text{más consumo}}$ \textbf{Raíz}
+
+  \centering
+  \begin{tikzpicture}[
+      font=\sffamily,
+      >=Latex,
+      node_root/.style={circle, draw=orange!80!black, fill=orange!15, minimum size=0.9cm, thick, line width=1.1pt, font=\scriptsize\bfseries, align=center},
+      node_relay/.style={circle, draw=teal!80!black, fill=teal!10, minimum size=0.9cm, thick, line width=1.1pt, font=\scriptsize\bfseries, align=center},
+      node_leaf/.style={circle, draw=teal!80!black, fill=teal!10, minimum size=0.9cm, thick, line width=1.1pt, dashed, font=\scriptsize\bfseries, align=center},
+      link/.style={draw=teal!80!black, <-, line width=1.2pt}
+    ]
+    
+    \node[node_root] (R) at (0, 0) {Raíz};
+    \node[node_relay] (I1) at (2.0, 0.6) {Inter-\\medio};
+    \node[node_leaf] (L1) at (2.0, -0.6) {Hoja};
+    \node[node_relay] (I2) at (4.2, 0.6) {Inter-\\medio};
+    \node[node_leaf] (L2) at (4.2, -0.6) {Hoja};
+    
+    \draw[link] (R) -- (I1);
+    \draw[link] (I1) -- (L1);
+    \draw[link] (I1) -- (I2);
+    \draw[link] (I2) -- (L2);
+  \end{tikzpicture}
+
+  \vspace{0.4em}
+
   \begin{columns}[t]
-    \begin{column}{0.32\textwidth}
-      \begin{block}{Nodo Hoja}
-        \small
-        \textbf{Máxima autonomía}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Nodos Hoja (Línea Punteada)}
+        \scriptsize
         \begin{itemize}
-          \scriptsize
-          \item Solo captura y envía
-          \item No retransmite tráfico ajeno
-          \item Modo de bajo consumo profundo
+          \item Representan los extremos de la red (no tienen hijos).
+          \item Pueden desconectarse libremente para ahorrar energía.
+          \item Su ausencia temporal no afecta al resto de la topología.
         \end{itemize}
       \end{block}
     \end{column}
-    \begin{column}{0.32\textwidth}
-      \begin{block}{Nodo Intermedio}
-        \small
-        \textbf{Extensor de cobertura}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Nodos Intermedios (Línea Continua)}
+        \scriptsize
         \begin{itemize}
-          \scriptsize
-          \item Captura y envía
-          \item Retransmite tráfico de vecinos
-          \item Modo de bajo consumo parcial
-        \end{itemize}
-      \end{block}
-    \end{column}
-    \begin{column}{0.32\textwidth}
-      \begin{block}{Nodo Raíz}
-        \small
-        \textbf{Puerta de enlace}
-        \begin{itemize}
-          \scriptsize
-          \item Siempre activo (100\%)
-          \item Conectado al router
-          \item Sin cámara (solo enruta)
+          \item Actúan como repetidores para dar cobertura a otros nodos.
+          \item Si entran en bajo consumo profundo, \textbf{dejan de retransmitir}.
+          \item Esto provoca que sus nodos hijos queden \textbf{aislados e incomunicados}.
         \end{itemize}
       \end{block}
     \end{column}
   \end{columns}
-
-  \vspace{0.8em}
-  \centering
-  \small
-  \textbf{Hoja} $\dots \xrightarrow{\text{más consumo}}$ \textbf{Intermedio} $\dots \xrightarrow{\text{más consumo}}$ \textbf{Raíz}
+  
   \note{
-    Explicamos los tres roles de la red malla y su balance energético.
-    1. El nodo Hoja prioriza el ahorro de batería: solo origina sus propias capturas y no ayuda a enrutar, obteniendo la mayor autonomía.
-    2. El nodo Intermedio sacrifica batería permaneciendo parcialmente activo para poder recibir y retransmitir paquetes de otros nodos, extendiendo la cobertura.
-    3. El nodo Raíz es la única puerta de enlace hacia internet, está 100\% activo, no tiene cámara y se alimenta directamente de una fuente de energía externa.
+    Explicamos la diferencia energética según los roles en la topología mostrada.
+    El Nodo Raíz permanece 100\% activo al estar conectado a la alimentación externa.
+    Los Nodos Intermedios (línea continua) usan Light Sleep + Power Save para enrutar tráfico (como el Intermedio 1 hacia el Hoja 1 y el Intermedio 2).
+    Los Nodos Hoja (línea punteada) pueden usar Deep Sleep completo apagando su CPU y radio Wi-Fi, ya que al ser extremos de la red ningún otro dispositivo depende de ellos.
   }
 \end{frame}
 
 \begin{frame}{Gestión de Energía: Hoja vs. Intermedio}
-  \begin{columns}[t]
-    \begin{column}{0.48\textwidth}
-      {
-        \setbeamercolor{block title}{fg=black!80, bg=black!10}
-        \setbeamercolor{block body}{bg=black!5}
-        \begin{block}{Nodo Hoja}
-          \small
-          \begin{itemize}
-            \item \textbf{Deep Sleep completo:} Apagado absoluto de CPU y radio WiFi.
-            \item \textbf{Sin dependencia:} No tiene nodos hijos asociados. Su desconexión temporal no afecta a terceros.
-            \item \textbf{Consumo mínimo:} Ahorro crítico de batería.
-          \end{itemize}
-        \end{block}
-      }
-    \end{column}
-    
-    \begin{column}{0.48\textwidth}
-      {
-        \setbeamercolor{block title}{fg=orange!80!black, bg=black!10}
-        \setbeamercolor{block body}{bg=black!5}
-        \begin{block}{Nodo Intermedio}
-          \small
-          \begin{itemize}
-            \item \textbf{Prohibido el Deep Sleep:} Si se apagara del todo, rompería la topología mesh.
-            \item \textbf{Restricción:} Debe mantener el AP activo para que sus hijos no queden aislados.
-            \item \textbf{Solución:} Light Sleep + Modem Power Save para suspender la CPU sin perder la sesión WiFi.
-          \end{itemize}
-        \end{block}
-      }
-    \end{column}
-  \end{columns}
+  % \begin{columns}[t]
+  %   \begin{column}{0.48\textwidth}
+  %     {
+  %       \setbeamercolor{block title}{fg=black!80, bg=black!10}
+  %       \setbeamercolor{block body}{bg=black!5}
+  %       \begin{block}{Nodo Hoja}
+  %         \small
+  %         \begin{itemize}
+  %           \item \textbf{Deep Sleep completo:} Apagado absoluto de CPU y radio WiFi.
+  %           \item \textbf{Sin dependencia:} No tiene nodos hijos asociados. Su desconexión temporal no afecta a terceros.
+  %           \item \textbf{Consumo mínimo:} Ahorro crítico de batería.
+  %         \end{itemize}
+  %       \end{block}
+  %     }
+  %   \end{column}
+  %   
+  %   \begin{column}{0.48\textwidth}
+  %     {
+  %       \setbeamercolor{block title}{fg=orange!80!black, bg=black!10}
+  %       \setbeamercolor{block body}{bg=black!5}
+  %       \begin{block}{Nodo Intermedio}
+  %         \small
+  %         \begin{itemize}
+  %           \item \textbf{Prohibido el Deep Sleep:} Si se apagara del todo, rompería la topología mesh.
+  %           \item \textbf{Restricción:} Debe mantener el AP activo para que sus hijos no queden aislados.
+  %           \item \textbf{Solución:} Light Sleep + Modem Power Save para suspender la CPU sin perder la sesión WiFi.
+  %         \end{itemize}
+  %       \end{block}
+  %     }
+  %   \end{column}
+  % \end{columns}
+
+  \centering
+  \small
+  \begin{tblr}{
+    width = \linewidth,
+    colspec = {X[1.2,l,m] X[l,m] X[1.2,l,m]},
+    row{1} = {font=\bfseries, bg=blue!10, halign=c},
+    column{1} = {font=\bfseries, bg=black!2},
+    hline{1,2,Z} = {0.8pt, gray!50},
+    hline{3-Z} = {0.4pt, gray!20},
+    cells = {font=\scriptsize},
+    colsep = 4pt,
+    rowsep = 3.5pt,
+  }
+    Característica & Nodo Hoja (\textbf{Deep Sleep}) & Nodo Intermedio (\textbf{Light Sleep} + \textbf{Power Save}) \\
+    \textbf{CPU} & Apagado absoluto & Suspendida \\
+    \textbf{Radio Wi-Fi} & Apagada por completo & Activa periódicamente \\
+    \textbf{Memoria RAM} & Se borra & Se preserva íntegramente \\
+    \textbf{Al despertar} & Reinicio completo & Retorno instantáneo \\
+    \textbf{Rol en Malla} & No enruta tráfico & \textbf{Obligatorio retransmitir} \\
+  \end{tblr}
   
   \note{
     Explicamos la diferencia de gestión de energía entre nodos Hoja y nodos Intermedios.
@@ -2029,8 +2003,8 @@ movimiento de vegetación fueron filtradas por la lógica de umbrales.
     - \textbf{Métricas y Entornos}: Comparamos las pruebas en Laboratorio (bajo una red local LAN con servidor en la misma subred) frente a las de Campo (utilizando un hotspot celular con cobertura limitada y ancho de banda compartido, representando un escenario adverso).\\
     - \textbf{Nota de conectividad}: La prueba de campo se realizó sobre un hotspot celular con cobertura limitada y ancho de banda compartido, representando un escenario de conectividad adverso. Esta saturación del canal inalámbrico y la alta latencia del uplink celular explican la diferencia de dos órdenes de magnitud respecto a la prueba de laboratorio.\\
     - \textbf{Definiciones para comentar}:
-      1. \textbf{Transmisión}: Tiempo transcurrido desde que la cámara captura el evento hasta que el paquete llega al nodo raíz (puerta de enlace).
-      2. \textbf{Ciclo completo}: Tiempo total desde que se genera el disparo en el PIR hasta que la alerta con la imagen clasificada llega al teléfono del usuario final. Requiere pasar por la red de malla, el uplink celular del nodo raíz, el procesamiento en el servidor remoto, la inferencia de SpeciesNet y la API de Telegram.\\
+      Transmisión: Tiempo transcurrido desde que la cámara captura el evento hasta que el paquete llega al nodo raíz (puerta de enlace).
+      Ciclo completo: Tiempo total desde que se genera el disparo en el PIR hasta que la alerta con la imagen clasificada llega al teléfono del usuario final. Requiere pasar por la red de malla, el uplink celular del nodo raíz, el procesamiento en el servidor remoto, la inferencia de SpeciesNet y la API de Telegram.\\
     - \textbf{Rendimiento de transmisión y ciclo}:
       - En Laboratorio, con imágenes de \num{12.9}~KB, la transmisión toma \num{463}~ms y el ciclo completo \num{1.27}~s.
       - En Campo, con imágenes de aproximadamente \num{30}~KB, la transmisión demora de \num{20} a \num{60}~s por salto y congestión, y el ciclo completo puede ir de \num{3} a \num{5}~minutos debido al cuello de botella en el enlace celular (hotspot compartido para toda la red y servidores).\\
@@ -2040,36 +2014,24 @@ movimiento de vegetación fueron filtradas por la lógica de umbrales.
 
 % El frame de Consumo Energético fue movido a la Sección 3 (Diseño y Energía)
 
-\begin{frame}{Resultados - Bot de Telegram (HITL)}
+\begin{frame}{Bot de Telegram (HITL) - \only<1>{Caso Exitoso}\only<2>{Clasificación Errónea}\only<3>{Corrección por Telegram}\only<4>{Registro Actualizado}}
   \only<1>{
     \centering
-    \textbf{Caso Exitoso:} Detección y clasificación correcta sin intervención
-
-    \vspace{0.5em}
-    \includegraphics[height=0.7\textheight]{img/pajaroOk.png}
+    \includegraphics[height=0.82\textheight]{img/pajaroOk.png}
   }
   \only<2>{
     \centering
-    \textbf{Paso 1 (HITL):} Clasificación errónea inicial en el panel web
-
-    \vspace{0.5em}
-    \includegraphics[height=0.7\textheight]{img/pajaroSinCorregir.jpg}
+    \includegraphics[height=0.82\textheight]{img/pajaroSinCorregir.jpg}
   }
   \only<3>{
     \centering
-    \textbf{Pasos 2 y 3 (HITL):} Notificación y corrección de etiqueta en el bot de Telegram
-
-    \vspace{0.5em}
-    \includegraphics[height=0.7\textheight]{img/botSinCorregir.jpg}
+    \includegraphics[height=0.82\textheight]{img/botSinCorregir.jpg}
     \hfil
-    \includegraphics[height=0.7\textheight]{img/botCorreccion.jpg}
+    \includegraphics[height=0.82\textheight]{img/botCorreccion.jpg}
   }
   \only<4>{
     \centering
-    \textbf{Paso 4 (HITL):} Registro actualizado y auditado en el panel web
-
-    \vspace{0.5em}
-    \includegraphics[height=0.7\textheight]{img/pajaroCorregido.jpg}
+    \includegraphics[height=0.82\textheight]{img/pajaroCorregido.jpg}
   }
   \note{
     Este flujo demuestra el funcionamiento de las alertas y el mecanismo Human-in-the-loop (HITL) en acción.
@@ -2172,7 +2134,7 @@ movimiento de vegetación fueron filtradas por la lógica de umbrales.
         \scriptsize
         \begin{itemize}
           \item Red de malla robusta con \textbf{ESP-MESH-LITE}
-          \item Roles funcionales adaptativos (Hoja, Intermedio, Raíz)
+          % \item Extensión de cobertura sin infraestructura móvil
         \end{itemize}
       \end{block}
     \end{column}
@@ -2188,11 +2150,11 @@ movimiento de vegetación fueron filtradas por la lógica de umbrales.
       
       \vspace{0.4em}
       
-      \begin{block}{Impacto y Código Abierto}
+      \begin{block}{Impacto y Escalabilidad}
         \scriptsize
         \begin{itemize}
           \item Tiempo de procesamiento: \textbf{días $\rightarrow$ minutos}
-          \item Prototipo \textbf{100\% de código abierto} (GitHub)
+          \item Enfoque en un sistema \textbf{altamente escalable} y de bajo costo
         \end{itemize}
       \end{block}
     \end{column}
