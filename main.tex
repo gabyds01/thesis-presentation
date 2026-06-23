@@ -1848,7 +1848,7 @@ genera una imagen anotada. Todo expuesto via API REST con LitServe.
 \begin{frame}{Consumo Energético del Prototipo}
   \centering
   \begin{tblr}{
-    width = 0.8\linewidth,
+    width = 0.9\linewidth,
     colspec = {X[l] c},
     cells = {font=\small},
     row{1} = {font=\bfseries\small, bg=blue!10},
@@ -1856,9 +1856,9 @@ genera una imagen anotada. Todo expuesto via API REST con LitServe.
     hline{1,2,Z} = {0.8pt, gray!50},
   }
     Modo de Operación & Consumo\\
-    Nodo Hoja (\textit{Deep Sleep} + ULP) & \qty{13}{mA} \\
+    Reposo Nodo Hoja (\textit{Deep Sleep} + ULP) & \qty{13}{mA} \\
+    Reposo Nodo Intermedio (\textit{Light Sleep}) & \qty{180}{mA} \\
     Pico de captura y envío & \qtyrange{200}{300}{mA} \\
-    Nodo Repetidor (\textit{Light Sleep}) & \qty{180}{mA} \\
   \end{tblr}
   
   \vspace{0.8em}
@@ -1866,8 +1866,7 @@ genera una imagen anotada. Todo expuesto via API REST con LitServe.
     \setlength{\itemsep}{0.4em}
     \small
     \item \textbf{Limitación del regulador (LM2596):} Requiere entrada $\ge$ \qty{6.5}{V} (dropout de \qty{1.5}{V}), reduciendo la capacidad útil real de la batería 2S 18650 al \qty{40}{\percent} ($\approx$\qty{1400}{mAh}).
-    \item \textbf{Autonomía medida y proyectada:} \qty{5}{h} continuas en modo Relay (medido en campo) y semanas/meses en modo Leaf.
-    \item \textbf{Gestión de Energía Híbrida:} Los nodos intermedios (Relay) mantienen activa la red de malla, mientras que los nodos periféricos (Leaf) usan Deep Sleep y despiertan solo por eventos del PIR.
+    \item \textbf{Autonomía medida y proyectada:} \qty{5}{h} continuas en para el nodo intermedio (medido en campo) y 4 días en para el nodo hoja.
   \end{itemize}
 
   \note{
@@ -1879,6 +1878,8 @@ genera una imagen anotada. Todo expuesto via API REST con LitServe.
 \end{frame}
 
 \begin{frame}{Comparativa de Consumo}
+  \renewcommand{\thefootnote}{\fnsymbol{footnote}}
+  \setcounter{footnote}{0}
   \centering
   \begin{tblr}{
     width = 0.9\linewidth,
@@ -1887,23 +1888,23 @@ genera una imagen anotada. Todo expuesto via API REST con LitServe.
     row{1} = {font=\bfseries\small, bg=blue!10},
     hline{1,2,Z} = {0.8pt, gray!50},
   }
-    Estado / Evento & Prototipo (Malla) & Spartan GoCam (Celular) \\
-    Reposo & \qty{13}{mA} & $<\qty{0.20}{mA} $ \\
+    Estado & Prototipo (Malla) & Spartan GoCam 2 (Celular) \\
+    Reposo & \qty{13}{mA}\footnotemark[1] & $<\qty{1}{mA} $ \\
     Transmisión (Pico) & \qtyrange{200}{300}{mA} & \qty{1000}{mA} \\
   \end{tblr}
-
+  \footnotetext[1]{En gran parte, debido al regulador y al led indicador de la fuente.}
   \begin{itemize}
     \setlength{\itemsep}{0.4em}
     \small
-    \item \textbf{Disponibilidad vs. Ahorro:} Repetidores del prototipo en escucha continua (\textit{Light Sleep}) para ruteo instantáneo, frente al \textbf{ciclo útil programado} de la Spartan (desconexión por horas).
+    \item \textbf{Disponibilidad vs. Ahorro:} Repetidores del prototipo en escucha continua (\textit{Light Sleep}) para ruteo instantáneo, frente al \textbf{ciclo útil programado} de la Spartan GoCam 2 (desconexión por horas).
     \item \textbf{Compromiso de Latencia:} Se priorizó la disponibilidad constante para alertas en tiempo real, posponiendo el ciclo de trabajo para trabajos futuros.
   \end{itemize}
 
   \note{
     Comparación de consumos y estrategias de energía:
-    1. Estrategia del Repetidor: El prototipo mantiene a los repetidores en Light Sleep (180 mA) escuchando permanentemente para ruteo instantáneo. La Spartan no tiene repetidores; apaga su receptor celular por completo y solo se comunica en intervalos programados (ciclo útil) para ahorrar energía.
-    2. Trade-off de Latencia: Mantener la red de malla escuchando de forma continua nos da alertas en tiempo real (40 s en campo). Aplicar un ciclo útil programado (como la Spartan) aumentaría drásticamente la latencia, pero es deseable a futuro para mejorar la autonomía.
-    3. Picos de corriente: Destacar que transmitir vía Wi-Fi (200-300 mA) es energéticamente más eficiente en pico que el módem celular de la Spartan (1A).
+    1. Estrategia del Repetidor: El prototipo mantiene a los repetidores en Light Sleep (180 mA) escuchando permanentemente para ruteo instantáneo. La Spartan GoCam 2 no tiene repetidores; apaga su receptor celular por completo y solo se comunica en intervalos programados (ciclo útil) para ahorrar energía.
+    2. Trade-off de Latencia: Mantener la red de malla escuchando de forma continua nos da alertas en tiempo real (40 s en campo). Aplicar un ciclo útil programado (como la Spartan GoCam 2) aumentaría drásticamente la latencia, pero es deseable a futuro para mejorar la autonomía.
+    3. Picos de corriente: Destacar que transmitir vía Wi-Fi (200-300 mA) es energéticamente más eficiente en pico que el módem celular de la Spartan GoCam 2 (1A).
   }
 \end{frame}
 
@@ -1967,16 +1968,12 @@ genera una imagen anotada. Todo expuesto via API REST con LitServe.
         cells = {font=\small},
         row{1} = {font=\bfseries\small, bg=blue!10},
         row{4} = {font=\bfseries\small, bg=blue!5},
-        row{7} = {font=\bfseries\small, bg=blue!5},
-        hline{1,2,4,5,7,Z} = {0.8pt, gray!50},
+        hline{1,2,4,Z} = {0.8pt, gray!50},
       }
         Concepto & Costo (USD) \\
         Prototipo Nodo Cámara & \num{20.00} \\
         Batería Spartan 12V 18Ah & \num{59.95} \\
         Costo Inicial & \num{84.95} \\
-        Plan de datos (mensual) & \num{0.00} \\
-        Suscripción Premium & \num{0.00} \\
-        Costo Operativo Anual & \num{0.00} \\
       \end{tblr}
     \end{column}
     
@@ -1988,31 +1985,26 @@ genera una imagen anotada. Todo expuesto via API REST con LitServe.
         cells = {font=\small},
         row{1} = {font=\bfseries\small, bg=red!10},
         row{4} = {font=\bfseries\small, bg=red!5},
-        row{7} = {font=\bfseries\small, bg=red!5},
-        hline{1,2,4,5,7,Z} = {0.8pt, gray!50},
+        hline{1,2,4,Z} = {0.8pt, gray!50},
       }
         Concepto & Costo (USD) \\
-        Cámara Spartan GoCam & \num{159.95} \\
+        Cámara Spartan GoCam 2 & \num{180.00} \\
         Batería Spartan 12V 18Ah & \num{59.95} \\
-        Costo Inicial & \num{219.90} \\
-        Plan de datos (mensual) & $\sim$\num{10.00} \\
-        Suscripción Premium & $\sim$\num{4.00} \\
-        Costo Operativo Anual & $\sim$\num{168.00} \\
+        Costo Inicial & \num{239.95} \\
       \end{tblr}
     \end{column}
   \end{columns}
   \begin{block}{Reducción de costos}
     \centering\small
-    \textbf{\qty{61.4}{\percent}} en el costo inicial y del \textbf{\qty{87.5}{\percent}} en la cámara en sí\footnotemark.
+    \textbf{\qty{64.6}{\percent}} en el costo inicial y del \textbf{\qty{88.9}{\percent}} en la cámara en sí\footnotemark[1].
   \end{block}
-  \footnotetext{Nos da margen a mejorar el prototipo para un eventual despliegue a largo plazo.}
+  \footnotetext[1]{Nos da margen a mejorar el prototipo para un eventual despliegue a largo plazo.}
 
   \note{
-    Comparación económica entre el prototipo y una cámara comercial celular como la Spartan GoCam.
+    Comparación económica entre el prototipo y una cámara comercial celular como la Spartan GoCam 2.
     Ambas alimentadas con la misma batería de 12V 18Ah.
-    1. CAPEX (Inversión Inicial): El prototipo cuesta 84.95 USD frente a los 219.90 USD de la Spartan (que requiere la batería de 59.95 USD y la cámara de 159.95 USD).
-    2. OPEX (Costo Operativo): La Spartan requiere un plan celular individual mensual de 10 USD y una suscripción premium de 4 USD para habilitar todas sus funciones. Esto resulta en 168 USD anuales recurrentes por cámara.
-    3. Escalabilidad: En nuestro sistema, la red mesh transmite de manera gratuita entre nodos. Solo el nodo raíz requiere un plan de datos, prorrateando ese costo operativo entre todas las cámaras desplegadas.
+    1. El prototipo de nodo cámara cuesta 20.00 USD frente a los 180.00 USD de la Spartan GoCam 2 (una reducción del 88.9%).
+    2. Sumando la batería común de 59.95 USD, el CAPEX total del prototipo es de 84.95 USD frente a los 239.95 USD de la Spartan GoCam 2 (una reducción del 64.6%).
   }
 \end{frame}
 
@@ -2121,7 +2113,7 @@ movimiento de vegetación fueron filtradas por la lógica de umbrales.
     hline{1,2,Z} = {0.8pt, gray!50},
   }
     Escenario  & Distancia \\
-    Línea de vista      & \qty{15}{m} \\
+    Línea de vista      & \qtyrange{15}{18}{m} \\
     Con vegetación      & $\sim$\qty{12}{m} \\
   \end{tblr}
 
@@ -2294,18 +2286,18 @@ movimiento de vegetación fueron filtradas por la lógica de umbrales.
     };
     
     \node[card] (c2) at (2.8, 1.0) {
-      \textbf{\color{teal!80!black}\Large $\sim$\qty{40}{s}}\\
+      \textbf{\color{teal!80!black}\Large \qtyrange{3}{5}{\minute}}\\
       \small Entre captura y alerta
     };
     
     \node[card] (c3) at (-2.8, -1.0) {
       \textbf{\color{teal!80!black}\Large \qty{13}{mA}}\\
-      \small Consumo Nodo Hoja
+      \small Consumo Nodo Hoja en reposo
     };
     
     \node[card] (c4) at (2.8, -1.0) {
-      \textbf{\color{teal!80!black}\Large \qty{15}{m}}\\
-      \small Entre nodos
+      \textbf{\color{teal!80!black}\Large \qtyrange{15}{18}{m}}\\
+      \small Distancia entre nodos
     };
   \end{tikzpicture}
 
@@ -2318,7 +2310,7 @@ movimiento de vegetación fueron filtradas por la lógica de umbrales.
   \note{
     Resumen cuantitativo frente a objetivos:
     - Precisión: Detección robusta de \qty{77.7}{\percent} en condiciones reales de campo.
-    - Latencia: Envío y análisis en $\sim$\qty{40}{s} frente a semanas/meses en cámaras tradicionales.
+    - Latencia: Envío y análisis a 3-5 minutos frente a semanas/meses en cámaras tradicionales.
     - Autonomía: Consumo de la Hoja de apenas \qty{13}{mA} asegura excelente viabilidad a largo plazo.
     - Cobertura: El rango de \qty{15}{m} permite crear barreras eficaces en senderos y picadas.
   }
